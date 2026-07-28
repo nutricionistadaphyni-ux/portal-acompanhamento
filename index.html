@@ -34,27 +34,42 @@
 
     .cabecalho {
       background: #ffffff;
-      padding: 28px;
-      border-radius: 18px;
-      margin-bottom: 18px;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+  padding: 42px 38px;
+  border-radius: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 14px 40px rgba(0,0,0,.08);
+text-align: center;
     }
 
 .logo {
     display: block;
-    width: 180px;
-    max-width: 80%;
-    margin: 0 auto 20px;
+  width: 290px;
+  max-width: 80%;
+  height: auto;
+  margin: 0 auto 20px;
+}
+.crn{
+    margin: 10px 0 18px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: #c59d63;
+    text-transform: uppercase;
 }
     .cabecalho h1 {
-      margin: 0 0 10px;
-      font-size: 28px;
+      margin: 0 0 16px;
+    font-size: 42px;
+    font-weight: 700;
+    color: #1f1f1f;
     }
 
     .cabecalho p {
-      margin: 0;
-      color: #666666;
-      line-height: 1.5;
+      max-width: 650px;
+    margin: 0 auto;
+    color: #6c6c6c;
+    font-size: 20px;
+    line-height: 1.7;
     }
 
     .card {
@@ -233,20 +248,28 @@
 
     <div id="formulario">
 
-      <div class="cabecalho">
+<div class="cabecalho">
+
 <img
-  src="logo.png"
-  alt="Daphyni Silva Nutricionista"
-  class="logo">
-        <h1>Acompanhamento Semanal</h1>
+src="logo.png"
+alt="Daphyni Silva Nutricionista"
+class="logo">
 
-        <p>
-          Este check-in leva menos de 2 minutos. Responda considerando
-          como foi a sua última semana.
-        </p>
-      </div>
+ <h1>Check-in Semanal</h1>
 
-      <div id="mensagemErro" class="mensagem-erro"></div>
+  <div class="crn">
+    Nutricionista • CRN-10 14525
+  </div>
+
+  <p>
+    Este check-in leva menos de 2 minutos.<br>
+    Responda considerando como foi a sua última semana.
+  </p>
+
+</div>
+
+
+<div id="mensagemErro" class="mensagem-erro"></div>
 
       <form id="checkinForm">
 
