@@ -1,1245 +1,234 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-  <base target="_top">
-
-  <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
-
-  <title>Acompanhamento Semanal</title>
-
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      padding: 24px 16px;
-      background: #f5f5f3;
-      color: #222222;
-      font-family: Arial, Helvetica, sans-serif;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 680px;
-      margin: 0 auto;
-    }
-
-    .cabecalho {
-      background: #ffffff;
-      padding: 42px 38px;
-      border-radius: 24px;
-      margin-bottom: 24px;
-      box-shadow: 0 14px 40px rgba(0,0,0,.08);
-      text-align: center;
-    }
-
-    .logo {
-      display: block;
-      width: 220px;
-      max-width: 80%;
-      height: auto;
-      margin: 0 auto 20px;
-    }
-
-    .crn {
-      margin: 10px 0 18px;
-      text-align: center;
-      font-size: 14px;
-      font-weight: 600;
-      letter-spacing: 1px;
-      color: #7a9a7a;
-      text-transform: uppercase;
-    }
-
-    .cabecalho h1 {
-      margin: 0 0 16px;
-      font-size: 42px;
-      font-weight: 700;
-      color: #1f1f1f;
-    }
-
-    .cabecalho p {
-      max-width: 650px;
-      margin: 0 auto;
-      color: #6c6c6c;
-      font-size: 20px;
-      line-height: 1.7;
-    }
-
-    .card {
-      background: #ffffff;
-      padding: 24px;
-      border-radius: 18px;
-      margin-bottom: 16px;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
-    }
-
-    .etapa {
-      display: none;
-      max-width: 680px;
-      margin: 0 auto;
-    }
-
-    .etapa.ativa {
-      display: block !important;
-    }
-
-    .card h2 {
-      margin: 0 0 18px;
-      font-size: 18px;
-      line-height: 1.4;
-      color: #2d473d;
-    }
-
-    label.campo-titulo {
-      display: block;
-      margin-bottom: 8px;
-      font-weight: bold;
-      color: #2d473d;
-    }
-
-    input[type="text"],
-    input[type="email"] {
-      width: 100%;
-      padding: 14px;
-      border: 2px solid #d9d9d9;
-      border-radius: 10px;
-      font-size: 16px;
-      outline: none;
-      transition: border-color 0.3s ease;
-    }
-
-    input[type="text"]:focus,
-    input[type="email"]:focus {
-      border-color: #7a9a7a;
-    }
-
-    .opcao {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      padding: 10px 0;
-      cursor: pointer;
-      line-height: 1.4;
-      color: #2d473d;
-      transition: all 0.2s ease;
-    }
-
-    .opcao:hover {
-      background: #f6f9f6;
-      padding-left: 10px;
-      border-radius: 8px;
-    }
-
-    .opcao input {
-      margin-top: 3px;
-      transform: scale(1.15);
-      accent-color: #7a9a7a;
-      cursor: pointer;
-    }
-
-    .botoes-container {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-top: 4px;
-    }
-
-    .botao {
-      width: 100%;
-      padding: 16px;
-      border: none;
-      border-radius: 12px;
-      font-size: 17px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .botao:hover {
-      opacity: 0.92;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-    }
-
-    .botao-continuar {
-      background: #7a9a7a;
-      color: #ffffff;
-    }
-
-    .botao-continuar:hover {
-      background: #6a8a6a;
-      box-shadow: 0 6px 20px rgba(122, 154, 122, 0.3);
-    }
-
-    .botao-voltar {
-      background: #edf2ed;
-      color: #5a7a5a;
-    }
-
-    .botao-voltar:hover {
-      background: #e0e8e0;
-    }
-
-    .botao-enviar {
-      background: #7a9a7a;
-      color: #ffffff;
-    }
-
-    .botao-enviar:hover {
-      background: #6a8a6a;
-      box-shadow: 0 6px 20px rgba(122, 154, 122, 0.3);
-    }
-
-    .botao:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-      transform: none !important;
-    }
-
-    .mensagem-erro {
-      display: none;
-      margin-bottom: 16px;
-      padding: 14px;
-      border-radius: 10px;
-      background: #fdf0f0;
-      color: #a23a3a;
-      line-height: 1.4;
-      border-left: 4px solid #d45a5a;
-    }
-
-    .mensagem-validacao {
-      display: none;
-      margin-top: 12px;
-      padding: 12px 16px;
-      border-radius: 10px;
-      background: #f6faf6;
-      color: #5a7a5a;
-      font-size: 14px;
-      text-align: center;
-      border: 1px solid #d0e0d0;
-    }
-
-    .mensagem-validacao.mostrar {
-      display: block;
-      animation: fadeIn 0.3s ease;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(-10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .erro-campo {
-      border: 2px solid #d45a5a !important;
-      background-color: #fdf8f8;
-    }
-
-    #resultado {
-      display: none;
-      margin-top: 60px;
-    }
-
-    .resultado-topo {
-      text-align: center;
-      background: #ffffff;
-      padding: 40px 30px;
-      border-radius: 24px;
-      margin-bottom: 24px;
-      box-shadow: 0 14px 40px rgba(0,0,0,.08);
-    }
-
-    .resultado-topo h1 {
-      margin: 0 0 8px;
-      font-size: 26px;
-      color: #2d473d;
-    }
-
-    .resultado-topo p {
-      margin: 0;
-      color: #666666;
-    }
-
-    .score {
-      margin: 20px 0 8px;
-      font-size: 64px;
-      font-weight: bold;
-      color: #7a9a7a;
-    }
-
-    .classificacao {
-      font-size: 18px;
-      font-weight: bold;
-      color: #5a7a5a;
-    }
-
-    .resultado-card {
-      background: #ffffff;
-      padding: 22px;
-      border-radius: 18px;
-      margin-bottom: 16px;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
-    }
-
-    .resultado-card h2 {
-      margin: 0 0 12px;
-      font-size: 18px;
-      color: #2d473d;
-    }
-
-    .resultado-conteudo {
-      padding: 14px;
-      background: #f6f9f6;
-      border-radius: 10px;
-      line-height: 1.7;
-      white-space: pre-line;
-      color: #2d473d;
-    }
-
-    .novo-checkin {
-      margin-top: 4px;
-      background: #ffffff;
-      color: #7a9a7a;
-      border: 2px solid #7a9a7a;
-    }
-
-    .novo-checkin:hover {
-      background: #f6f9f6;
-      border-color: #6a8a6a;
-      color: #6a8a6a;
-      box-shadow: 0 6px 20px rgba(122, 154, 122, 0.15);
-    }
-
-    .carregando {
-      display: none;
-      text-align: center;
-      margin-top: 14px;
-      color: #7a9a7a;
-      font-weight: 500;
-    }
-
-    .evolucao {
-      margin-top: 8px;
-      font-size: 16px;
-      color: #5a7a5a;
-    }
-
-    .destaque-verde {
-      color: #7a9a7a;
-    }
-
-    @media (max-width: 520px) {
-      body {
-        padding: 14px 10px;
-      }
-
-      .cabecalho,
-      .card {
-        padding: 20px;
-      }
-
-      .cabecalho h1 {
-        font-size: 24px;
-      }
-
-      .score {
-        font-size: 54px;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Acompanhamento Semanal</title>
+<style>
+*{box-sizing:border-box}body{margin:0;padding:24px 16px;background:#f5f5f3;color:#222;font-family:Arial,sans-serif}.container{width:100%;max-width:680px;margin:0 auto}.cabecalho{background:#fff;padding:42px 38px;border-radius:24px;margin-bottom:24px;box-shadow:0 14px 40px rgba(0,0,0,.08);text-align:center}.logo{display:block;width:220px;max-width:80%;height:auto;margin:0 auto 20px}.crn{margin:10px 0 18px;font-size:14px;font-weight:600;letter-spacing:1px;color:#7a9a7a;text-transform:uppercase}.cabecalho h1{margin:0 0 16px;font-size:42px;font-weight:700;color:#1f1f1f}.cabecalho p{max-width:650px;margin:0 auto;color:#4a4a4a;font-size:20px;line-height:1.7}.progresso-container{background:#fff;padding:20px 24px;border-radius:18px;margin-bottom:16px;box-shadow:0 8px 25px rgba(0,0,0,.05)}.progresso-info{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-size:14px;color:#5a7a5a;font-weight:600}.progresso-barra{width:100%;height:8px;background:#edf2ed;border-radius:10px;overflow:hidden}.progresso-preencher{height:100%;background:#7a9a7a;border-radius:10px;transition:width .5s ease;width:0%}.card{background:#fff;padding:24px;border-radius:18px;margin-bottom:16px;box-shadow:0 8px 25px rgba(0,0,0,.05)}.etapa{display:none;max-width:680px;margin:0 auto}.etapa.ativa{display:block!important}.card h2{margin:0 0 18px;font-size:18px;line-height:1.4;color:#2d473d}label.campo-titulo{display:block;margin-bottom:8px;font-weight:700;color:#2d473d}input[type=text],input[type=email]{width:100%;padding:14px;border:2px solid #d9d9d9;border-radius:10px;font-size:16px;outline:0;transition:border-color .3s ease}input:focus{border-color:#7a9a7a}.opcao{display:flex;align-items:flex-start;gap:10px;padding:10px 0;cursor:pointer;line-height:1.4;color:#2d473d;transition:all .2s ease}.opcao:hover{background:#f6f9f6;padding-left:10px;border-radius:8px}.opcao input{margin-top:3px;transform:scale(1.15);accent-color:#7a9a7a;cursor:pointer}.botoes-container{display:flex;flex-direction:column;gap:10px;margin-top:4px}.botao{width:100%;padding:16px;border:none;border-radius:12px;font-size:17px;font-weight:700;cursor:pointer;transition:all .3s ease;display:flex;align-items:center;justify-content:center;gap:10px}.botao:hover:not(:disabled){opacity:.92;transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.1)}.botao:disabled{opacity:.6;cursor:not-allowed;transform:none!important}.botao-continuar{background:#7a9a7a;color:#fff}.botao-continuar:hover:not(:disabled){background:#6a8a6a;box-shadow:0 6px 20px rgba(122,154,122,.3)}.botao-voltar{background:#edf2ed;color:#5a7a5a}.botao-voltar:hover:not(:disabled){background:#e0e8e0}.botao-enviar{background:#7a9a7a;color:#fff}.botao-enviar:hover:not(:disabled){background:#6a8a6a;box-shadow:0 6px 20px rgba(122,154,122,.3)}.spinner{display:inline-block;width:20px;height:20px;border:3px solid rgba(255,255,255,.3);border-radius:50%;border-top-color:#fff;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}.mensagem-erro{display:none;margin-bottom:16px;padding:14px;border-radius:10px;background:#fdf0f0;color:#a23a3a;line-height:1.4;border-left:4px solid #d45a5a}.mensagem-validacao{display:none;margin-top:12px;padding:12px 16px;border-radius:10px;background:#f6faf6;color:#5a7a5a;font-size:14px;text-align:center;border:1px solid #d0e0d0}.mensagem-validacao.mostrar{display:block;animation:fadeIn .3s ease}@keyframes fadeIn{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}.erro-campo{border-color:#d45a5a!important;background-color:#fdf8f8}#resultado{display:none;margin-top:60px}.resultado-topo{text-align:center;background:#fff;padding:40px 30px;border-radius:24px;margin-bottom:24px;box-shadow:0 14px 40px rgba(0,0,0,.08)}.resultado-topo h1{margin:0 0 8px;font-size:26px;color:#2d473d}.resultado-topo p{margin:0;color:#4a4a4a}.score{margin:20px 0 8px;font-size:64px;font-weight:700;color:#7a9a7a}.classificacao{font-size:18px;font-weight:700;color:#5a7a5a}.resultado-card{background:#fff;padding:22px;border-radius:18px;margin-bottom:16px;box-shadow:0 8px 25px rgba(0,0,0,.05)}.resultado-card h2{margin:0 0 12px;font-size:18px;color:#2d473d}.resultado-conteudo{padding:14px;background:#f6f9f6;border-radius:10px;line-height:1.7;white-space:pre-line;color:#2d473d}.novo-checkin{margin-top:4px;background:#fff;color:#7a9a7a;border:2px solid #7a9a7a}.novo-checkin:hover:not(:disabled){background:#f6f9f6;border-color:#6a8a6a;color:#6a8a6a;box-shadow:0 6px 20px rgba(122,154,122,.15)}.evolucao{margin-top:8px;font-size:16px;color:#5a7a5a}.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#2d473d;color:#fff;padding:16px 32px;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,.2);font-weight:600;opacity:0;transition:opacity .3s ease,transform .3s ease;transform:translateX(-50%) translateY(20px);pointer-events:none;z-index:1000}.toast.mostrar{opacity:1;transform:translateX(-50%) translateY(0)}@media(max-width:520px){body{padding:14px 10px}.cabecalho,.card{padding:20px}.cabecalho h1{font-size:24px}.score{font-size:54px}.toast{width:90%;padding:14px 20px;font-size:14px}}
+</style>
 </head>
-
 <body>
-
-  <div class="container">
-
-    <div id="formulario">
-
-      <div class="cabecalho">
-        <img
-          src="logo.png"
-          alt="Daphyni Silva Nutricionista"
-          class="logo">
-
-        <h1>Check-in Semanal</h1>
-
-        <div class="crn">
-          Nutricionista • CRN-10 14525
-        </div>
-
-        <p>
-          Este check-in leva menos de 2 minutos.<br>
-          Responda considerando como foi a sua última semana.
-        </p>
-      </div>
-
-      <div id="mensagemErro" class="mensagem-erro"></div>
-
-      <form id="checkinForm">
-        
-        <!-- ETAPA 1 - Nome e Email -->
-        <div class="etapa ativa" id="etapa1">
-          <div class="card">
-            <label class="campo-titulo" for="nome">
-              Nome completo *
-            </label>
-            <input
-              type="text"
-              id="nome"
-              name="nome"
-              required
-              placeholder="Digite seu nome completo"
-            >
-          </div>
-
-          <div class="card">
-            <label class="campo-titulo" for="email">
-              E-mail *
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              required
-              placeholder="Digite seu e-mail"
-            >
-          </div>
-
-          <button
-            type="button"
-            class="botao botao-continuar"
-            onclick="validarEtapa1()">
-            Começar
-          </button>
-        </div>
-
-        <!-- ETAPA 2 - Plano alimentar -->
-        <div class="etapa" id="etapa2">
-          <div class="card">
-            <h2>
-              1. Em quantos dias desta semana você conseguiu seguir o
-              plano alimentar? *
-            </h2>
-
-            <label class="opcao">
-              <input type="radio" name="plano" value="Todos os dias">
-              <span>Todos os dias</span>
-            </label>
-
-            <label class="opcao">
-              <input type="radio" name="plano" value="5 ou 6 dias">
-              <span>5 ou 6 dias</span>
-            </label>
-
-            <label class="opcao">
-              <input type="radio" name="plano" value="3 ou 4 dias">
-              <span>3 ou 4 dias</span>
-            </label>
-
-            <label class="opcao">
-              <input type="radio" name="plano" value="1 ou 2 dias">
-              <span>1 ou 2 dias</span>
-            </label>
-
-            <label class="opcao">
-              <input type="radio" name="plano" value="Nenhum dia">
-              <span>Nenhum dia</span>
-            </label>
-          </div>
-
-          <div id="validacao2" class="mensagem-validacao">
-            🌿 Por favor, selecione uma opção antes de continuar.
-          </div>
-
-          <div class="botoes-container">
-            <button
-              type="button"
-              class="botao botao-continuar"
-              onclick="validarEtapa(2, 'plano', 3)">
-              Próxima
-            </button>
-            <button
-              type="button"
-              class="botao botao-voltar"
-              onclick="proximaEtapa(1)">
-              Voltar
-            </button>
-          </div>
-        </div>
-
-        <!-- ETAPA 3 - Proteínas -->
-        <div class="etapa" id="etapa3">
-          <div class="card">
-            <h2>
-              2. Em quantos dias você atingiu a meta de proteínas? *
-            </h2>
-
-            <label class="opcao">
-              <input type="radio" name="proteina" value="Todos os dias">
-              <span>Todos os dias</span>
-            </label>
-
-            <label class="opcao">
-              <input type="radio" name="proteina" value="5 ou 6 dias">
-              <span>5 ou 6 dias</span>
-            </label>
-
-            <label class="opcao">
-              <input type="radio" name="proteina" value="3 ou 4 dias">
-              <span>3 ou 4 dias</span>
-            </label>
-
-            <label class="opcao">
-              <input type="radio" name="proteina" value="1 ou 2 dias">
-              <span>1 ou 2 dias</span>
-            </label>
-
-            <label class="opcao">
-              <input type="radio" name="proteina" value="Nenhum dia">
-              <span>Nenhum dia</span>
-            </label>
-          </div>
-
-          <div id="validacao3" class="mensagem-validacao">
-            🌿 Por favor, selecione uma opção antes de continuar.
-          </div>
-
-          <div class="botoes-container">
-            <button
-              type="button"
-              class="botao botao-continuar"
-              onclick="validarEtapa(3, 'proteina', 4)">
-              Próxima
-            </button>
-            <button
-              type="button"
-              class="botao botao-voltar"
-              onclick="proximaEtapa(2)">
-              Voltar
-            </button>
-          </div>
-        </div>
-
-        <!-- ETAPA 4 - Exercício -->
-        <div class="etapa" id="etapa4">
-          <div class="card">
-            <h2>
-              3. Nesta semana, quanto você conseguiu cumprir a sua meta
-              de atividade física? *
-            </h2>
-
-            <label class="opcao">
-              <input
-                type="radio"
-                name="exercicio"
-                value="Cumpri 100% da meta"
-              >
-              <span>Cumpri 100% da meta</span>
-            </label>
-
-            <label class="opcao">
-              <input
-                type="radio"
-                name="exercicio"
-                value="Consegui cumprir parcialmente"
-              >
-              <span>Consegui cumprir parcialmente</span>
-            </label>
-
-            <label class="opcao">
-              <input
-                type="radio"
-                name="exercicio"
-                value="Não consegui cumprir"
-              >
-              <span>Não consegui cumprir</span>
-            </label>
-          </div>
-
-          <div id="validacao4" class="mensagem-validacao">
-            🌿 Por favor, selecione uma opção antes de continuar.
-          </div>
-
-          <div class="botoes-container">
-            <button
-              type="button"
-              class="botao botao-continuar"
-              onclick="validarEtapa(4, 'exercicio', 5)">
-              Próxima
-            </button>
-            <button
-              type="button"
-              class="botao botao-voltar"
-              onclick="proximaEtapa(3)">
-              Voltar
-            </button>
-          </div>
-        </div>
-
-        <!-- ETAPA 5 - Sono -->
-        <div class="etapa" id="etapa5">
-          <div class="card">
-            <h2>
-              4. Como foi a qualidade do seu sono nesta semana? *
-            </h2>
-
-            <label class="opcao">
-              <input
-                type="radio"
-                name="sono"
-                value="Boa na maior parte dessa semana"
-              >
-              <span>Boa na maior parte dessa semana</span>
-            </label>
-
-            <label class="opcao">
-              <input
-                type="radio"
-                name="sono"
-                value="Boa em apenas alguns dias"
-              >
-              <span>Boa em apenas alguns dias</span>
-            </label>
-
-            <label class="opcao">
-              <input
-                type="radio"
-                name="sono"
-                value="Ruim na maior parte dessa semana"
-              >
-              <span>Ruim na maior parte dessa semana</span>
-            </label>
-          </div>
-
-          <div id="validacao5" class="mensagem-validacao">
-            🌿 Por favor, selecione uma opção antes de continuar.
-          </div>
-
-          <div class="botoes-container">
-            <button
-              type="button"
-              class="botao botao-continuar"
-              onclick="validarEtapa(5, 'sono', 6)">
-              Próxima
-            </button>
-            <button
-              type="button"
-              class="botao botao-voltar"
-              onclick="proximaEtapa(4)">
-              Voltar
-            </button>
-          </div>
-        </div>
-
-        <!-- ETAPA 6 - Perda de controle -->
-        <div class="etapa" id="etapa6">
-          <div class="card">
-            <h2>
-              5. Em quantos dias você percebeu que perdeu o controle
-              sobre a alimentação? *
-            </h2>
-
-            <label class="opcao">
-              <input
-                type="radio"
-                name="perdaControle"
-                value="Todos os dias"
-              >
-              <span>Todos os dias</span>
-            </label>
-
-            <label class="opcao">
-              <input
-                type="radio"
-                name="perdaControle"
-                value="5 ou 6 dias"
-              >
-              <span>5 ou 6 dias</span>
-            </label>
-
-            <label class="opcao">
-              <input
-                type="radio"
-                name="perdaControle"
-                value="3 ou 4 dias"
-              >
-              <span>3 ou 4 dias</span>
-            </label>
-
-            <label class="opcao">
-              <input
-                type="radio"
-                name="perdaControle"
-                value="1 ou 2 dias"
-              >
-              <span>1 ou 2 dias</span>
-            </label>
-
-            <label class="opcao">
-              <input
-                type="radio"
-                name="perdaControle"
-                value="Nenhum dia"
-              >
-              <span>Nenhum dia</span>
-            </label>
-          </div>
-
-          <div id="validacao6" class="mensagem-validacao">
-            🌿 Por favor, selecione uma opção antes de continuar.
-          </div>
-
-          <div class="botoes-container">
-            <button
-              type="button"
-              class="botao botao-continuar"
-              onclick="validarEtapa(6, 'perdaControle', 7)">
-              Próxima
-            </button>
-            <button
-              type="button"
-              class="botao botao-voltar"
-              onclick="proximaEtapa(5)">
-              Voltar
-            </button>
-          </div>
-        </div>
-
-        <!-- ETAPA 7 - Consciência + Enviar -->
-        <div class="etapa" id="etapa7">
-          <div class="card">
-            <h2>
-              6. Durante esta semana, quando você sentiu vontade de comer
-              sem fome física, em quantos dias tomou consciência do que
-              estava sentindo antes de agir? *
-            </h2>
-
-            <label class="opcao">
-              <input
-                type="radio"
-                name="consciencia"
-                value="Todos os dias"
-              >
-              <span>Todos os dias</span>
-            </label>
-
-            <label class="opcao">
-              <input
-                type="radio"
-                name="consciencia"
-                value="5 ou 6 dias"
-              >
-              <span>5 ou 6 dias</span>
-            </label>
-
-            <label class="opcao">
-              <input
-                type="radio"
-                name="consciencia"
-                value="3 ou 4 dias"
-              >
-              <span>3 ou 4 dias</span>
-            </label>
-
-            <label class="opcao">
-              <input
-                type="radio"
-                name="consciencia"
-                value="1 ou 2 dias"
-              >
-              <span>1 ou 2 dias</span>
-            </label>
-
-            <label class="opcao">
-              <input
-                type="radio"
-                name="consciencia"
-                value="Nenhum dia"
-              >
-              <span>Nenhum dia</span>
-            </label>
-          </div>
-
-          <div id="validacao7" class="mensagem-validacao">
-            🌿 Por favor, selecione uma opção antes de finalizar.
-          </div>
-
-          <div class="botoes-container">
-            <button
-              type="submit"
-              id="botaoEnviar"
-              class="botao botao-enviar"
-              onclick="return validarEnvio(event)">
-              Finalizar check-in
-            </button>
-            <button
-              type="button"
-              class="botao botao-voltar"
-              onclick="proximaEtapa(6)">
-              Voltar
-            </button>
-          </div>
-        </div>
-
-        <div id="carregando" class="carregando">
-          🌿 Calculando seu resultado...
-        </div>
-
-      </form>
-    </div>
-
-    <!-- RESULTADO -->
-    <div id="resultado">
-
-      <div class="resultado-topo">
-        <h1 id="resultadoNome"></h1>
-
-        <p>Seu acompanhamento semanal foi concluído.</p>
-
-        <div id="resultadoScore" class="score"></div>
-
-        <div id="resultadoClassificacao" class="classificacao"></div>
-
-        <div id="resultadoEvolucao" class="evolucao"></div>
-
-        <div style="
-          margin-top:18px;
-          padding-top:16px;
-          border-top:1px solid #e5e5e5;
-        ">
-          <div style="
-            font-size:14px;
-            color:#6b6b6b;
-            margin-bottom:4px;
-          ">
-            Média de adesão do mês
-          </div>
-
-          <div id="resultadoScoreMes" style="
-            font-size:24px;
-            font-weight:700;
-            color:#7a9a7a;
-          "></div>
-
-          <div id="resultadoNivelMes" style="
-            margin-top:8px;
-            font-size:16px;
-            font-weight:700;
-            color:#5a7a5a;
-          "></div>
-        </div>
-      </div>
-
-      <div class="resultado-card">
-        <h2 id="tituloConquistas">Maior conquista da semana</h2>
-
-        <div
-          id="resultadoConquistas"
-          class="resultado-conteudo"
-        ></div>
-      </div>
-
-      <div class="resultado-card">
-        <h2>Prioridade desta semana</h2>
-
-        <div
-          id="resultadoFoco"
-          class="resultado-conteudo"
-        ></div>
-      </div>
-
-      <div class="resultado-card">
-        <h2>Plano de ação para esta semana</h2>
-
-        <div id="resultadoRecomendacoes"></div>
-      </div>
-
-      <button
-        type="button"
-        class="botao novo-checkin"
-        onclick="novoCheckin()"
-      >
-        🌿 Fazer novo check-in
-      </button>
-
-    </div>
-
-  </div>
-
-  <script>
-    const formulario = document.getElementById('checkinForm');
-
-    // Validação da Etapa 1 (Nome e Email)
-    function validarEtapa1() {
-      const nome = document.getElementById('nome');
-      const email = document.getElementById('email');
-      let valido = true;
-
-      // Remove classes de erro anteriores
-      nome.classList.remove('erro-campo');
-      email.classList.remove('erro-campo');
-      esconderErro();
-
-      if (!nome.value.trim()) {
-        nome.classList.add('erro-campo');
-        valido = false;
-      }
-
-      if (!email.value.trim() || !email.value.includes('@')) {
-        email.classList.add('erro-campo');
-        valido = false;
-      }
-
-      if (!valido) {
-        mostrarErro('Por favor, preencha seu nome e e-mail corretamente.');
-        return;
-      }
-
-      proximaEtapa(2);
-    }
-
-    // Validação para etapas com radio buttons
-    function validarEtapa(etapaNum, campoName, proximaEtapaNum) {
-      const opcoes = document.querySelectorAll(`input[name="${campoName}"]`);
-      let selecionado = false;
-
-      opcoes.forEach(function(opcao) {
-        if (opcao.checked) {
-          selecionado = true;
-        }
-      });
-
-      const mensagemValidacao = document.getElementById(`validacao${etapaNum}`);
-
-      if (!selecionado) {
-        mensagemValidacao.classList.add('mostrar');
-        // Scroll para a mensagem de validação
-        mensagemValidacao.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        return;
-      }
-
-      mensagemValidacao.classList.remove('mostrar');
-      proximaEtapa(proximaEtapaNum);
-    }
-
-    // Validação do envio (Etapa 7)
-    function validarEnvio(event) {
-      const opcoes = document.querySelectorAll('input[name="consciencia"]');
-      let selecionado = false;
-
-      opcoes.forEach(function(opcao) {
-        if (opcao.checked) {
-          selecionado = true;
-        }
-      });
-
-      const mensagemValidacao = document.getElementById('validacao7');
-
-      if (!selecionado) {
-        event.preventDefault();
-        mensagemValidacao.classList.add('mostrar');
-        mensagemValidacao.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        return false;
-      }
-
-      mensagemValidacao.classList.remove('mostrar');
-      return true;
-    }
-
-    // Submit do formulário
-    formulario.addEventListener('submit', function(evento) {
-      // Validação final antes de enviar
-      if (!validarEnvio(evento)) {
-        return;
-      }
-
-      evento.preventDefault();
-
-      esconderErro();
-
-      const botao = document.getElementById('botaoEnviar');
-      const carregando = document.getElementById('carregando');
-
-      botao.disabled = true;
-      botao.textContent = 'Enviando...';
-      carregando.style.display = 'block';
-
-      const formData = new FormData(formulario);
-
-      const dados = {
-        nome: formData.get('nome'),
-        email: formData.get('email'),
-        plano: formData.get('plano'),
-        proteina: formData.get('proteina'),
-        exercicio: formData.get('exercicio'),
-        sono: formData.get('sono'),
-        perdaControle: formData.get('perdaControle'),
-        consciencia: formData.get('consciencia')
-      };
-
-      fetch(
-        'https://api-checkin.nutricionistadaphyni.workers.dev',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'text/plain;charset=UTF-8'
-          },
-          body: JSON.stringify({
-            tipo: 'checkin',
-            dados: dados
-          })
-        }
-      )
-        .then(function(resposta) {
-          return resposta.text();
-        })
-        .then(function(texto) {
-          let retorno;
-
-          try {
-            retorno = JSON.parse(texto);
-          } catch (erro) {
-            throw new Error(
-              'O servidor respondeu em um formato inesperado.'
-            );
-          }
-
-          if (!retorno.sucesso) {
-            throw new Error(
-              retorno.mensagem ||
-              'Não foi possível salvar o check-in.'
-            );
-          }
-
-          botao.disabled = false;
-          botao.textContent = 'Finalizar check-in';
-          carregando.style.display = 'none';
-
-          mostrarResultado(retorno.resultado);
-        })
-        .catch(function(erro) {
-          botao.disabled = false;
-          botao.textContent = 'Finalizar check-in';
-          carregando.style.display = 'none';
-
-          mostrarErro(
-            'Não foi possível salvar o check-in. Tente novamente.'
-          );
-
-          console.error(erro);
-        });
-    });
-
-    function mostrarResultado(resultado) {
-      document.getElementById('resultadoNome').textContent =
-        'Olá, ' + resultado.nome + '!';
-
-      document.getElementById('resultadoScore').textContent =
-        resultado.score + '%';
-
-      document.getElementById('resultadoClassificacao').textContent =
-        resultado.classificacao;
-
-      document.getElementById('resultadoEvolucao').textContent =
-        resultado.evolucao;
-
-      document.getElementById('resultadoScoreMes').textContent =
-        resultado.scoreMes + '%';
-
-      document.getElementById('resultadoNivelMes').textContent =
-        resultado.nivelMes;
-
-      document.getElementById('resultadoConquistas').textContent =
-        resultado.conquistas;
-
-      if (resultado.score === 100) {
-        document.getElementById('tituloConquistas').textContent =
-          'Sua semana em destaque';
-      } else {
-        document.getElementById('tituloConquistas').textContent =
-          'Maior conquista da semana';
-      }
-
-      document.getElementById('resultadoFoco').textContent =
-        resultado.foco;
-
-      const cardFoco =
-        document.getElementById('resultadoFoco').closest('.resultado-card');
-
-      const cardPlano =
-        document.getElementById('resultadoRecomendacoes').closest('.resultado-card');
-
-      if (resultado.score === 100) {
-        cardFoco.style.display = 'none';
-
-        cardPlano.style.display = 'block';
-
-        document.getElementById('resultadoRecomendacoes').innerHTML = `
-          <div style="
-            line-height:1.7;
-            padding:16px;
-            background:#f6f9f6;
-            border-radius:10px;
-          ">
-            <div style="
-              font-size:20px;
-              font-weight:700;
-              margin-bottom:12px;
-              color:#2d473d;
-            ">
-              🌿 Manter a consistência
-            </div>
-
-            <div style="margin-bottom:14px; color:#2d473d;">
-              Nesta semana, você demonstrou que consegue transformar planejamento em ação.
-              Agora o objetivo não é fazer mais, e sim repetir aquilo que já funcionou.
-            </div>
-
-            <div style="font-weight:700; margin-bottom:6px; color:#2d473d;">
-              Próximo objetivo
-            </div>
-
-            <div style="color:#2d473d;">
-              Manter uma boa semana pode ser tão importante quanto conquistar uma nova. 
-              Valorize o que funcionou e continue fortalecendo esses comportamentos.
-            </div>
-          </div>
-        `;
-      } else {
-        cardFoco.style.display = 'block';
-        cardPlano.style.display = 'block';
-
-        const caixaRecomendacoes =
-          document.getElementById('resultadoRecomendacoes');
-
-        caixaRecomendacoes.innerHTML = '';
-
-        if (
-          Array.isArray(resultado.recomendacoes) &&
-          resultado.recomendacoes.length > 0
-        ) {
-          resultado.recomendacoes.forEach(function(item) {
-            const bloco = document.createElement('div');
-
-            bloco.style.marginBottom = '20px';
-            bloco.style.padding = '16px';
-            bloco.style.background = '#f6f9f6';
-            bloco.style.borderRadius = '10px';
-
-            bloco.innerHTML = `
-              <div style="
-                font-size:14px;
-                font-weight:700;
-                margin-bottom:6px;
-                color:#2d473d;
-              ">
-                🌿 Minha recomendação
-              </div>
-
-              <div style="
-                line-height:1.7;
-                margin-bottom:18px;
-                color:#2d473d;
-              ">
-                ${item.texto}
-              </div>
-
-              <div style="
-                font-size:14px;
-                font-weight:700;
-                margin-bottom:6px;
-                color:#2d473d;
-              ">
-                🎯 Pequena meta
-              </div>
-
-              <div style="
-                line-height:1.7;
-                color:#2d473d;
-              ">
-                ${item.meta}
-              </div>
-            `;
-
-            caixaRecomendacoes.appendChild(bloco);
-          });
-        } else {
-          caixaRecomendacoes.textContent =
-            'Nenhuma recomendação disponível para este resultado.';
-        }
-      }
-
-      document.getElementById('formulario').style.display = 'none';
-      document.getElementById('resultado').style.display = 'block';
-
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    }
-
-    function mostrarErro(mensagem) {
-      const caixa = document.getElementById('mensagemErro');
-
-      caixa.textContent = mensagem;
-      caixa.style.display = 'block';
-
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    }
-
-    function esconderErro() {
-      document.getElementById('mensagemErro').style.display = 'none';
-    }
-
-    function novoCheckin() {
-      formulario.reset();
-
-      // Remove mensagens de validação
-      document.querySelectorAll('.mensagem-validacao').forEach(function(el) {
-        el.classList.remove('mostrar');
-      });
-
-      // Remove classes de erro
-      document.querySelectorAll('.erro-campo').forEach(function(el) {
-        el.classList.remove('erro-campo');
-      });
-
-      document.getElementById('resultado').style.display = 'none';
-      document.getElementById('formulario').style.display = 'block';
-
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    }
-
-    function proximaEtapa(numero) {
-      document.querySelectorAll(".etapa").forEach(function(etapa) {
-        etapa.classList.remove("ativa");
-      });
-
-      document.getElementById("etapa" + numero)
-        .classList.add("ativa");
-    }
-  </script>
-
+<div class="container">
+<div id="formulario">
+<div class="cabecalho">
+<img src="logo.png" alt="Daphyni Silva Nutricionista" class="logo">
+<h1>Check-in Semanal</h1>
+<div class="crn">Nutricionista • CRN-10 14525</div>
+<p>Este check-in leva menos de 2 minutos.<br>Responda considerando como foi a sua última semana.</p>
+</div>
+<div id="mensagemErro" class="mensagem-erro"></div>
+<div class="progresso-container">
+<div class="progresso-info"><span id="progressoTexto">Dados pessoais</span><span id="progressoPorcentagem">0%</span></div>
+<div class="progresso-barra"><div id="progressoPreencher" class="progresso-preencher"></div></div>
+</div>
+<form id="checkinForm">
+
+<!-- ETAPA 1 -->
+<div class="etapa ativa" id="etapa1">
+<div class="card"><label class="campo-titulo" for="nome">Nome completo *</label><input type="text" id="nome" name="nome" required placeholder="Digite seu nome completo"></div>
+<div class="card"><label class="campo-titulo" for="email">E-mail *</label><input type="email" id="email" name="email" required placeholder="Digite seu e-mail"></div>
+<button type="button" id="btnComecar" class="botao botao-continuar">Começar</button>
+</div>
+
+<!-- ETAPA 2 -->
+<div class="etapa" id="etapa2">
+<div class="card"><h2>1. Em quantos dias desta semana você conseguiu seguir o plano alimentar? *</h2>
+<label class="opcao"><input type="radio" name="plano" value="Todos os dias"><span>Todos os dias</span></label>
+<label class="opcao"><input type="radio" name="plano" value="5 ou 6 dias"><span>5 ou 6 dias</span></label>
+<label class="opcao"><input type="radio" name="plano" value="3 ou 4 dias"><span>3 ou 4 dias</span></label>
+<label class="opcao"><input type="radio" name="plano" value="1 ou 2 dias"><span>1 ou 2 dias</span></label>
+<label class="opcao"><input type="radio" name="plano" value="Nenhum dia"><span>Nenhum dia</span></label>
+</div>
+<div id="validacao2" class="mensagem-validacao">🌿 Selecione uma opção antes de continuar.</div>
+<div class="botoes-container">
+<button type="button" class="botao botao-continuar btn-proximo" data-etapa="2" data-campo="plano" data-proxima="3">Próxima</button>
+<button type="button" class="botao botao-voltar btn-voltar" data-voltar="1">Voltar</button>
+</div>
+</div>
+
+<!-- ETAPA 3 -->
+<div class="etapa" id="etapa3">
+<div class="card"><h2>2. Em quantos dias você atingiu a meta de proteínas? *</h2>
+<label class="opcao"><input type="radio" name="proteina" value="Todos os dias"><span>Todos os dias</span></label>
+<label class="opcao"><input type="radio" name="proteina" value="5 ou 6 dias"><span>5 ou 6 dias</span></label>
+<label class="opcao"><input type="radio" name="proteina" value="3 ou 4 dias"><span>3 ou 4 dias</span></label>
+<label class="opcao"><input type="radio" name="proteina" value="1 ou 2 dias"><span>1 ou 2 dias</span></label>
+<label class="opcao"><input type="radio" name="proteina" value="Nenhum dia"><span>Nenhum dia</span></label>
+</div>
+<div id="validacao3" class="mensagem-validacao">🌿 Selecione uma opção antes de continuar.</div>
+<div class="botoes-container">
+<button type="button" class="botao botao-continuar btn-proximo" data-etapa="3" data-campo="proteina" data-proxima="4">Próxima</button>
+<button type="button" class="botao botao-voltar btn-voltar" data-voltar="2">Voltar</button>
+</div>
+</div>
+
+<!-- ETAPA 4 -->
+<div class="etapa" id="etapa4">
+<div class="card"><h2>3. Nesta semana, quanto você conseguiu cumprir a sua meta de atividade física? *</h2>
+<label class="opcao"><input type="radio" name="exercicio" value="Cumpri 100% da meta"><span>Cumpri 100% da meta</span></label>
+<label class="opcao"><input type="radio" name="exercicio" value="Consegui cumprir parcialmente"><span>Consegui cumprir parcialmente</span></label>
+<label class="opcao"><input type="radio" name="exercicio" value="Não consegui cumprir"><span>Não consegui cumprir</span></label>
+</div>
+<div id="validacao4" class="mensagem-validacao">🌿 Selecione uma opção antes de continuar.</div>
+<div class="botoes-container">
+<button type="button" class="botao botao-continuar btn-proximo" data-etapa="4" data-campo="exercicio" data-proxima="5">Próxima</button>
+<button type="button" class="botao botao-voltar btn-voltar" data-voltar="3">Voltar</button>
+</div>
+</div>
+
+<!-- ETAPA 5 -->
+<div class="etapa" id="etapa5">
+<div class="card"><h2>4. Como foi a qualidade do seu sono nesta semana? *</h2>
+<label class="opcao"><input type="radio" name="sono" value="Boa na maior parte dessa semana"><span>Boa na maior parte dessa semana</span></label>
+<label class="opcao"><input type="radio" name="sono" value="Boa em apenas alguns dias"><span>Boa em apenas alguns dias</span></label>
+<label class="opcao"><input type="radio" name="sono" value="Ruim na maior parte dessa semana"><span>Ruim na maior parte dessa semana</span></label>
+</div>
+<div id="validacao5" class="mensagem-validacao">🌿 Selecione uma opção antes de continuar.</div>
+<div class="botoes-container">
+<button type="button" class="botao botao-continuar btn-proximo" data-etapa="5" data-campo="sono" data-proxima="6">Próxima</button>
+<button type="button" class="botao botao-voltar btn-voltar" data-voltar="4">Voltar</button>
+</div>
+</div>
+
+<!-- ETAPA 6 -->
+<div class="etapa" id="etapa6">
+<div class="card"><h2>5. Em quantos dias você percebeu que perdeu o controle sobre a alimentação? *</h2>
+<label class="opcao"><input type="radio" name="perdaControle" value="Todos os dias"><span>Todos os dias</span></label>
+<label class="opcao"><input type="radio" name="perdaControle" value="5 ou 6 dias"><span>5 ou 6 dias</span></label>
+<label class="opcao"><input type="radio" name="perdaControle" value="3 ou 4 dias"><span>3 ou 4 dias</span></label>
+<label class="opcao"><input type="radio" name="perdaControle" value="1 ou 2 dias"><span>1 ou 2 dias</span></label>
+<label class="opcao"><input type="radio" name="perdaControle" value="Nenhum dia"><span>Nenhum dia</span></label>
+</div>
+<div id="validacao6" class="mensagem-validacao">🌿 Selecione uma opção antes de continuar.</div>
+<div class="botoes-container">
+<button type="button" class="botao botao-continuar btn-proximo" data-etapa="6" data-campo="perdaControle" data-proxima="7">Próxima</button>
+<button type="button" class="botao botao-voltar btn-voltar" data-voltar="5">Voltar</button>
+</div>
+</div>
+
+<!-- ETAPA 7 -->
+<div class="etapa" id="etapa7">
+<div class="card"><h2>6. Durante esta semana, quando você sentiu vontade de comer sem fome física, em quantos dias tomou consciência do que estava sentindo antes de agir? *</h2>
+<label class="opcao"><input type="radio" name="consciencia" value="Todos os dias"><span>Todos os dias</span></label>
+<label class="opcao"><input type="radio" name="consciencia" value="5 ou 6 dias"><span>5 ou 6 dias</span></label>
+<label class="opcao"><input type="radio" name="consciencia" value="3 ou 4 dias"><span>3 ou 4 dias</span></label>
+<label class="opcao"><input type="radio" name="consciencia" value="1 ou 2 dias"><span>1 ou 2 dias</span></label>
+<label class="opcao"><input type="radio" name="consciencia" value="Nenhum dia"><span>Nenhum dia</span></label>
+</div>
+<div id="validacao7" class="mensagem-validacao">🌿 Selecione uma opção antes de finalizar.</div>
+<div class="botoes-container">
+<button type="submit" id="botaoEnviar" class="botao botao-enviar">Finalizar check-in</button>
+<button type="button" class="botao botao-voltar btn-voltar" data-voltar="6">Voltar</button>
+</div>
+</div>
+
+</form>
+</div>
+
+<div id="resultado">
+<div class="resultado-topo">
+<h1 id="resultadoNome"></h1><p>Seu acompanhamento semanal foi concluído.</p>
+<div id="resultadoScore" class="score"></div>
+<div id="resultadoClassificacao" class="classificacao"></div>
+<div id="resultadoEvolucao" class="evolucao"></div>
+<div style="margin-top:18px;padding-top:16px;border-top:1px solid #e5e5e5;">
+<div style="font-size:14px;color:#4a4a4a;margin-bottom:4px;">Média de adesão do mês</div>
+<div id="resultadoScoreMes" style="font-size:24px;font-weight:700;color:#7a9a7a;"></div>
+<div id="resultadoNivelMes" style="margin-top:8px;font-size:16px;font-weight:700;color:#5a7a5a;"></div>
+</div>
+</div>
+<div class="resultado-card"><h2 id="tituloConquistas">Maior conquista da semana</h2><div id="resultadoConquistas" class="resultado-conteudo"></div></div>
+<div class="resultado-card"><h2>Prioridade desta semana</h2><div id="resultadoFoco" class="resultado-conteudo"></div></div>
+<div class="resultado-card"><h2>Plano de ação para esta semana</h2><div id="resultadoRecomendacoes"></div></div>
+<button type="button" id="btnNovoCheckin" class="botao novo-checkin">🌿 Fazer novo check-in</button>
+</div>
+</div>
+<div id="toast" class="toast"></div>
+
+<script>
+(function(){
+'use strict';
+const D={
+form:document.getElementById('checkinForm'),
+nome:document.getElementById('nome'),
+email:document.getElementById('email'),
+btnComecar:document.getElementById('btnComecar'),
+btnEnviar:document.getElementById('botaoEnviar'),
+btnNovoCheckin:document.getElementById('btnNovoCheckin'),
+mensagemErro:document.getElementById('mensagemErro'),
+progressoTexto:document.getElementById('progressoTexto'),
+progressoPorcentagem:document.getElementById('progressoPorcentagem'),
+progressoPreencher:document.getElementById('progressoPreencher'),
+toast:document.getElementById('toast'),
+formulario:document.getElementById('formulario'),
+resultado:document.getElementById('resultado')
+};
+const state={etapaAtual:1,totalEtapas:7,isLoading:false};
+
+function esconderErro(){D.mensagemErro.style.display='none';D.mensagemErro.textContent='';}
+function mostrarErro(m){D.mensagemErro.textContent=m;D.mensagemErro.style.display='block';window.scrollTo({top:0,behavior:'smooth'});}
+function mostrarToast(m,d=3000){D.toast.textContent=m;D.toast.classList.add('mostrar');clearTimeout(D.toast._timeout);D.toast._timeout=setTimeout(()=>D.toast.classList.remove('mostrar'),d);}
+function atualizarProgresso(e){const p=((e-1)/(state.totalEtapas-1))*100;const a=Math.round(p);D.progressoPreencher.style.width=a+'%';D.progressoPorcentagem.textContent=a+'%';D.progressoTexto.textContent=e===1?'Dados pessoais':`Pergunta ${e-1} de ${state.totalEtapas-1}`;}
+function proximaEtapa(n){document.querySelectorAll('.etapa').forEach(el=>el.classList.remove('ativa'));const prox=document.getElementById('etapa'+n);if(prox){prox.classList.add('ativa');state.etapaAtual=n;atualizarProgresso(n);window.scrollTo({top:0,behavior:'smooth'});}}
+function validarCampoRadio(campo, etapaNum){const opts=document.querySelectorAll(`input[name="${campo}"]`);let sel=false;opts.forEach(o=>{if(o.checked)sel=true;});const msg=document.getElementById('validacao'+etapaNum);if(!sel){msg.classList.add('mostrar');msg.scrollIntoView({behavior:'smooth',block:'center'});return false;}msg.classList.remove('mostrar');return true;}
+function validarEtapa1(){let valido=true;D.nome.classList.remove('erro-campo');D.email.classList.remove('erro-campo');esconderErro();if(!D.nome.value.trim()){D.nome.classList.add('erro-campo');valido=false;}if(!D.email.value.trim()||!D.email.value.includes('@')){D.email.classList.add('erro-campo');valido=false;}if(!valido){mostrarErro('Preencha nome e e-mail corretamente.');return false;}return true;}
+function validarEnvio(){const opts=document.querySelectorAll('input[name="consciencia"]');let sel=false;opts.forEach(o=>{if(o.checked)sel=true;});const msg=document.getElementById('validacao7');if(!sel){msg.classList.add('mostrar');msg.scrollIntoView({behavior:'smooth',block:'center'});return false;}msg.classList.remove('mostrar');return true;}
+function resetarFormulario(){D.form.reset();document.querySelectorAll('.mensagem-validacao').forEach(el=>el.classList.remove('mostrar'));document.querySelectorAll('.erro-campo').forEach(el=>el.classList.remove('erro-campo'));esconderErro();D.formulario.style.display='block';D.resultado.style.display='none';proximaEtapa(1);mostrarToast('🌿 Formulário resetado!');}
+function setLoading(btn,loading){if(loading){btn.disabled=true;btn.innerHTML='<span class="spinner"></span> Enviando...';state.isLoading=true;}else{btn.disabled=false;btn.innerHTML='Finalizar check-in';state.isLoading=false;}}
+function mostrarResultado(r){
+D.resultado.style.display='block';D.formulario.style.display='none';
+document.getElementById('resultadoNome').textContent='Olá, '+r.nome+'!';
+document.getElementById('resultadoScore').textContent=r.score+'%';
+document.getElementById('resultadoClassificacao').textContent=r.classificacao;
+document.getElementById('resultadoEvolucao').textContent=r.evolucao;
+document.getElementById('resultadoScoreMes').textContent=r.scoreMes+'%';
+document.getElementById('resultadoNivelMes').textContent=r.nivelMes;
+document.getElementById('resultadoConquistas').textContent=r.conquistas;
+document.getElementById('tituloConquistas').textContent=r.score===100?'Sua semana em destaque':'Maior conquista da semana';
+document.getElementById('resultadoFoco').textContent=r.foco;
+const cardFoco=document.getElementById('resultadoFoco').closest('.resultado-card');
+const cardPlano=document.getElementById('resultadoRecomendacoes').closest('.resultado-card');
+if(r.score===100){
+cardFoco.style.display='none';cardPlano.style.display='block';
+document.getElementById('resultadoRecomendacoes').innerHTML=`<div style="line-height:1.7;padding:16px;background:#f6f9f6;border-radius:10px;"><div style="font-size:20px;font-weight:700;margin-bottom:12px;color:#2d473d;">🌿 Manter a consistência</div><div style="margin-bottom:14px;color:#2d473d;">Nesta semana, você demonstrou que consegue transformar planejamento em ação. Agora o objetivo não é fazer mais, e sim repetir aquilo que já funcionou.</div><div style="font-weight:700;margin-bottom:6px;color:#2d473d;">Próximo objetivo</div><div style="color:#2d473d;">Manter uma boa semana pode ser tão importante quanto conquistar uma nova. Valorize o que funcionou e continue fortalecendo esses comportamentos.</div></div>`;
+}else{
+cardFoco.style.display='block';cardPlano.style.display='block';
+const container=document.getElementById('resultadoRecomendacoes');container.innerHTML='';
+if(Array.isArray(r.recomendacoes)&&r.recomendacoes.length){
+r.recomendacoes.forEach(item=>{const div=document.createElement('div');div.style.marginBottom='20px';div.style.padding='16px';div.style.background='#f6f9f6';div.style.borderRadius='10px';div.innerHTML=`<div style="font-size:14px;font-weight:700;margin-bottom:6px;color:#2d473d;">🌿 Minha recomendação</div><div style="line-height:1.7;margin-bottom:18px;color:#2d473d;">${item.texto}</div><div style="font-size:14px;font-weight:700;margin-bottom:6px;color:#2d473d;">🎯 Pequena meta</div><div style="line-height:1.7;color:#2d473d;">${item.meta}</div>`;container.appendChild(div);});
+}else{container.textContent='Nenhuma recomendação disponível.';}
+}
+}
+
+// Event listeners
+D.btnComecar.addEventListener('click',function(){if(validarEtapa1())proximaEtapa(2);});
+document.querySelectorAll('.btn-proximo').forEach(btn=>{btn.addEventListener('click',function(){const etapa=parseInt(this.dataset.etapa);const campo=this.dataset.campo;const prox=parseInt(this.dataset.proxima);if(validarCampoRadio(campo,etapa))proximaEtapa(prox);});});
+document.querySelectorAll('.btn-voltar').forEach(btn=>{btn.addEventListener('click',function(){const voltar=parseInt(this.dataset.voltar);proximaEtapa(voltar);});});
+D.btnNovoCheckin.addEventListener('click',resetarFormulario);
+
+D.form.addEventListener('submit',function(e){
+e.preventDefault();
+if(!validarEnvio())return;
+const botao=D.btnEnviar;setLoading(botao,true);
+const fd=new FormData(D.form);
+const dados={
+nome:fd.get('nome'),email:fd.get('email'),
+plano:fd.get('plano'),proteina:fd.get('proteina'),
+exercicio:fd.get('exercicio'),sono:fd.get('sono'),
+perdaControle:fd.get('perdaControle'),consciencia:fd.get('consciencia')
+};
+fetch('https://api-checkin.nutricionistadaphyni.workers.dev',{
+method:'POST',headers:{'Content-Type':'text/plain;charset=UTF-8'},
+body:JSON.stringify({tipo:'checkin',dados:dados})
+})
+.then(res=>res.text())
+.then(texto=>{let ret;try{ret=JSON.parse(texto);}catch(e){throw new Error('Resposta inválida.');}if(!ret.sucesso)throw new Error(ret.mensagem||'Erro ao salvar.');setLoading(botao,false);mostrarResultado(ret.resultado);})
+.catch(err=>{setLoading(botao,false);mostrarErro('Não foi possível salvar. Tente novamente.');console.error(err);});
+});
+
+atualizarProgresso(1);
+})();
+</script>
 </body>
-
 </html>
