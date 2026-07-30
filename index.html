@@ -24,14 +24,12 @@
 </div>
 <form id="checkinForm">
 
-<!-- ETAPA 1 -->
 <div class="etapa ativa" id="etapa1">
 <div class="card"><label class="campo-titulo" for="nome">Nome completo *</label><input type="text" id="nome" name="nome" required placeholder="Digite seu nome completo"></div>
 <div class="card"><label class="campo-titulo" for="telefone">Telefone (WhatsApp) *</label><input type="tel" id="telefone" name="telefone" required placeholder="(11) 99999-9999"></div>
 <button type="button" id="btnComecar" class="botao botao-continuar">Começar</button>
 </div>
 
-<!-- ETAPA 2 -->
 <div class="etapa" id="etapa2">
 <div class="card"><h2>1. Em quantos dias desta semana você conseguiu se alimentar conforme o planejado? *</h2>
 <label class="opcao"><input type="radio" name="plano" value="100"><span>Todos os dias</span></label>
@@ -47,7 +45,6 @@
 </div>
 </div>
 
-<!-- ETAPA 3 -->
 <div class="etapa" id="etapa3">
 <div class="card"><h2>2. Em quantos dias você conseguiu consumir proteína na maioria das refeições? *</h2>
 <label class="opcao"><input type="radio" name="proteina" value="100"><span>Todos os dias</span></label>
@@ -63,7 +60,6 @@
 </div>
 </div>
 
-<!-- ETAPA 4 -->
 <div class="etapa" id="etapa4">
 <div class="card"><h2>3. Como foi sua prática de atividade física nesta semana? *</h2>
 <label class="opcao"><input type="radio" name="exercicio" value="100"><span>Cumpri 100% da minha meta</span></label>
@@ -77,7 +73,6 @@
 </div>
 </div>
 
-<!-- ETAPA 5 -->
 <div class="etapa" id="etapa5">
 <div class="card"><h2>4. Como foi a qualidade do seu sono nesta semana? *</h2>
 <label class="opcao"><input type="radio" name="sono" value="100"><span>Boa na maior parte dessa semana</span></label>
@@ -91,7 +86,6 @@
 </div>
 </div>
 
-<!-- ETAPA 6 -->
 <div class="etapa" id="etapa6">
 <div class="card"><h2>5. Em quantos dias você sentiu que comeu mais do que gostaria ou teve dificuldade para parar de comer? *</h2>
 <label class="opcao"><input type="radio" name="perdaControle" value="0"><span>Todos os dias</span></label>
@@ -107,7 +101,6 @@
 </div>
 </div>
 
-<!-- ETAPA 7 -->
 <div class="etapa" id="etapa7">
 <div class="card"><h2>6. Com que frequência você conseguiu diferenciar fome física de vontade de comer? *</h2>
 <label class="opcao"><input type="radio" name="consciencia" value="100"><span>Sempre</span></label>
@@ -145,7 +138,6 @@
 </div>
 </div>
 <div id="toast" class="toast"></div>
-
 <script>
 (function(){
 'use strict';
@@ -176,6 +168,7 @@ function validarEtapa1(){let valido=true;D.nome.classList.remove('erro-campo');D
 function validarEnvio(){const opts=document.querySelectorAll('input[name="consciencia"]');let sel=false;opts.forEach(o=>{if(o.checked)sel=true;});const msg=document.getElementById('validacao7');if(!sel){msg.classList.add('mostrar');msg.scrollIntoView({behavior:'smooth',block:'center'});return false;}msg.classList.remove('mostrar');return true;}
 function resetarFormulario(){D.form.reset();document.querySelectorAll('.mensagem-validacao').forEach(el=>el.classList.remove('mostrar'));document.querySelectorAll('.erro-campo').forEach(el=>el.classList.remove('erro-campo'));esconderErro();D.formulario.style.display='block';D.resultado.style.display='none';proximaEtapa(1);mostrarToast('🌿 Formulário resetado!');}
 function setLoading(btn,loading){if(loading){btn.disabled=true;btn.innerHTML='<span class="spinner"></span> Enviando...';state.isLoading=true;}else{btn.disabled=false;btn.innerHTML='Finalizar check-in';state.isLoading=false;}}
+
 function mostrarResultado(r){
 D.resultado.style.display='block';D.formulario.style.display='none';
 document.getElementById('resultadoNome').textContent='Olá, '+r.nome+'!';
@@ -236,10 +229,9 @@ const dados = {
   consciencia: fd.get('consciencia')
 };
 
-// ===== URL DO WORKER (NÃO DO APPS SCRIPT DIRETO) =====
-var urlAppsScript = 'https://api-checkin.nutricionistadaphyni.workers.dev';
+var urlWorker = 'https://api-checkin.nutricionistadaphyni.workers.dev';
 
-fetch(urlAppsScript, {
+fetch(urlWorker, {
   method: 'POST',
   headers: { 
     'Content-Type': 'text/plain;charset=UTF-8'
@@ -262,11 +254,8 @@ fetch(urlAppsScript, {
 .catch(err => {
   setLoading(botao, false);
   console.error('Erro completo:', err);
-
-  mostrarErro(
-    'Erro de conexão: ' +
-    (err.message || 'resposta inválida do servidor')
-  );
+  mostrarErro('Erro de conexão: ' + (err.message || 'resposta inválida do servidor'));
+});
 });
 
 atualizarProgresso(1);
