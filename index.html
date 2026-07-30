@@ -71,9 +71,7 @@
 <button type="button" class="botao botao-continuar btn-proximo" data-etapa="4" data-campo="exercicio" data-proxima="5">Próxima</button>
 <button type="button" class="botao botao-voltar btn-voltar" data-voltar="3">Voltar</button>
 </div>
-</div>
-
-<div class="etapa" id="etapa5">
+</div><div class="etapa" id="etapa5">
 <div class="card"><h2>4. Como foi a qualidade do seu sono nesta semana? *</h2>
 <label class="opcao"><input type="radio" name="sono" value="100"><span>Boa na maior parte dessa semana</span></label>
 <label class="opcao"><input type="radio" name="sono" value="60"><span>Boa em apenas alguns dias</span></label>
@@ -129,6 +127,11 @@
 <div style="font-size:14px;color:#4a4a4a;margin-bottom:4px;">Média de adesão do mês</div>
 <div id="resultadoScoreMes" style="font-size:24px;font-weight:700;color:#7a9a7a;"></div>
 <div id="resultadoNivelMes" style="margin-top:8px;font-size:16px;font-weight:700;color:#5a7a5a;"></div>
+</div>
+<!-- ADICIONADO: Bloco para exibir a data do próximo check-in -->
+<div style="margin-top:16px;padding-top:14px;border-top:1px solid #e5e5e5;">
+<div style="font-size:14px;color:#4a4a4a;margin-bottom:4px;">📅 Próximo check-in recomendado</div>
+<div id="resultadoProximoCheckin" style="font-size:18px;font-weight:700;color:#2d473d;"></div>
 </div>
 </div>
 <div class="resultado-card"><h2 id="tituloConquistas">Maior conquista da semana</h2><div id="resultadoConquistas" class="resultado-conteudo"></div></div>
@@ -196,6 +199,8 @@ document.getElementById('resultadoClassificacao').textContent=r.classificacao;
 document.getElementById('resultadoEvolucao').textContent=r.evolucao;
 document.getElementById('resultadoScoreMes').textContent=r.scoreMes+'%';
 document.getElementById('resultadoNivelMes').textContent=r.nivelMes;
+// ADICIONADO: Preenche a data do próximo check-in enviada pelo Apps Script
+document.getElementById('resultadoProximoCheckin').textContent=r.proximoCheckin || 'Daqui a 7 dias';
 document.getElementById('resultadoConquistas').textContent=r.conquistas;
 document.getElementById('tituloConquistas').textContent=r.score===100?'Sua semana em destaque':'Maior conquista da semana';
 document.getElementById('resultadoFoco').textContent=r.foco;
@@ -215,7 +220,7 @@ r.recomendacoes.forEach(item=>{const div=document.createElement('div');div.style
 
 // EVENT LISTENERS
 D.btnComecar.addEventListener('click',function(e){
-  e.preventDefault(); // Impede comportamento padrão indesejado
+  e.preventDefault();
   if(validarEtapa1()){
     proximaEtapa(2);
   }
