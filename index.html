@@ -241,8 +241,13 @@ var urlAppsScript = 'https://api-checkin.nutricionistadaphyni.workers.dev';
 
 fetch(urlAppsScript, {
   method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ tipo: 'checkin', dados: dados })
+  headers: { 
+    'Content-Type': 'text/plain;charset=UTF-8'
+  },
+  body: JSON.stringify({ 
+    tipo: 'checkin', 
+    dados: dados 
+  })
 })
 .then(res => res.json())
 .then(ret => {
@@ -256,10 +261,12 @@ fetch(urlAppsScript, {
 })
 .catch(err => {
   setLoading(botao, false);
-  console.error('Erro no fetch:', err);
-  mostrarErro('Não foi possível conectar ao servidor. Verifique sua internet.');
-});
+  console.error('Erro completo:', err);
 
+  mostrarErro(
+    'Erro de conexão: ' +
+    (err.message || 'resposta inválida do servidor')
+  );
 });
 
 atualizarProgresso(1);
