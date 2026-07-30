@@ -143,7 +143,8 @@
 <button type="button" id="btnNovoCheckin" class="botao novo-checkin">🌿 Fazer novo check-in</button>
 </div>
 </div>
-<div id="toast" class="toast"></div><script>
+<div id="toast" class="toast"></div>
+<script>
 (function(){
 'use strict';
 const D={
@@ -204,7 +205,7 @@ document.querySelectorAll('.btn-proximo').forEach(btn=>{btn.addEventListener('cl
 document.querySelectorAll('.btn-voltar').forEach(btn=>{btn.addEventListener('click',function(){const voltar=parseInt(this.dataset.voltar);proximaEtapa(voltar);});});
 D.btnNovoCheckin.addEventListener('click',resetarFormulario);
 
-// ========== SUBMISSÃO DO FORMULÁRIO (com google.script.run) ==========
+// ========== SUBMISSÃO DO FORMULÁRIO (google.script.run ATIVO) ==========
 D.form.addEventListener('submit',function(e){
 e.preventDefault();
 
@@ -237,19 +238,48 @@ const dados = {
   consciencia: fd.get('consciencia')
 };
 
-// ========== CHAMADA DIRETA PARA O APPS SCRIPT ==========
+// ========== CHAMADA DIRETA PARA O APPS SCRIPT (ATIVA) ==========
 google.script.run
   .withSuccessHandler(function(resultado) {
+    console.log('✅ Sucesso! Resultado recebido:', resultado);
     setLoading(botao, false);
+    if (resultado && resultado.erro) {
+      // Se veio um erro do backend
+      mostrarErro('Erro no servidor: ' + resultado.mensagem);
+      return;
+    }
     mostrarResultado(resultado);
   })
   .withFailureHandler(function(erro) {
+    console.error('❌ Falha! Erro:', erro);
     setLoading(botao, false);
     mostrarErro('Erro: ' + (erro.message || erro.toString()));
-    console.error(erro);
   })
   .salvarCheckin(dados);
 // ========== FIM DA CHAMADA ==========
+
+// ========== (OPÇÃO B – CLOUDFLARE – COMENTADA) ==========
+/*
+fetch('https://api-checkin.nutricionistadaphyni.workers.dev', {
+  method: 'POST',
+  headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
+  body: JSON.stringify({ tipo: 'checkin', dados: dados })
+})
+.then(res => res.text())
+.then(texto => {
+  let ret;
+  try { ret = JSON.parse(texto); } catch(e) { throw new Error('Resposta inválida.'); }
+  if (!ret.sucesso) throw new Error(ret.mensagem || 'Erro ao salvar.');
+  setLoading(botao, false);
+  mostrarResultado(ret.resultado);
+})
+.catch(err => {
+  setLoading(botao, false);
+  mostrarErro('Não foi possível salvar. Tente novamente.');
+  console.error(err);
+});
+*/
+// ========== FIM DA OPÇÃO B ==========
 
 });
 
@@ -257,4 +287,194 @@ atualizarProgresso(1);
 })();
 </script>
 </body>
-</html>
+</html>// ====================================================================
+//                   APPS SCRIPT – CHECK-IN SEMANAL (v4)
+// ====================================================================
+
+function salvarCheckin(dados) {
+  var resultado = {}; // declaração antecipada para evitar erro "resultado is not defined"
+  try {
+    Logger.log('=== INÍCIO salvarCheckin ===');
+    Logger.log('Dados recebidos: ' + JSON.stringify(dados));
+
+    if (!dados || typeof dados !== 'object') {
+      throw new Error('Dados inválidos ou não enviados.');
+    }
+
+    // --- Extrair e converter valores ---
+    var pontosPlano = Number(dados.plano) || 0;
+    var pontosProteina = Number(dados.proteina) || 0;
+    var pontosExercicio = Number(dados.exercicio) || 0;
+    var pontosSono = Number(dados.sono) || 0;
+    var pontosPerda = Number(dados.perdaControle) || 0;
+    var pontosConsciencia = Number(dados.consciencia) || 0;
+
+    var soma = pontosPlano + pontosProteina + pontosExercicio + pontosSono + pontosPerda + pontosConsciencia;
+    var score = Math.round(soma / 6);
+    Logger.log('Score calculado: ' + score);
+
+    // --- Conectar à planilha ---
+    var SPREADSHEET_ID = '1oPQ7JVxG__9s6Vop-GIaCY2exHGQ7PqlU__2Ja_VJus';
+    var SHEET_NAME = 'Checkins';
+    var ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+    var sheet = ss.getSheetByName(SHEET_NAME);
+    if (!sheet) {
+      sheet = ss.insertSheet(SHEET_NAME);
+      var headers = ['Data', 'Email', 'Nome', 'Plano', 'Proteina', 'Exercicio', 'Sono', 'PerdaControle', 'Consciencia', 'Score'];
+      sheet.appendRow(headers);
+    }
+
+    // --- Inserir linha ---
+    var row = [new Date(), dados.email, dados.nome, pontosPlano, pontosProteina, pontosExercicio, pontosSono, pontosPerda, pontosConsciencia, score];
+    sheet.appendRow(row);
+    Logger.log('Linha inserida com sucesso.');
+
+    // --- Média do mês ---
+    var historico = obterHistoricoEmail(dados.email, sheet);
+    var scoreMes = calcularMediaMes(historico);
+    Logger.log('Média do mês: ' + scoreMes);
+
+    // --- Gerar textos ---
+    var classificacao = classificar(score);
+    var nivelMes = classificar(scoreMes);
+    var evolucao = gerarEvolucao(score, scoreMes);
+    var conquistas = gerarConquistas(pontosPlano, pontosProteina, pontosExercicio, pontosSono, pontosPerda, pontosConsciencia);
+    var foco = gerarFoco(pontosPlano, pontosProteina, pontosExercicio, pontosSono, pontosPerda, pontosConsciencia);
+    var recomendacoes = gerarRecomendacoes(pontosPlano, pontosProteina, pontosExercicio, pontosSono, pontosPerda, pontosConsciencia);
+
+    resultado = {
+      nome: dados.nome,
+      email: dados.email,
+      score: score,
+      classificacao: classificacao,
+      evolucao: evolucao,
+      scoreMes: Math.round(scoreMes),
+      nivelMes: nivelMes,
+      conquistas: conquistas,
+      foco: foco,
+      recomendacoes: recomendacoes
+    };
+
+    Logger.log('=== FIM salvarCheckin, resultado OK ===');
+    return resultado;
+
+  } catch (erro) {
+    Logger.log('ERRO em salvarCheckin: ' + erro.message);
+    // Retorna um objeto de erro para o front-end
+    return {
+      erro: true,
+      mensagem: erro.message
+    };
+  }
+}
+
+// ====================================================================
+//                     FUNÇÕES AUXILIARES
+// ====================================================================
+
+function classificar(score) {
+  if (score >= 80) return 'Excelente';
+  if (score >= 60) return 'Bom';
+  if (score >= 40) return 'Regular';
+  return 'Atenção';
+}
+
+function obterHistoricoEmail(email, sheet) {
+  var dados = sheet.getDataRange().getValues();
+  if (dados.length < 2) return [];
+  var cabecalho = dados[0];
+  var colEmail = cabecalho.indexOf('Email');
+  var colScore = cabecalho.indexOf('Score');
+  var colData = cabecalho.indexOf('Data');
+  if (colEmail === -1 || colScore === -1 || colData === -1) return [];
+
+  var agora = new Date();
+  var mesAtual = agora.getMonth();
+  var anoAtual = agora.getFullYear();
+  var historico = [];
+  for (var i = 1; i < dados.length; i++) {
+    var linha = dados[i];
+    var data = new Date(linha[colData]);
+    if (data.getMonth() === mesAtual && data.getFullYear() === anoAtual && linha[colEmail] === email) {
+      historico.push(linha[colScore]);
+    }
+  }
+  return historico;
+}
+
+function calcularMediaMes(historico) {
+  if (historico.length === 0) return 0;
+  var soma = 0;
+  for (var i = 0; i < historico.length; i++) soma += historico[i];
+  return soma / historico.length;
+}
+
+function gerarEvolucao(score, scoreMes) {
+  if (scoreMes === 0) return 'Primeiro check-in do mês';
+  var diff = score - scoreMes;
+  if (diff > 5) return '⬆️ Acima da média do mês';
+  if (diff < -5) return '⬇️ Abaixo da média do mês';
+  return '↔️ Na média do mês';
+}
+
+function gerarConquistas(pPlano, pProteina, pExercicio, pSono, pPerda, pConsciencia) {
+  var itens = [
+    {nome: 'Plano alimentar', pontos: pPlano},
+    {nome: 'Proteínas', pontos: pProteina},
+    {nome: 'Exercício físico', pontos: pExercicio},
+    {nome: 'Sono', pontos: pSono},
+    {nome: 'Controle alimentar', pontos: pPerda},
+    {nome: 'Consciência alimentar', pontos: pConsciencia}
+  ];
+  itens.sort(function(a,b){ return b.pontos - a.pontos; });
+  var melhor = itens[0];
+  if (melhor.pontos >= 80) return '🌟 ' + melhor.nome + ' foi seu ponto forte!';
+  return '🌟 Continue trabalhando em todos os aspectos.';
+}
+
+function gerarFoco(pPlano, pProteina, pExercicio, pSono, pPerda, pConsciencia) {
+  var itens = [
+    {nome: 'Plano alimentar', pontos: pPlano},
+    {nome: 'Proteínas', pontos: pProteina},
+    {nome: 'Exercício físico', pontos: pExercicio},
+    {nome: 'Sono', pontos: pSono},
+    {nome: 'Controle alimentar', pontos: pPerda},
+    {nome: 'Consciência alimentar', pontos: pConsciencia}
+  ];
+  itens.sort(function(a,b){ return a.pontos - b.pontos; });
+  return '🎯 Foco em: ' + itens[0].nome;
+}
+
+function gerarRecomendacoes(pPlano, pProteina, pExercicio, pSono, pPerda, pConsciencia) {
+  var recomendacoes = [];
+  if (pPlano < 60) recomendacoes.push({texto: 'Planeje suas refeições com antecedência para manter a adesão ao plano alimentar.', meta: 'Organizar o cardápio do dia seguinte todas as noites.'});
+  if (pProteina < 60) recomendacoes.push({texto: 'Inclua fontes de proteína em todas as refeições principais para aumentar a saciedade.', meta: 'Adicionar ovos, frango ou leguminosas em 2 refeições por dia.'});
+  if (pExercicio < 60) recomendacoes.push({texto: 'Comece com metas pequenas de atividade física e aumente gradualmente.', meta: 'Caminhar 15 minutos todos os dias.'});
+  if (pSono < 60) recomendacoes.push({texto: 'Melhore a qualidade do sono com uma rotina noturna relaxante.', meta: 'Desligar telas 30 minutos antes de dormir e manter horário fixo.'});
+  if (pPerda < 60) recomendacoes.push({texto: 'Identifique gatilhos emocionais e pratique a respiração antes de comer.', meta: 'Fazer uma pausa de 2 minutos antes de comer sem fome.'});
+  if (pConsciencia < 60) recomendacoes.push({texto: 'Coma sem distrações para perceber melhor os sinais de fome e saciedade.', meta: 'Realizar uma refeição por dia sem TV ou celular.'});
+
+  if (recomendacoes.length === 0) {
+    recomendacoes.push({texto: 'Continue mantendo os bons hábitos!', meta: 'Celebrar cada pequena conquista.'});
+  }
+  return recomendacoes;
+}
+
+// ====================================================================
+//                     FUNÇÃO DE TESTE (para depuração)
+// ====================================================================
+
+function testar() {
+  var dados = {
+    nome: 'Usuário Teste',
+    email: 'teste@exemplo.com',
+    plano: '100',
+    proteina: '100',
+    exercicio: '100',
+    sono: '100',
+    perdaControle: '100',
+    consciencia: '100'
+  };
+  var resultado = salvarCheckin(dados);
+  Logger.log('Resultado do teste: ' + JSON.stringify(resultado));
+}
