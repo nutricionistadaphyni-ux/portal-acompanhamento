@@ -22,11 +22,11 @@
 <div class="progresso-info"><span id="progressoTexto">Dados pessoais</span><span id="progressoPorcentagem">0%</span></div>
 <div class="progresso-barra"><div id="progressoPreencher" class="progresso-preencher"></div></div>
 </div>
-<form id="checkinForm">
+<form id="checkinForm" novalidate>
 
 <div class="etapa ativa" id="etapa1">
-<div class="card"><label class="campo-titulo" for="nome">Nome completo *</label><input type="text" id="nome" name="nome" required placeholder="Digite seu nome completo"></div>
-<div class="card"><label class="campo-titulo" for="telefone">Telefone (WhatsApp) *</label><input type="tel" id="telefone" name="telefone" required placeholder="(11) 99999-9999"></div>
+<div class="card"><label class="campo-titulo" for="nome">Nome completo *</label><input type="text" id="nome" name="nome" placeholder="Digite seu nome completo"></div>
+<div class="card"><label class="campo-titulo" for="telefone">Telefone (WhatsApp) *</label><input type="tel" id="telefone" name="telefone" placeholder="(11) 99999-9999"></div>
 <button type="button" id="btnComecar" class="botao botao-continuar">Começar</button>
 </div>
 
@@ -171,7 +171,6 @@ D.nome.classList.remove('erro-campo');
 D.telefone.classList.remove('erro-campo');
 esconderErro();
 
-// Remove espaços em branco antes de checar se está preenchido
 const valorNome = D.nome.value ? D.nome.value.trim() : '';
 const valorTel = D.telefone.value ? D.telefone.value.trim() : '';
 
@@ -215,7 +214,13 @@ r.recomendacoes.forEach(item=>{const div=document.createElement('div');div.style
 }
 
 // EVENT LISTENERS
-D.btnComecar.addEventListener('click',function(){if(validarEtapa1())proximaEtapa(2);});
+D.btnComecar.addEventListener('click',function(e){
+  e.preventDefault(); // Impede comportamento padrão indesejado
+  if(validarEtapa1()){
+    proximaEtapa(2);
+  }
+});
+
 document.querySelectorAll('.btn-proximo').forEach(btn=>{btn.addEventListener('click',function(){const etapa=parseInt(this.dataset.etapa);const campo=this.dataset.campo;const prox=parseInt(this.dataset.proxima);if(validarCampoRadio(campo,etapa))proximaEtapa(prox);});});
 document.querySelectorAll('.btn-voltar').forEach(btn=>{btn.addEventListener('click',function(){const voltar=parseInt(this.dataset.voltar);proximaEtapa(voltar);});});
 D.btnNovoCheckin.addEventListener('click',resetarFormulario);
