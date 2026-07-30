@@ -204,7 +204,7 @@ document.querySelectorAll('.btn-proximo').forEach(btn=>{btn.addEventListener('cl
 document.querySelectorAll('.btn-voltar').forEach(btn=>{btn.addEventListener('click',function(){const voltar=parseInt(this.dataset.voltar);proximaEtapa(voltar);});});
 D.btnNovoCheckin.addEventListener('click',resetarFormulario);
 
-// ========== SUBMISSÃO DO FORMULÁRIO ==========
+// ========== SUBMISSÃO DO FORMULÁRIO (com google.script.run) ==========
 D.form.addEventListener('submit',function(e){
 e.preventDefault();
 
@@ -221,7 +221,7 @@ if (!todasOk) {
 }
 // --- FIM DA VALIDAÇÃO ---
 
-if (!validarEnvio()) return; // validação específica da etapa 7 (já inclusa)
+if (!validarEnvio()) return;
 
 const botao = D.btnEnviar;
 setLoading(botao, true);
@@ -237,9 +237,7 @@ const dados = {
   consciencia: fd.get('consciencia')
 };
 
-// ========== ESCOLHA AQUI O BACKEND ==========
-// Opção A – Google Apps Script (descomente e comente a opção B)
-/*
+// ========== CHAMADA DIRETA PARA O APPS SCRIPT ==========
 google.script.run
   .withSuccessHandler(function(resultado) {
     setLoading(botao, false);
@@ -251,28 +249,7 @@ google.script.run
     console.error(erro);
   })
   .salvarCheckin(dados);
-*/
-
-// Opção B – Cloudflare API (atualmente ativa)
-fetch('https://api-checkin.nutricionistadaphyni.workers.dev', {
-  method: 'POST',
-  headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
-  body: JSON.stringify({ tipo: 'checkin', dados: dados })
-})
-.then(res => res.text())
-.then(texto => {
-  let ret;
-  try { ret = JSON.parse(texto); } catch(e) { throw new Error('Resposta inválida.'); }
-  if (!ret.sucesso) throw new Error(ret.mensagem || 'Erro ao salvar.');
-  setLoading(botao, false);
-  mostrarResultado(ret.resultado);
-})
-.catch(err => {
-  setLoading(botao, false);
-  mostrarErro('Não foi possível salvar. Tente novamente.');
-  console.error(err);
-});
-// ========== FIM DA ESCOLHA ==========
+// ========== FIM DA CHAMADA ==========
 
 });
 
