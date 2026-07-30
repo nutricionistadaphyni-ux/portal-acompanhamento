@@ -209,7 +209,8 @@ function resetarFormulario(){D.form.reset();document.querySelectorAll('.mensagem
 function setLoading(btn,loading){if(loading){btn.disabled=true;btn.innerHTML='<span class="spinner"></span> Enviando...';state.isLoading=true;}else{btn.disabled=false;btn.innerHTML='Finalizar check-in';state.isLoading=false;}}
 
 function mostrarResultado(r){
-D.resultado.style.display='block';D.formulario.style.display='none';
+D.resultado.style.display='block';
+D.formulario.style.display='none';
 document.getElementById('resultadoNome').textContent='Olá, '+r.nome+'!';
 document.getElementById('resultadoScore').textContent=r.score+'%';
 document.getElementById('resultadoClassificacao').textContent=r.classificacao;
@@ -218,19 +219,64 @@ document.getElementById('resultadoScoreMes').textContent=r.scoreMes+'%';
 document.getElementById('resultadoNivelMes').textContent=r.nivelMes;
 document.getElementById('resultadoProximoCheckin').textContent=r.proximoCheckin || 'Daqui a 7 dias';
 document.getElementById('resultadoConquistas').textContent=r.conquistas;
-document.getElementById('tituloConquistas').textContent=r.score===100?'Sua semana em destaque':'Maior conquista da semana';
 document.getElementById('resultadoFoco').textContent=r.foco;
+
 const cardFoco=document.getElementById('resultadoFoco').closest('.resultado-card');
 const cardPlano=document.getElementById('resultadoRecomendacoes').closest('.resultado-card');
-if(r.score===100){
-cardFoco.style.display='none';cardPlano.style.display='block';
-document.getElementById('resultadoRecomendacoes').innerHTML=`<div style="line-height:1.7;padding:16px;background:#f6f9f6;border-radius:10px;"><div style="font-size:20px;font-weight:700;margin-bottom:12px;color:#2d473d;">🌿 Manter a consistência</div><div style="margin-bottom:14px;color:#2d473d;">Nesta semana, você demonstrou que consegue transformar planejamento em ação. Agora o objetivo não é fazer mais, e sim repetir aquilo que já funcionou.</div><div style="font-weight:700;margin-bottom:6px;color:#2d473d;">Próximo objetivo</div><div style="color:#2d473d;">Manter uma boa semana pode ser tão importante quanto conquistar uma nova. Valorize o que funcionou e continue fortalecendo esses comportamentos.</div></div>`;
-}else{
-cardFoco.style.display='block';cardPlano.style.display='block';
-const container=document.getElementById('resultadoRecomendacoes');container.innerHTML='';
-if(Array.isArray(r.recomendacoes)&&r.recomendacoes.length){
-r.recomendacoes.forEach(item=>{const div=document.createElement('div');div.style.marginBottom='20px';div.style.padding='16px';div.style.background='#f6f9f6';div.style.borderRadius='10px';div.innerHTML=`<div style="font-size:14px;font-weight:700;margin-bottom:6px;color:#2d473d;">🌿 Minha recomendação</div><div style="line-height:1.7;margin-bottom:18px;color:#2d473d;">${item.texto}</div><div style="font-size:14px;font-weight:700;margin-bottom:6px;color:#2d473d;">🎯 Pequena meta</div><div style="line-height:1.7;color:#2d473d;">${item.meta}</div>`;container.appendChild(div);});
-}else{container.textContent='Nenhuma recomendação disponível.';}
+const containerRecomendacoes = document.getElementById('resultadoRecomendacoes');
+
+// CASO 1: Score 100% (Semana Perfeita)
+if(r.score === 100){
+  document.getElementById('tituloConquistas').textContent = 'Sua semana em destaque';
+  cardFoco.style.display='none';
+  cardPlano.style.display='block';
+  containerRecomendacoes.innerHTML = `
+    <div style="line-height:1.7;padding:16px;background:#f6f9f6;border-radius:10px;">
+      <div style="font-size:20px;font-weight:700;margin-bottom:12px;color:#2d473d;">🌿 Manter a consistência</div>
+      <div style="margin-bottom:14px;color:#2d473d;">Nesta semana, você demonstrou que consegue transformar planejamento em ação. Agora o objetivo não é fazer mais, e sim repetir aquilo que já funcionou.</div>
+      <div style="font-weight:700;margin-bottom:6px;color:#2d473d;">Próximo objetivo</div>
+      <div style="color:#2d473d;">Manter uma boa semana pode ser tão importante quanto conquistar uma nova. Valorize o que funcionou e continue fortalecendo esses comportamentos.</div>
+    </div>`;
+
+// CASO 2: Score 0% (Semana Difícil - Mensagem de Acolhimento e Motivação)
+} else if(r.score === 0){
+  document.getElementById('tituloConquistas').textContent = 'Um passo de cada vez';
+  document.getElementById('resultadoConquistas').textContent = 'O maior passo de hoje foi ter preenchido este check-in. Reconhecer onde estamos é o primeiro passo para recomeçar!';
+  cardFoco.style.display='block';
+  cardPlano.style.display='block';
+  
+  containerRecomendacoes.innerHTML = `
+    <div style="line-height:1.7;padding:16px;background:#fdf6f6;border-radius:10px;border-left:4px solid #7a9a7a;">
+      <div style="font-size:18px;font-weight:700;margin-bottom:8px;color:#2d473d;">🌱 Todo dia é uma nova oportunidade</div>
+      <div style="margin-bottom:12px;color:#2d473d;">Semanas difíceis acontecem e fazem parte da jornada. O processo de mudança não é uma linha reta. Não veja isso como uma falha, mas sim como um ponto de recomeço.</div>
+      <div style="font-weight:700;margin-bottom:6px;color:#2d473d;">🎯 Meta para a próxima semana</div>
+      <div style="color:#2d473d;">Escolha <b>apenas uma pequena ação</b> possível para os próximos dias (como tomar mais água ou acertar uma refeição). Não tente consertar tudo de uma vez. Vamos juntas!</div>
+    </div>`;
+
+// CASO 3: Demais notas (Acompanhamento padrão)
+} else {
+  document.getElementById('tituloConquistas').textContent = 'Maior conquista da semana';
+  cardFoco.style.display='block';
+  cardPlano.style.display='block';
+  containerRecomendacoes.innerHTML = '';
+  
+  if(Array.isArray(r.recomendacoes) && r.recomendacoes.length){
+    r.recomendacoes.forEach(item => {
+      const div = document.createElement('div');
+      div.style.marginBottom = '20px';
+      div.style.padding = '16px';
+      div.style.background = '#f6f9f6';
+      div.style.borderRadius = '10px';
+      div.innerHTML = `
+        <div style="font-size:14px;font-weight:700;margin-bottom:6px;color:#2d473d;">🌿 Minha recomendação</div>
+        <div style="line-height:1.7;margin-bottom:18px;color:#2d473d;">${item.texto}</div>
+        <div style="font-size:14px;font-weight:700;margin-bottom:6px;color:#2d473d;">🎯 Pequena meta</div>
+        <div style="line-height:1.7;color:#2d473d;">${item.meta}</div>`;
+      containerRecomendacoes.appendChild(div);
+    });
+  } else {
+    containerRecomendacoes.textContent = 'Nenhuma recomendação disponível.';
+  }
 }
 }
 
