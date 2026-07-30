@@ -23,7 +23,6 @@
 <div class="progresso-barra"><div id="progressoPreencher" class="progresso-preencher"></div></div>
 </div>
 <form id="checkinForm" novalidate>
-
 <div class="etapa ativa" id="etapa1">
   <div class="card"><label class="campo-titulo" for="nome">Nome completo *</label><input type="text" id="nome" name="nome" placeholder="Digite seu nome completo"></div>
   <div class="card">
@@ -33,6 +32,7 @@
   </div>
   <button type="button" id="btnComecar" class="botao botao-continuar">Começar</button>
 </div>
+
 <div class="etapa" id="etapa2">
 <div class="card"><h2>1. Em quantos dias desta semana você conseguiu se alimentar conforme o planejado? *</h2>
 <label class="opcao"><input type="radio" name="plano" value="100"><span>Todos os dias</span></label>
@@ -163,13 +163,26 @@ toast:document.getElementById('toast'),
 formulario:document.getElementById('formulario'),
 resultado:document.getElementById('resultado')
 };
-const state={etapaAtual:1,totalEtapas:7,isLoading:false};
+const state={etapaAtual:1,totalEtapas:7,isLoading:false,verificado:false};
 
 function esconderErro(){D.mensagemErro.style.display='none';D.mensagemErro.textContent='';}
 function mostrarErro(m){D.mensagemErro.textContent=m;D.mensagemErro.style.display='block';window.scrollTo({top:0,behavior:'smooth'});}
 function mostrarToast(m,d=3000){D.toast.textContent=m;D.toast.classList.add('mostrar');clearTimeout(D.toast._timeout);D.toast._timeout=setTimeout(()=>D.toast.classList.remove('mostrar'),d);}
-function atualizarProgresso(e){const p=((e-1)/(state.totalEtapas-1))*100;const a=Math.round(p);D.progressoPreencher.style.width=a+'%';D.progressoPorcentagem.textContent=a+'%';D.progressoTexto.textContent=e===1?'Dados pessoais':`Pergunta ${e-1} de ${state.totalEtapas-1}`;}
-function proximaEtapa(n){document.querySelectorAll('.etapa').forEach(el=>el.classList.remove('ativa'));const prox=document.getElementById('etapa'+n);if(prox){prox.classList.add('ativa');state.etapaAtual=n;atualizarProgresso(n);window.scrollTo({top:0,behavior:'smooth'});}}
+function atualizarProgresso(e){const p=((e-1)/(state.totalEtapas-1))*100;const a=Math.round(p);D.progressoPreencher.style.width=a+'%';D.progressoPorcentagem.textContent=a+'%';D.progressoTexto.textContent=e===1?'Dados pessoais':`Pergunta ${e-1} de ${state.totalEtapas-1}`;;}
+function proximaEtapa(n){
+if (n === 2 && state.etapaAtual === 1 && !state.verificado) {
+  mostrarErro('Por favor, clique em "Começar" para verificar sua elegibilidade.');
+  return;
+}
+document.querySelectorAll('.etapa').forEach(el=>el.classList.remove('ativa'));
+const prox=document.getElementById('etapa'+n);
+if(prox){
+  prox.classList.add('ativa');
+  state.etapaAtual=n;
+  atualizarProgresso(n);
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+}
 function validarCampoRadio(campo, etapaNum){const opts=document.querySelectorAll(`input[name="${campo}"]`);let sel=false;opts.forEach(o=>{if(o.checked)sel=true;});const msg=document.getElementById('validacao'+etapaNum);if(!sel){msg.classList.add('mostrar');msg.scrollIntoView({behavior:'smooth',block:'center'});return false;}msg.classList.remove('mostrar');return true;}
 
 function validarEtapa1(){
@@ -192,7 +205,7 @@ return true;
 }
 
 function validarEnvio(){const opts=document.querySelectorAll('input[name="consciencia"]');let sel=false;opts.forEach(o=>{if(o.checked)sel=true;});const msg=document.getElementById('validacao7');if(!sel){msg.classList.add('mostrar');msg.scrollIntoView({behavior:'smooth',block:'center'});return false;}msg.classList.remove('mostrar');return true;}
-function resetarFormulario(){D.form.reset();document.querySelectorAll('.mensagem-validacao').forEach(el=>el.classList.remove('mostrar'));document.querySelectorAll('.erro-campo').forEach(el=>el.classList.remove('erro-campo'));esconderErro();D.formulario.style.display='block';D.resultado.style.display='none';proximaEtapa(1);mostrarToast('🌿 Formulário resetado!');}
+function resetarFormulario(){D.form.reset();document.querySelectorAll('.mensagem-validacao').forEach(el=>el.classList.remove('mostrar'));document.querySelectorAll('.erro-campo').forEach(el=>el.classList.remove('erro-campo'));esconderErro();state.verificado=false;D.formulario.style.display='block';D.resultado.style.display='none';proximaEtapa(1);mostrarToast('🌿 Formulário resetado!');}
 function setLoading(btn,loading){if(loading){btn.disabled=true;btn.innerHTML='<span class="spinner"></span> Enviando...';state.isLoading=true;}else{btn.disabled=false;btn.innerHTML='Finalizar check-in';state.isLoading=false;}}
 
 function mostrarResultado(r){
@@ -221,7 +234,6 @@ r.recomendacoes.forEach(item=>{const div=document.createElement('div');div.style
 }
 }
 
-// EVENT LISTENER BLINDADO NO BOTÃO COMEÇAR
 D.btnComecar.addEventListener('click', async function(e){
   e.preventDefault();
   
@@ -252,11 +264,13 @@ D.btnComecar.addEventListener('click', async function(e){
     D.btnComecar.textContent = textoOriginal;
 
     if (resultado.permitido === false || resultado.erro === true) {
+      state.verificado = false;
       var mensagemAviso = resultado.mensagem || '⚠️ Você já realizou um check-in nos últimos 7 dias.';
       mostrarErro(mensagemAviso);
       return;
     }
 
+    state.verificado = true;
     esconderErro();
     proximaEtapa(2);
 
