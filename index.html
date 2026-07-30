@@ -33,7 +33,6 @@
   </div>
   <button type="button" id="btnComecar" class="botao botao-continuar">Começar</button>
 </div>
-
 <div class="etapa" id="etapa2">
 <div class="card"><h2>1. Em quantos dias desta semana você conseguiu se alimentar conforme o planejado? *</h2>
 <label class="opcao"><input type="radio" name="plano" value="100"><span>Todos os dias</span></label>
@@ -75,7 +74,9 @@
 <button type="button" class="botao botao-continuar btn-proximo" data-etapa="4" data-campo="exercicio" data-proxima="5">Próxima</button>
 <button type="button" class="botao botao-voltar btn-voltar" data-voltar="3">Voltar</button>
 </div>
-</div><div class="etapa" id="etapa5">
+</div>
+
+<div class="etapa" id="etapa5">
 <div class="card"><h2>4. Como foi a qualidade do seu sono nesta semana? *</h2>
 <label class="opcao"><input type="radio" name="sono" value="100"><span>Boa na maior parte dessa semana</span></label>
 <label class="opcao"><input type="radio" name="sono" value="60"><span>Boa em apenas alguns dias</span></label>
@@ -132,7 +133,6 @@
 <div id="resultadoScoreMes" style="font-size:24px;font-weight:700;color:#7a9a7a;"></div>
 <div id="resultadoNivelMes" style="margin-top:8px;font-size:16px;font-weight:700;color:#5a7a5a;"></div>
 </div>
-<!-- ADICIONADO: Bloco para exibir a data do próximo check-in -->
 <div style="margin-top:16px;padding-top:14px;border-top:1px solid #e5e5e5;">
 <div style="font-size:14px;color:#4a4a4a;margin-bottom:4px;">📅 Próximo check-in recomendado</div>
 <div id="resultadoProximoCheckin" style="font-size:18px;font-weight:700;color:#2d473d;"></div>
@@ -203,7 +203,6 @@ document.getElementById('resultadoClassificacao').textContent=r.classificacao;
 document.getElementById('resultadoEvolucao').textContent=r.evolucao;
 document.getElementById('resultadoScoreMes').textContent=r.scoreMes+'%';
 document.getElementById('resultadoNivelMes').textContent=r.nivelMes;
-// ADICIONADO: Preenche a data do próximo check-in enviada pelo Apps Script
 document.getElementById('resultadoProximoCheckin').textContent=r.proximoCheckin || 'Daqui a 7 dias';
 document.getElementById('resultadoConquistas').textContent=r.conquistas;
 document.getElementById('tituloConquistas').textContent=r.score===100?'Sua semana em destaque':'Maior conquista da semana';
@@ -222,11 +221,50 @@ r.recomendacoes.forEach(item=>{const div=document.createElement('div');div.style
 }
 }
 
-// EVENT LISTENERS
-D.btnComecar.addEventListener('click',function(e){
+// EVENT LISTENERS CORRIGIDOS PARA VERIFICAÇÃO PRÉVIA
+D.btnComecar.addEventListener('click', async function(e){
   e.preventDefault();
-  if(validarEtapa1()){
+  
+  if(!validarEtapa1()){
+    return;
+  }
+
+  const telefone = D.telefone.value.trim();
+  const textoOriginal = D.btnComecar.textContent;
+  D.btnComecar.disabled = true;
+  D.btnComecar.innerHTML = '<span class="spinner"></span> Verificando...';
+
+  try {
+    var resposta = await fetch('https://api-checkin.nutricionistadaphyni.workers.dev', {
+      method: 'POST',
+      headers: { 
+        'Content-Type': 'text/plain;charset=UTF-8' 
+      },
+      body: JSON.stringify({
+        tipo: 'verificar',
+        telefone: telefone
+      })
+    });
+    
+    var resultado = await resposta.json();
+
+    D.btnComecar.disabled = false;
+    D.btnComecar.textContent = textoOriginal;
+
+    if (resultado.permitido === false || resultado.erro === true) {
+      var mensagemAviso = resultado.mensagem || '⚠️ Você já realizou um check-in nos últimos 7 dias.';
+      mostrarErro(mensagemAviso);
+      return;
+    }
+
+    esconderErro();
     proximaEtapa(2);
+
+  } catch (erro) {
+    D.btnComecar.disabled = false;
+    D.btnComecar.textContent = textoOriginal;
+    console.error('Erro ao verificar:', erro);
+    mostrarErro('Erro ao conectar com o servidor para verificar o prazo.');
   }
 });
 
