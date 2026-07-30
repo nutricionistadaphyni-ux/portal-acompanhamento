@@ -5,9 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Acompanhamento Semanal</title>
 <style>
-*{box-sizing:border-box}body{margin:0;padding:24px 16px;background:#f5f5f3;color:#222;font-family:Arial,sans-serif}.container{width:100%;max-width:680px;margin:0 auto}.cabecalho{background:#fff;padding:42px 38px;border-radius:24px;margin-bottom:24px;box-shadow:0 14px 40px rgba(0,0,0,.08);text-align:center}.logo{display:block;width:220px;max-width:80%;height:auto;margin:0 auto 20px}.crn{margin:10px 0 18px;font-size:14px;font-weight:600;letter-spacing:1px;color:#7a9a7a;text-transform:uppercase}.cabecalho h1{margin:0 0 16px;font-size:42px;font-weight:700;color:#1f1f1f}.cabecalho p{max-width:650px;margin:0 auto;color:#4a4a4a;font-size:20px;line-height:1.7}.progresso-container{background:#fff;padding:20px 24px;border-radius:18px;margin-bottom:16px;box-shadow:0 8px 25px rgba(0,0,0,.05)}.progresso-info{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-size:14px;color:#5a7a5a;font-weight:600}.progresso-barra{width:100%;height:8px;background:#edf2ed;border-radius:10px;overflow:hidden}.progresso-preencher{height:100%;background:#7a9a7a;border-radius:10px;transition:width .5s ease;width:0%}.card{background:#fff;padding:24px;border-radius:18px;margin-bottom:16px;box-shadow:0 8px 25px rgba(0,0,0,.05)}.etapa{display:none;max-width:680px;margin:0 auto}.etapa.ativa{display:block!important}.card h2{margin:0 0 18px;font-size:18px;line-height:1.4;color:#2d473d}label.campo-titulo{display:block;margin-bottom:8px;font-weight:700;color:#2d473d}input[type=text],input[type=email]{width:100%;padding:14px;border:2px solid #d9d9d9;border-radius:10px;font-size:16px;outline:0;transition:border-color .3s ease}input:focus{border-color:#7a9a7a}.opcao{display:flex;align-items:flex-start;gap:10px;padding:10px 0;cursor:pointer;line-height:1.4;color:#2d473d;transition:all .2s ease}.opcao:hover{background:#f6f9f6;padding-left:10px;border-radius:8px}.opcao input{margin-top:3px;transform:scale(1.15);accent-color:#7a9a7a;cursor:pointer}.botoes-container{display:flex;flex-direction:column;gap:10px;margin-top:4px}.botao{width:100%;padding:16px;border:none;border-radius:12px;font-size:17px;font-weight:700;cursor:pointer;transition:all .3s ease;display:flex;align-items:center;justify-content:center;gap:10px}.botao:hover:not(:disabled){opacity:.92;transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.1)}.botao:disabled{opacity:.6;cursor:not-allowed;transform:none!important}.botao-continuar{background:#7a9a7a;color:#fff}.botao-continuar:hover:not(:disabled){background:#6a8a6a;box-shadow:0 6px 20px rgba(122,154,122,.3)}.botao-voltar{background:#edf2ed;color:#5a7a5a}.botao-voltar:hover:not(:disabled){background:#e0e8e0}.botao-enviar{background:#7a9a7a;color:#fff}.botao-enviar:hover:not(:disabled){background:#6a8a6a;box-shadow:0 6px 20px rgba(122,154,122,.3)}.spinner{display:inline-block;width:20px;height:20px;border:3px solid rgba(255,255,255,.3);border-radius:50%;border-top-color:#fff;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}.mensagem-erro{display:none;margin-bottom:16px;padding:14px;border-radius:10px;background:#fdf0f0;color:#a23a3a;line-height:1.4;border-left:4px solid #d45a5a}.mensagem-validacao{display:none;margin-top:12px;padding:12px 16px;border-radius:10px;background:#f6faf6;color:#5a7a5a;font-size:14px;text-align:center;border:1px solid #d0e0d0}.mensagem-validacao.mostrar{display:block;animation:fadeIn .3s ease}@keyframes fadeIn{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}.erro-campo{border-color:#d45a5a!important;background-color:#fdf8f8}#resultado{display:none;margin-top:60px}.resultado-topo{text-align:center;background:#fff;padding:40px 30px;border-radius:24px;margin-bottom:24px;box-shadow:0 14px 40px rgba(0,0,0,.08)}.resultado-topo h1{margin:0 0 8px;font-size:26px;color:#2d473d}.resultado-topo p{margin:0;color:#4a4a4a}.score{margin:20px 0 8px;font-size:64px;font-weight:700;color:#7a9a7a}.classificacao{font-size:18px;font-weight:700;color:#5a7a5a}.resultado-card{background:#fff;padding:22px;border-radius:18px;margin-bottom:16px;box-shadow:0 8px 25px rgba(0,0,0,.05)}.resultado-card h2{margin:0 0 12px;font-size:18px;color:#2d473d}.resultado-conteudo{padding:14px;background:#f6f9f6;border-radius:10px;line-height:1.7;white-space:pre-line;color:#2d473d}.novo-checkin{margin-top:4px;background:#fff;color:#7a9a7a;border:2px solid #7a9a7a}.novo-checkin:hover:not(:disabled){background:#f6f9f6;border-color:#6a8a6a;color:#6a8a6a;box-shadow:0 6px 20px rgba(122,154,122,.15)}.evolucao{margin-top:8px;font-size:16px;color:#5a7a5a}.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#2d473d;color:#fff;padding:16px 32px;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,.2);font-weight:600;opacity:0;transition:opacity .3s ease,transform .3s ease;transform:translateX(-50%) translateY(20px);pointer-events:none;z-index:1000}.toast.mostrar{opacity:1;transform:translateX(-50%) translateY(0)}@media(max-width:520px){body{padding:14px 10px}.cabecalho,.card{padding:20px}.cabecalho h1{font-size:24px}.score{font-size:54px}.toast{width:90%;padding:14px 20px;font-size:14px}}
+/* (mantenha todo o CSS que você já tem – não alterei) */
+*{box-sizing:border-box}body{margin:0;padding:24px 16px;background:#f5f5f3;color:#222;font-family:Arial,sans-serif}.container{width:100%;max-width:680px;margin:0 auto}.cabecalho{background:#fff;padding:42px 38px;border-radius:24px;margin-bottom:24px;box-shadow:0 14px 40px rgba(0,0,0,.08);text-align:center}.logo{display:block;width:220px;max-width:80%;height:auto;margin:0 auto 20px}.crn{margin:10px 0 18px;font-size:14px;font-weight:600;letter-spacing:1px;color:#7a9a7a;text-transform:uppercase}.cabecalho h1{margin:0 0 16px;font-size:42px;font-weight:700;color:#1f1f1f}.cabecalho p{max-width:650px;margin:0 auto;color:#4a4a4a;font-size:20px;line-height:1.7}.progresso-container{background:#fff;padding:20px 24px;border-radius:18px;margin-bottom:16px;box-shadow:0 8px 25px rgba(0,0,0,.05)}.progresso-info{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-size:14px;color:#5a7a5a;font-weight:600}.progresso-barra{width:100%;height:8px;background:#edf2ed;border-radius:10px;overflow:hidden}.progresso-preencher{height:100%;background:#7a9a7a;border-radius:10px;transition:width .5s ease;width:0%}.card{background:#fff;padding:24px;border-radius:18px;margin-bottom:16px;box-shadow:0 8px 25px rgba(0,0,0,.05)}.etapa{display:none;max-width:680px;margin:0 auto}.etapa.ativa{display:block!important}.card h2{margin:0 0 18px;font-size:18px;line-height:1.4;color:#2d473d}label.campo-titulo{display:block;margin-bottom:8px;font-weight:700;color:#2d473d}input[type=text],input[type=email],input[type=tel]{width:100%;padding:14px;border:2px solid #d9d9d9;border-radius:10px;font-size:16px;outline:0;transition:border-color .3s ease}input:focus{border-color:#7a9a7a}.opcao{display:flex;align-items:flex-start;gap:10px;padding:10px 0;cursor:pointer;line-height:1.4;color:#2d473d;transition:all .2s ease}.opcao:hover{background:#f6f9f6;padding-left:10px;border-radius:8px}.opcao input{margin-top:3px;transform:scale(1.15);accent-color:#7a9a7a;cursor:pointer}.botoes-container{display:flex;flex-direction:column;gap:10px;margin-top:4px}.botao{width:100%;padding:16px;border:none;border-radius:12px;font-size:17px;font-weight:700;cursor:pointer;transition:all .3s ease;display:flex;align-items:center;justify-content:center;gap:10px}.botao:hover:not(:disabled){opacity:.92;transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.1)}.botao:disabled{opacity:.6;cursor:not-allowed;transform:none!important}.botao-continuar{background:#7a9a7a;color:#fff}.botao-continuar:hover:not(:disabled){background:#6a8a6a;box-shadow:0 6px 20px rgba(122,154,122,.3)}.botao-voltar{background:#edf2ed;color:#5a7a5a}.botao-voltar:hover:not(:disabled){background:#e0e8e0}.botao-enviar{background:#7a9a7a;color:#fff}.botao-enviar:hover:not(:disabled){background:#6a8a6a;box-shadow:0 6px 20px rgba(122,154,122,.3)}.spinner{display:inline-block;width:20px;height:20px;border:3px solid rgba(255,255,255,.3);border-radius:50%;border-top-color:#fff;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}.mensagem-erro{display:none;margin-bottom:16px;padding:14px;border-radius:10px;background:#fdf0f0;color:#a23a3a;line-height:1.4;border-left:4px solid #d45a5a}.mensagem-validacao{display:none;margin-top:12px;padding:12px 16px;border-radius:10px;background:#f6faf6;color:#5a7a5a;font-size:14px;text-align:center;border:1px solid #d0e0d0}.mensagem-validacao.mostrar{display:block;animation:fadeIn .3s ease}@keyframes fadeIn{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}.erro-campo{border-color:#d45a5a!important;background-color:#fdf8f8}#resultado{display:none;margin-top:60px}.resultado-topo{text-align:center;background:#fff;padding:40px 30px;border-radius:24px;margin-bottom:24px;box-shadow:0 14px 40px rgba(0,0,0,.08)}.resultado-topo h1{margin:0 0 8px;font-size:26px;color:#2d473d}.resultado-topo p{margin:0;color:#4a4a4a}.score{margin:20px 0 8px;font-size:64px;font-weight:700;color:#7a9a7a}.classificacao{font-size:18px;font-weight:700;color:#5a7a5a}.resultado-card{background:#fff;padding:22px;border-radius:18px;margin-bottom:16px;box-shadow:0 8px 25px rgba(0,0,0,.05)}.resultado-card h2{margin:0 0 12px;font-size:18px;color:#2d473d}.resultado-conteudo{padding:14px;background:#f6f9f6;border-radius:10px;line-height:1.7;white-space:pre-line;color:#2d473d}.novo-checkin{margin-top:4px;background:#fff;color:#7a9a7a;border:2px solid #7a9a7a}.novo-checkin:hover:not(:disabled){background:#f6f9f6;border-color:#6a8a6a;color:#6a8a6a;box-shadow:0 6px 20px rgba(122,154,122,.15)}.evolucao{margin-top:8px;font-size:16px;color:#5a7a5a}.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#2d473d;color:#fff;padding:16px 32px;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,.2);font-weight:600;opacity:0;transition:opacity .3s ease,transform .3s ease;transform:translateX(-50%) translateY(20px);pointer-events:none;z-index:1000}.toast.mostrar{opacity:1;transform:translateX(-50%) translateY(0)}@media(max-width:520px){body{padding:14px 10px}.cabecalho,.card{padding:20px}.cabecalho h1{font-size:24px}.score{font-size:54px}.toast{width:90%;padding:14px 20px;font-size:14px}}
 </style>
-</head><body>
+</head>
+<body>
 <div class="container">
 <div id="formulario">
 <div class="cabecalho">
@@ -26,7 +28,7 @@
 <!-- ETAPA 1 -->
 <div class="etapa ativa" id="etapa1">
 <div class="card"><label class="campo-titulo" for="nome">Nome completo *</label><input type="text" id="nome" name="nome" required placeholder="Digite seu nome completo"></div>
-<div class="card"><label class="campo-titulo" for="email">E-mail *</label><input type="email" id="email" name="email" required placeholder="Digite seu e-mail"></div>
+<div class="card"><label class="campo-titulo" for="telefone">Telefone (WhatsApp) *</label><input type="tel" id="telefone" name="telefone" required placeholder="(11) 99999-9999"></div>
 <button type="button" id="btnComecar" class="botao botao-continuar">Começar</button>
 </div>
 
@@ -144,337 +146,232 @@
 </div>
 </div>
 <div id="toast" class="toast"></div>
+
 <script>
 (function(){
 'use strict';
-const D={
-form:document.getElementById('checkinForm'),
-nome:document.getElementById('nome'),
-email:document.getElementById('email'),
-btnComecar:document.getElementById('btnComecar'),
-btnEnviar:document.getElementById('botaoEnviar'),
-btnNovoCheckin:document.getElementById('btnNovoCheckin'),
-mensagemErro:document.getElementById('mensagemErro'),
-progressoTexto:document.getElementById('progressoTexto'),
-progressoPorcentagem:document.getElementById('progressoPorcentagem'),
-progressoPreencher:document.getElementById('progressoPreencher'),
-toast:document.getElementById('toast'),
-formulario:document.getElementById('formulario'),
-resultado:document.getElementById('resultado')
-};
-const state={etapaAtual:1,totalEtapas:7,isLoading:false};
 
-function esconderErro(){D.mensagemErro.style.display='none';D.mensagemErro.textContent='';}
-function mostrarErro(m){D.mensagemErro.textContent=m;D.mensagemErro.style.display='block';window.scrollTo({top:0,behavior:'smooth'});}
-function mostrarToast(m,d=3000){D.toast.textContent=m;D.toast.classList.add('mostrar');clearTimeout(D.toast._timeout);D.toast._timeout=setTimeout(()=>D.toast.classList.remove('mostrar'),d);}
-function atualizarProgresso(e){const p=((e-1)/(state.totalEtapas-1))*100;const a=Math.round(p);D.progressoPreencher.style.width=a+'%';D.progressoPorcentagem.textContent=a+'%';D.progressoTexto.textContent=e===1?'Dados pessoais':`Pergunta ${e-1} de ${state.totalEtapas-1}`;}
-function proximaEtapa(n){document.querySelectorAll('.etapa').forEach(el=>el.classList.remove('ativa'));const prox=document.getElementById('etapa'+n);if(prox){prox.classList.add('ativa');state.etapaAtual=n;atualizarProgresso(n);window.scrollTo({top:0,behavior:'smooth'});}}
-function validarCampoRadio(campo, etapaNum){const opts=document.querySelectorAll(`input[name="${campo}"]`);let sel=false;opts.forEach(o=>{if(o.checked)sel=true;});const msg=document.getElementById('validacao'+etapaNum);if(!sel){msg.classList.add('mostrar');msg.scrollIntoView({behavior:'smooth',block:'center'});return false;}msg.classList.remove('mostrar');return true;}
-function validarEtapa1(){let valido=true;D.nome.classList.remove('erro-campo');D.email.classList.remove('erro-campo');esconderErro();if(!D.nome.value.trim()){D.nome.classList.add('erro-campo');valido=false;}if(!D.email.value.trim()||!D.email.value.includes('@')){D.email.classList.add('erro-campo');valido=false;}if(!valido){mostrarErro('Preencha nome e e-mail corretamente.');return false;}return true;}
-function validarEnvio(){const opts=document.querySelectorAll('input[name="consciencia"]');let sel=false;opts.forEach(o=>{if(o.checked)sel=true;});const msg=document.getElementById('validacao7');if(!sel){msg.classList.add('mostrar');msg.scrollIntoView({behavior:'smooth',block:'center'});return false;}msg.classList.remove('mostrar');return true;}
-function resetarFormulario(){D.form.reset();document.querySelectorAll('.mensagem-validacao').forEach(el=>el.classList.remove('mostrar'));document.querySelectorAll('.erro-campo').forEach(el=>el.classList.remove('erro-campo'));esconderErro();D.formulario.style.display='block';D.resultado.style.display='none';proximaEtapa(1);mostrarToast('🌿 Formulário resetado!');}
-function setLoading(btn,loading){if(loading){btn.disabled=true;btn.innerHTML='<span class="spinner"></span> Enviando...';state.isLoading=true;}else{btn.disabled=false;btn.innerHTML='Finalizar check-in';state.isLoading=false;}}
-function mostrarResultado(r){
-D.resultado.style.display='block';D.formulario.style.display='none';
-document.getElementById('resultadoNome').textContent='Olá, '+r.nome+'!';
-document.getElementById('resultadoScore').textContent=r.score+'%';
-document.getElementById('resultadoClassificacao').textContent=r.classificacao;
-document.getElementById('resultadoEvolucao').textContent=r.evolucao;
-document.getElementById('resultadoScoreMes').textContent=r.scoreMes+'%';
-document.getElementById('resultadoNivelMes').textContent=r.nivelMes;
-document.getElementById('resultadoConquistas').textContent=r.conquistas;
-document.getElementById('tituloConquistas').textContent=r.score===100?'Sua semana em destaque':'Maior conquista da semana';
-document.getElementById('resultadoFoco').textContent=r.foco;
-const cardFoco=document.getElementById('resultadoFoco').closest('.resultado-card');
-const cardPlano=document.getElementById('resultadoRecomendacoes').closest('.resultado-card');
-if(r.score===100){
-cardFoco.style.display='none';cardPlano.style.display='block';
-document.getElementById('resultadoRecomendacoes').innerHTML=`<div style="line-height:1.7;padding:16px;background:#f6f9f6;border-radius:10px;"><div style="font-size:20px;font-weight:700;margin-bottom:12px;color:#2d473d;">🌿 Manter a consistência</div><div style="margin-bottom:14px;color:#2d473d;">Nesta semana, você demonstrou que consegue transformar planejamento em ação. Agora o objetivo não é fazer mais, e sim repetir aquilo que já funcionou.</div><div style="font-weight:700;margin-bottom:6px;color:#2d473d;">Próximo objetivo</div><div style="color:#2d473d;">Manter uma boa semana pode ser tão importante quanto conquistar uma nova. Valorize o que funcionou e continue fortalecendo esses comportamentos.</div></div>`;
-}else{
-cardFoco.style.display='block';cardPlano.style.display='block';
-const container=document.getElementById('resultadoRecomendacoes');container.innerHTML='';
-if(Array.isArray(r.recomendacoes)&&r.recomendacoes.length){
-r.recomendacoes.forEach(item=>{const div=document.createElement('div');div.style.marginBottom='20px';div.style.padding='16px';div.style.background='#f6f9f6';div.style.borderRadius='10px';div.innerHTML=`<div style="font-size:14px;font-weight:700;margin-bottom:6px;color:#2d473d;">🌿 Minha recomendação</div><div style="line-height:1.7;margin-bottom:18px;color:#2d473d;">${item.texto}</div><div style="font-size:14px;font-weight:700;margin-bottom:6px;color:#2d473d;">🎯 Pequena meta</div><div style="line-height:1.7;color:#2d473d;">${item.meta}</div>`;container.appendChild(div);});
-}else{container.textContent='Nenhuma recomendação disponível.';}
+const D = {
+  form: document.getElementById('checkinForm'),
+  nome: document.getElementById('nome'),
+  telefone: document.getElementById('telefone'),
+  btnComecar: document.getElementById('btnComecar'),
+  btnEnviar: document.getElementById('botaoEnviar'),
+  btnNovoCheckin: document.getElementById('btnNovoCheckin'),
+  mensagemErro: document.getElementById('mensagemErro'),
+  progressoTexto: document.getElementById('progressoTexto'),
+  progressoPorcentagem: document.getElementById('progressoPorcentagem'),
+  progressoPreencher: document.getElementById('progressoPreencher'),
+  toast: document.getElementById('toast'),
+  formulario: document.getElementById('formulario'),
+  resultado: document.getElementById('resultado')
+};
+
+const state = { etapaAtual: 1, totalEtapas: 7, isLoading: false };
+
+function esconderErro() { D.mensagemErro.style.display = 'none'; D.mensagemErro.textContent = ''; }
+function mostrarErro(m) { D.mensagemErro.textContent = m; D.mensagemErro.style.display = 'block'; window.scrollTo({top:0,behavior:'smooth'}); }
+function mostrarToast(m, d = 3000) { D.toast.textContent = m; D.toast.classList.add('mostrar'); clearTimeout(D.toast._timeout); D.toast._timeout = setTimeout(() => D.toast.classList.remove('mostrar'), d); }
+
+function atualizarProgresso(e) {
+  const p = ((e - 1) / (state.totalEtapas - 1)) * 100;
+  const a = Math.round(p);
+  D.progressoPreencher.style.width = a + '%';
+  D.progressoPorcentagem.textContent = a + '%';
+  D.progressoTexto.textContent = e === 1 ? 'Dados pessoais' : 'Pergunta ' + (e - 1) + ' de ' + (state.totalEtapas - 1);
 }
+
+function proximaEtapa(n) {
+  document.querySelectorAll('.etapa').forEach(el => el.classList.remove('ativa'));
+  const prox = document.getElementById('etapa' + n);
+  if (prox) { prox.classList.add('ativa'); state.etapaAtual = n; atualizarProgresso(n); window.scrollTo({top:0,behavior:'smooth'}); }
+}
+
+function validarCampoRadio(campo, etapaNum) {
+  const opts = document.querySelectorAll('input[name="' + campo + '"]');
+  let sel = false;
+  opts.forEach(o => { if (o.checked) sel = true; });
+  const msg = document.getElementById('validacao' + etapaNum);
+  if (!sel) { msg.classList.add('mostrar'); msg.scrollIntoView({behavior:'smooth',block:'center'}); return false; }
+  msg.classList.remove('mostrar');
+  return true;
+}
+
+function validarEtapa1() {
+  let valido = true;
+  D.nome.classList.remove('erro-campo');
+  D.telefone.classList.remove('erro-campo');
+  esconderErro();
+  if (!D.nome.value.trim()) { D.nome.classList.add('erro-campo'); valido = false; }
+  if (!D.telefone.value.trim()) { D.telefone.classList.add('erro-campo'); valido = false; }
+  if (!valido) { mostrarErro('Preencha nome e telefone corretamente.'); return false; }
+  return true;
+}
+
+function validarEnvio() {
+  const opts = document.querySelectorAll('input[name="consciencia"]');
+  let sel = false;
+  opts.forEach(o => { if (o.checked) sel = true; });
+  const msg = document.getElementById('validacao7');
+  if (!sel) { msg.classList.add('mostrar'); msg.scrollIntoView({behavior:'smooth',block:'center'}); return false; }
+  msg.classList.remove('mostrar');
+  return true;
+}
+
+function resetarFormulario() {
+  D.form.reset();
+  document.querySelectorAll('.mensagem-validacao').forEach(el => el.classList.remove('mostrar'));
+  document.querySelectorAll('.erro-campo').forEach(el => el.classList.remove('erro-campo'));
+  esconderErro();
+  D.formulario.style.display = 'block';
+  D.resultado.style.display = 'none';
+  proximaEtapa(1);
+  mostrarToast('🌿 Formulário resetado!');
+}
+
+function setLoading(btn, loading) {
+  if (loading) {
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span> Enviando...';
+    state.isLoading = true;
+  } else {
+    btn.disabled = false;
+    btn.innerHTML = 'Finalizar check-in';
+    state.isLoading = false;
+  }
+}
+
+function mostrarResultado(r) {
+  D.resultado.style.display = 'block';
+  D.formulario.style.display = 'none';
+  document.getElementById('resultadoNome').textContent = 'Olá, ' + r.nome + '!';
+  document.getElementById('resultadoScore').textContent = r.score + '%';
+  document.getElementById('resultadoClassificacao').textContent = r.classificacao;
+  document.getElementById('resultadoEvolucao').textContent = r.evolucao;
+  document.getElementById('resultadoScoreMes').textContent = r.scoreMes + '%';
+  document.getElementById('resultadoNivelMes').textContent = r.nivelMes;
+  document.getElementById('resultadoConquistas').textContent = r.conquistas;
+  document.getElementById('tituloConquistas').textContent = r.score === 100 ? 'Sua semana em destaque' : 'Maior conquista da semana';
+  document.getElementById('resultadoFoco').textContent = r.foco;
+
+  const cardFoco = document.getElementById('resultadoFoco').closest('.resultado-card');
+  const cardPlano = document.getElementById('resultadoRecomendacoes').closest('.resultado-card');
+
+  if (r.score === 100) {
+    cardFoco.style.display = 'none';
+    cardPlano.style.display = 'block';
+    document.getElementById('resultadoRecomendacoes').innerHTML = `
+      <div style="line-height:1.7;padding:16px;background:#f6f9f6;border-radius:10px;">
+        <div style="font-size:20px;font-weight:700;margin-bottom:12px;color:#2d473d;">🌿 Manter a consistência</div>
+        <div style="margin-bottom:14px;color:#2d473d;">Nesta semana, você demonstrou que consegue transformar planejamento em ação. Agora o objetivo não é fazer mais, e sim repetir aquilo que já funcionou.</div>
+        <div style="font-weight:700;margin-bottom:6px;color:#2d473d;">Próximo objetivo</div>
+        <div style="color:#2d473d;">Manter uma boa semana pode ser tão importante quanto conquistar uma nova. Valorize o que funcionou e continue fortalecendo esses comportamentos.</div>
+      </div>
+    `;
+  } else {
+    cardFoco.style.display = 'block';
+    cardPlano.style.display = 'block';
+    const container = document.getElementById('resultadoRecomendacoes');
+    container.innerHTML = '';
+    if (Array.isArray(r.recomendacoes) && r.recomendacoes.length) {
+      r.recomendacoes.forEach(item => {
+        const div = document.createElement('div');
+        div.style.marginBottom = '20px';
+        div.style.padding = '16px';
+        div.style.background = '#f6f9f6';
+        div.style.borderRadius = '10px';
+        div.innerHTML = `
+          <div style="font-size:14px;font-weight:700;margin-bottom:6px;color:#2d473d;">🌿 Minha recomendação</div>
+          <div style="line-height:1.7;margin-bottom:18px;color:#2d473d;">${item.texto}</div>
+          <div style="font-size:14px;font-weight:700;margin-bottom:6px;color:#2d473d;">🎯 Pequena meta</div>
+          <div style="line-height:1.7;color:#2d473d;">${item.meta}</div>
+        `;
+        container.appendChild(div);
+      });
+    } else {
+      container.textContent = 'Nenhuma recomendação disponível.';
+    }
+  }
 }
 
 // ========== EVENT LISTENERS ==========
-D.btnComecar.addEventListener('click',function(){if(validarEtapa1())proximaEtapa(2);});
-document.querySelectorAll('.btn-proximo').forEach(btn=>{btn.addEventListener('click',function(){const etapa=parseInt(this.dataset.etapa);const campo=this.dataset.campo;const prox=parseInt(this.dataset.proxima);if(validarCampoRadio(campo,etapa))proximaEtapa(prox);});});
-document.querySelectorAll('.btn-voltar').forEach(btn=>{btn.addEventListener('click',function(){const voltar=parseInt(this.dataset.voltar);proximaEtapa(voltar);});});
-D.btnNovoCheckin.addEventListener('click',resetarFormulario);
-
-// ========== SUBMISSÃO DO FORMULÁRIO (google.script.run ATIVO) ==========
-D.form.addEventListener('submit',function(e){
-e.preventDefault();
-
-// --- VALIDAÇÃO GLOBAL (todas as perguntas respondidas) ---
-const perguntas = ['plano','proteina','exercicio','sono','perdaControle','consciencia'];
-let todasOk = true;
-for (let i=0; i<perguntas.length; i++) {
-  const sel = document.querySelector('input[name="'+perguntas[i]+'"]:checked');
-  if (!sel) { todasOk = false; break; }
-}
-if (!todasOk) {
-  mostrarErro('Por favor, responda todas as perguntas antes de finalizar.');
-  return;
-}
-// --- FIM DA VALIDAÇÃO ---
-
-if (!validarEnvio()) return;
-
-const botao = D.btnEnviar;
-setLoading(botao, true);
-const fd = new FormData(D.form);
-const dados = {
-  nome: fd.get('nome'),
-  email: fd.get('email'),
-  plano: fd.get('plano'),
-  proteina: fd.get('proteina'),
-  exercicio: fd.get('exercicio'),
-  sono: fd.get('sono'),
-  perdaControle: fd.get('perdaControle'),
-  consciencia: fd.get('consciencia')
-};
-
-// ========== CHAMADA DIRETA PARA O APPS SCRIPT (ATIVA) ==========
-google.script.run
-  .withSuccessHandler(function(resultado) {
-    console.log('✅ Sucesso! Resultado recebido:', resultado);
-    setLoading(botao, false);
-    if (resultado && resultado.erro) {
-      // Se veio um erro do backend
-      mostrarErro('Erro no servidor: ' + resultado.mensagem);
-      return;
-    }
-    mostrarResultado(resultado);
-  })
-  .withFailureHandler(function(erro) {
-    console.error('❌ Falha! Erro:', erro);
-    setLoading(botao, false);
-    mostrarErro('Erro: ' + (erro.message || erro.toString()));
-  })
-  .salvarCheckin(dados);
-// ========== FIM DA CHAMADA ==========
-
-// ========== (OPÇÃO B – CLOUDFLARE – COMENTADA) ==========
-/*
-fetch('https://api-checkin.nutricionistadaphyni.workers.dev', {
-  method: 'POST',
-  headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
-  body: JSON.stringify({ tipo: 'checkin', dados: dados })
-})
-.then(res => res.text())
-.then(texto => {
-  let ret;
-  try { ret = JSON.parse(texto); } catch(e) { throw new Error('Resposta inválida.'); }
-  if (!ret.sucesso) throw new Error(ret.mensagem || 'Erro ao salvar.');
-  setLoading(botao, false);
-  mostrarResultado(ret.resultado);
-})
-.catch(err => {
-  setLoading(botao, false);
-  mostrarErro('Não foi possível salvar. Tente novamente.');
-  console.error(err);
+D.btnComecar.addEventListener('click', function() { if (validarEtapa1()) proximaEtapa(2); });
+document.querySelectorAll('.btn-proximo').forEach(btn => {
+  btn.addEventListener('click', function() {
+    const etapa = parseInt(this.dataset.etapa);
+    const campo = this.dataset.campo;
+    const prox = parseInt(this.dataset.proxima);
+    if (validarCampoRadio(campo, etapa)) proximaEtapa(prox);
+  });
 });
-*/
-// ========== FIM DA OPÇÃO B ==========
+document.querySelectorAll('.btn-voltar').forEach(btn => {
+  btn.addEventListener('click', function() {
+    const voltar = parseInt(this.dataset.voltar);
+    proximaEtapa(voltar);
+  });
+});
+D.btnNovoCheckin.addEventListener('click', resetarFormulario);
 
+// ========== SUBMISSÃO COM FETCH (para GitHub) ==========
+D.form.addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  // Validação global
+  const perguntas = ['plano', 'proteina', 'exercicio', 'sono', 'perdaControle', 'consciencia'];
+  let todasOk = true;
+  for (let i = 0; i < perguntas.length; i++) {
+    const sel = document.querySelector('input[name="' + perguntas[i] + '"]:checked');
+    if (!sel) { todasOk = false; break; }
+  }
+  if (!todasOk) {
+    mostrarErro('Por favor, responda todas as perguntas antes de finalizar.');
+    return;
+  }
+  if (!validarEnvio()) return;
+
+  const botao = D.btnEnviar;
+  setLoading(botao, true);
+
+  const fd = new FormData(D.form);
+  const dados = {
+    nome: fd.get('nome'),
+    telefone: fd.get('telefone'),
+    plano: fd.get('plano'),
+    proteina: fd.get('proteina'),
+    exercicio: fd.get('exercicio'),
+    sono: fd.get('sono'),
+    perdaControle: fd.get('perdaControle'),
+    consciencia: fd.get('consciencia')
+  };
+
+  // ========== CHAMADA VIA FETCH (para a URL do Apps Script) ==========
+  // Substitua SUA_URL_AQUI pela URL de implantação do seu Apps Script
+  var urlAppsScript = 'https://script.google.com/macros/s/SEU_ID_AQUI/exec';
+
+  fetch(urlAppsScript, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ tipo: 'checkin', dados: dados })
+  })
+  .then(res => res.json())
+  .then(ret => {
+    setLoading(botao, false);
+    if (ret.sucesso) {
+      mostrarResultado(ret.resultado);
+    } else {
+      mostrarErro('Erro: ' + (ret.mensagem || 'Falha ao salvar.'));
+    }
+  })
+  .catch(err => {
+    setLoading(botao, false);
+    mostrarErro('Não foi possível conectar ao servidor. Verifique sua internet.');
+    console.error(err);
+  });
+  // ========== FIM FETCH ==========
 });
 
 atualizarProgresso(1);
 })();
 </script>
 </body>
-</html>// ====================================================================
-//                   APPS SCRIPT – CHECK-IN SEMANAL (v4)
-// ====================================================================
-
-function salvarCheckin(dados) {
-  var resultado = {}; // declaração antecipada para evitar erro "resultado is not defined"
-  try {
-    Logger.log('=== INÍCIO salvarCheckin ===');
-    Logger.log('Dados recebidos: ' + JSON.stringify(dados));
-
-    if (!dados || typeof dados !== 'object') {
-      throw new Error('Dados inválidos ou não enviados.');
-    }
-
-    // --- Extrair e converter valores ---
-    var pontosPlano = Number(dados.plano) || 0;
-    var pontosProteina = Number(dados.proteina) || 0;
-    var pontosExercicio = Number(dados.exercicio) || 0;
-    var pontosSono = Number(dados.sono) || 0;
-    var pontosPerda = Number(dados.perdaControle) || 0;
-    var pontosConsciencia = Number(dados.consciencia) || 0;
-
-    var soma = pontosPlano + pontosProteina + pontosExercicio + pontosSono + pontosPerda + pontosConsciencia;
-    var score = Math.round(soma / 6);
-    Logger.log('Score calculado: ' + score);
-
-    // --- Conectar à planilha ---
-    var SPREADSHEET_ID = '1oPQ7JVxG__9s6Vop-GIaCY2exHGQ7PqlU__2Ja_VJus';
-    var SHEET_NAME = 'Checkins';
-    var ss = SpreadsheetApp.openById(SPREADSHEET_ID);
-    var sheet = ss.getSheetByName(SHEET_NAME);
-    if (!sheet) {
-      sheet = ss.insertSheet(SHEET_NAME);
-      var headers = ['Data', 'Email', 'Nome', 'Plano', 'Proteina', 'Exercicio', 'Sono', 'PerdaControle', 'Consciencia', 'Score'];
-      sheet.appendRow(headers);
-    }
-
-    // --- Inserir linha ---
-    var row = [new Date(), dados.email, dados.nome, pontosPlano, pontosProteina, pontosExercicio, pontosSono, pontosPerda, pontosConsciencia, score];
-    sheet.appendRow(row);
-    Logger.log('Linha inserida com sucesso.');
-
-    // --- Média do mês ---
-    var historico = obterHistoricoEmail(dados.email, sheet);
-    var scoreMes = calcularMediaMes(historico);
-    Logger.log('Média do mês: ' + scoreMes);
-
-    // --- Gerar textos ---
-    var classificacao = classificar(score);
-    var nivelMes = classificar(scoreMes);
-    var evolucao = gerarEvolucao(score, scoreMes);
-    var conquistas = gerarConquistas(pontosPlano, pontosProteina, pontosExercicio, pontosSono, pontosPerda, pontosConsciencia);
-    var foco = gerarFoco(pontosPlano, pontosProteina, pontosExercicio, pontosSono, pontosPerda, pontosConsciencia);
-    var recomendacoes = gerarRecomendacoes(pontosPlano, pontosProteina, pontosExercicio, pontosSono, pontosPerda, pontosConsciencia);
-
-    resultado = {
-      nome: dados.nome,
-      email: dados.email,
-      score: score,
-      classificacao: classificacao,
-      evolucao: evolucao,
-      scoreMes: Math.round(scoreMes),
-      nivelMes: nivelMes,
-      conquistas: conquistas,
-      foco: foco,
-      recomendacoes: recomendacoes
-    };
-
-    Logger.log('=== FIM salvarCheckin, resultado OK ===');
-    return resultado;
-
-  } catch (erro) {
-    Logger.log('ERRO em salvarCheckin: ' + erro.message);
-    // Retorna um objeto de erro para o front-end
-    return {
-      erro: true,
-      mensagem: erro.message
-    };
-  }
-}
-
-// ====================================================================
-//                     FUNÇÕES AUXILIARES
-// ====================================================================
-
-function classificar(score) {
-  if (score >= 80) return 'Excelente';
-  if (score >= 60) return 'Bom';
-  if (score >= 40) return 'Regular';
-  return 'Atenção';
-}
-
-function obterHistoricoEmail(email, sheet) {
-  var dados = sheet.getDataRange().getValues();
-  if (dados.length < 2) return [];
-  var cabecalho = dados[0];
-  var colEmail = cabecalho.indexOf('Email');
-  var colScore = cabecalho.indexOf('Score');
-  var colData = cabecalho.indexOf('Data');
-  if (colEmail === -1 || colScore === -1 || colData === -1) return [];
-
-  var agora = new Date();
-  var mesAtual = agora.getMonth();
-  var anoAtual = agora.getFullYear();
-  var historico = [];
-  for (var i = 1; i < dados.length; i++) {
-    var linha = dados[i];
-    var data = new Date(linha[colData]);
-    if (data.getMonth() === mesAtual && data.getFullYear() === anoAtual && linha[colEmail] === email) {
-      historico.push(linha[colScore]);
-    }
-  }
-  return historico;
-}
-
-function calcularMediaMes(historico) {
-  if (historico.length === 0) return 0;
-  var soma = 0;
-  for (var i = 0; i < historico.length; i++) soma += historico[i];
-  return soma / historico.length;
-}
-
-function gerarEvolucao(score, scoreMes) {
-  if (scoreMes === 0) return 'Primeiro check-in do mês';
-  var diff = score - scoreMes;
-  if (diff > 5) return '⬆️ Acima da média do mês';
-  if (diff < -5) return '⬇️ Abaixo da média do mês';
-  return '↔️ Na média do mês';
-}
-
-function gerarConquistas(pPlano, pProteina, pExercicio, pSono, pPerda, pConsciencia) {
-  var itens = [
-    {nome: 'Plano alimentar', pontos: pPlano},
-    {nome: 'Proteínas', pontos: pProteina},
-    {nome: 'Exercício físico', pontos: pExercicio},
-    {nome: 'Sono', pontos: pSono},
-    {nome: 'Controle alimentar', pontos: pPerda},
-    {nome: 'Consciência alimentar', pontos: pConsciencia}
-  ];
-  itens.sort(function(a,b){ return b.pontos - a.pontos; });
-  var melhor = itens[0];
-  if (melhor.pontos >= 80) return '🌟 ' + melhor.nome + ' foi seu ponto forte!';
-  return '🌟 Continue trabalhando em todos os aspectos.';
-}
-
-function gerarFoco(pPlano, pProteina, pExercicio, pSono, pPerda, pConsciencia) {
-  var itens = [
-    {nome: 'Plano alimentar', pontos: pPlano},
-    {nome: 'Proteínas', pontos: pProteina},
-    {nome: 'Exercício físico', pontos: pExercicio},
-    {nome: 'Sono', pontos: pSono},
-    {nome: 'Controle alimentar', pontos: pPerda},
-    {nome: 'Consciência alimentar', pontos: pConsciencia}
-  ];
-  itens.sort(function(a,b){ return a.pontos - b.pontos; });
-  return '🎯 Foco em: ' + itens[0].nome;
-}
-
-function gerarRecomendacoes(pPlano, pProteina, pExercicio, pSono, pPerda, pConsciencia) {
-  var recomendacoes = [];
-  if (pPlano < 60) recomendacoes.push({texto: 'Planeje suas refeições com antecedência para manter a adesão ao plano alimentar.', meta: 'Organizar o cardápio do dia seguinte todas as noites.'});
-  if (pProteina < 60) recomendacoes.push({texto: 'Inclua fontes de proteína em todas as refeições principais para aumentar a saciedade.', meta: 'Adicionar ovos, frango ou leguminosas em 2 refeições por dia.'});
-  if (pExercicio < 60) recomendacoes.push({texto: 'Comece com metas pequenas de atividade física e aumente gradualmente.', meta: 'Caminhar 15 minutos todos os dias.'});
-  if (pSono < 60) recomendacoes.push({texto: 'Melhore a qualidade do sono com uma rotina noturna relaxante.', meta: 'Desligar telas 30 minutos antes de dormir e manter horário fixo.'});
-  if (pPerda < 60) recomendacoes.push({texto: 'Identifique gatilhos emocionais e pratique a respiração antes de comer.', meta: 'Fazer uma pausa de 2 minutos antes de comer sem fome.'});
-  if (pConsciencia < 60) recomendacoes.push({texto: 'Coma sem distrações para perceber melhor os sinais de fome e saciedade.', meta: 'Realizar uma refeição por dia sem TV ou celular.'});
-
-  if (recomendacoes.length === 0) {
-    recomendacoes.push({texto: 'Continue mantendo os bons hábitos!', meta: 'Celebrar cada pequena conquista.'});
-  }
-  return recomendacoes;
-}
-
-// ====================================================================
-//                     FUNÇÃO DE TESTE (para depuração)
-// ====================================================================
-
-function testar() {
-  var dados = {
-    nome: 'Usuário Teste',
-    email: 'teste@exemplo.com',
-    plano: '100',
-    proteina: '100',
-    exercicio: '100',
-    sono: '100',
-    perdaControle: '100',
-    consciencia: '100'
-  };
-  var resultado = salvarCheckin(dados);
-  Logger.log('Resultado do teste: ' + JSON.stringify(resultado));
-}
+</html>
