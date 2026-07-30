@@ -201,17 +201,15 @@ r.recomendacoes.forEach(item=>{const div=document.createElement('div');div.style
 }
 }
 
-// ========== EVENT LISTENERS ==========
+// EVENT LISTENERS
 D.btnComecar.addEventListener('click',function(){if(validarEtapa1())proximaEtapa(2);});
 document.querySelectorAll('.btn-proximo').forEach(btn=>{btn.addEventListener('click',function(){const etapa=parseInt(this.dataset.etapa);const campo=this.dataset.campo;const prox=parseInt(this.dataset.proxima);if(validarCampoRadio(campo,etapa))proximaEtapa(prox);});});
 document.querySelectorAll('.btn-voltar').forEach(btn=>{btn.addEventListener('click',function(){const voltar=parseInt(this.dataset.voltar);proximaEtapa(voltar);});});
 D.btnNovoCheckin.addEventListener('click',resetarFormulario);
 
-// ========== SUBMISSÃO VIA FETCH (USA O WORKER) ==========
 D.form.addEventListener('submit',function(e){
 e.preventDefault();
 
-// VALIDAÇÃO GLOBAL
 const perguntas = ['plano','proteina','exercicio','sono','perdaControle','consciencia'];
 let todasOk = true;
 for (let i=0; i<perguntas.length; i++) {
@@ -238,7 +236,7 @@ const dados = {
   consciencia: fd.get('consciencia')
 };
 
-// ===== AGORA USA O WORKER (NÃO O APPS SCRIPT DIRETO) =====
+// ===== URL DO WORKER (NÃO DO APPS SCRIPT DIRETO) =====
 var urlAppsScript = 'https://api-checkin.nutricionistadaphyni.workers.dev';
 
 fetch(urlAppsScript, {
@@ -249,7 +247,7 @@ fetch(urlAppsScript, {
 .then(res => res.json())
 .then(ret => {
   setLoading(botao, false);
-  console.log('Resposta:', ret);
+  console.log('Resposta do servidor:', ret);
   if (ret.sucesso) {
     mostrarResultado(ret.resultado);
   } else {
@@ -258,7 +256,7 @@ fetch(urlAppsScript, {
 })
 .catch(err => {
   setLoading(botao, false);
-  console.error('Erro:', err);
+  console.error('Erro no fetch:', err);
   mostrarErro('Não foi possível conectar ao servidor. Verifique sua internet.');
 });
 
