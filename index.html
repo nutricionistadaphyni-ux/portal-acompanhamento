@@ -221,7 +221,7 @@ r.recomendacoes.forEach(item=>{const div=document.createElement('div');div.style
 }
 }
 
-// EVENT LISTENERS CORRIGIDOS PARA VERIFICAÇÃO PRÉVIA
+// EVENT LISTENER BLINDADO NO BOTÃO COMEÇAR
 D.btnComecar.addEventListener('click', async function(e){
   e.preventDefault();
   
@@ -232,7 +232,7 @@ D.btnComecar.addEventListener('click', async function(e){
   const telefone = D.telefone.value.trim();
   const textoOriginal = D.btnComecar.textContent;
   D.btnComecar.disabled = true;
-  D.btnComecar.innerHTML = '<span class="spinner"></span> Verificando...';
+  D.btnComecar.innerHTML = '<span class="spinner"></span> Verificando elegibilidade...';
 
   try {
     var resposta = await fetch('https://api-checkin.nutricionistadaphyni.workers.dev', {
