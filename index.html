@@ -25,9 +25,13 @@
 <form id="checkinForm" novalidate>
 
 <div class="etapa ativa" id="etapa1">
-<div class="card"><label class="campo-titulo" for="nome">Nome completo *</label><input type="text" id="nome" name="nome" placeholder="Digite seu nome completo"></div>
-<div class="card"><label class="campo-titulo" for="telefone">Telefone (WhatsApp) *</label><input type="tel" id="telefone" name="telefone" placeholder="(11) 99999-9999"></div>
-<button type="button" id="btnComecar" class="botao botao-continuar">Começar</button>
+  <div class="card"><label class="campo-titulo" for="nome">Nome completo *</label><input type="text" id="nome" name="nome" placeholder="Digite seu nome completo"></div>
+  <div class="card">
+    <label class="campo-titulo" for="telefone">Telefone (WhatsApp) *</label>
+    <input type="tel" id="telefone" name="telefone" placeholder="(11) 99999-9999">
+    <small style="display: block; margin-top: 6px; color: #666; font-size: 12px;">⚠️ Utilize sempre o mesmo número para que seu acompanhamento mensal funcione corretamente.</small>
+  </div>
+  <button type="button" id="btnComecar" class="botao botao-continuar">Começar</button>
 </div>
 
 <div class="etapa" id="etapa2">
