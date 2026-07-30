@@ -164,7 +164,27 @@ function mostrarToast(m,d=3000){D.toast.textContent=m;D.toast.classList.add('mos
 function atualizarProgresso(e){const p=((e-1)/(state.totalEtapas-1))*100;const a=Math.round(p);D.progressoPreencher.style.width=a+'%';D.progressoPorcentagem.textContent=a+'%';D.progressoTexto.textContent=e===1?'Dados pessoais':`Pergunta ${e-1} de ${state.totalEtapas-1}`;}
 function proximaEtapa(n){document.querySelectorAll('.etapa').forEach(el=>el.classList.remove('ativa'));const prox=document.getElementById('etapa'+n);if(prox){prox.classList.add('ativa');state.etapaAtual=n;atualizarProgresso(n);window.scrollTo({top:0,behavior:'smooth'});}}
 function validarCampoRadio(campo, etapaNum){const opts=document.querySelectorAll(`input[name="${campo}"]`);let sel=false;opts.forEach(o=>{if(o.checked)sel=true;});const msg=document.getElementById('validacao'+etapaNum);if(!sel){msg.classList.add('mostrar');msg.scrollIntoView({behavior:'smooth',block:'center'});return false;}msg.classList.remove('mostrar');return true;}
-function validarEtapa1(){let valido=true;D.nome.classList.remove('erro-campo');D.telefone.classList.remove('erro-campo');esconderErro();if(!D.nome.value.trim()){D.nome.classList.add('erro-campo');valido=false;}if(!D.telefone.value.trim()){D.telefone.classList.add('erro-campo');valido=false;}if(!valido){mostrarErro('Preencha nome e telefone corretamente.');return false;}return true;}
+
+function validarEtapa1(){
+let valido=true;
+D.nome.classList.remove('erro-campo');
+D.telefone.classList.remove('erro-campo');
+esconderErro();
+
+// Remove espaços em branco antes de checar se está preenchido
+const valorNome = D.nome.value ? D.nome.value.trim() : '';
+const valorTel = D.telefone.value ? D.telefone.value.trim() : '';
+
+if(!valorNome){D.nome.classList.add('erro-campo');valido=false;}
+if(!valorTel){D.telefone.classList.add('erro-campo');valido=false;}
+
+if(!valido){
+mostrarErro('Preencha nome e telefone corretamente.');
+return false;
+}
+return true;
+}
+
 function validarEnvio(){const opts=document.querySelectorAll('input[name="consciencia"]');let sel=false;opts.forEach(o=>{if(o.checked)sel=true;});const msg=document.getElementById('validacao7');if(!sel){msg.classList.add('mostrar');msg.scrollIntoView({behavior:'smooth',block:'center'});return false;}msg.classList.remove('mostrar');return true;}
 function resetarFormulario(){D.form.reset();document.querySelectorAll('.mensagem-validacao').forEach(el=>el.classList.remove('mostrar'));document.querySelectorAll('.erro-campo').forEach(el=>el.classList.remove('erro-campo'));esconderErro();D.formulario.style.display='block';D.resultado.style.display='none';proximaEtapa(1);mostrarToast('🌿 Formulário resetado!');}
 function setLoading(btn,loading){if(loading){btn.disabled=true;btn.innerHTML='<span class="spinner"></span> Enviando...';state.isLoading=true;}else{btn.disabled=false;btn.innerHTML='Finalizar check-in';state.isLoading=false;}}
@@ -244,7 +264,6 @@ fetch(urlWorker, {
 .then(res => res.json())
 .then(ret => {
   setLoading(botao, false);
-  console.log('Resposta do servidor:', ret);
   if (ret.sucesso) {
     mostrarResultado(ret.resultado);
   } else {
@@ -253,7 +272,6 @@ fetch(urlWorker, {
 })
 .catch(err => {
   setLoading(botao, false);
-  console.error('Erro completo:', err);
   mostrarErro('Erro de conexão: ' + (err.message || 'resposta inválida do servidor'));
 });
 });
