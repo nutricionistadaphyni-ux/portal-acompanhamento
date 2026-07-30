@@ -7,7 +7,8 @@
 <style>
 *{box-sizing:border-box}body{margin:0;padding:24px 16px;background:#f5f5f3;color:#222;font-family:Arial,sans-serif}.container{width:100%;max-width:680px;margin:0 auto}.cabecalho{background:#fff;padding:42px 38px;border-radius:24px;margin-bottom:24px;box-shadow:0 14px 40px rgba(0,0,0,.08);text-align:center}.logo{display:block;width:220px;max-width:80%;height:auto;margin:0 auto 20px}.crn{margin:10px 0 18px;font-size:14px;font-weight:600;letter-spacing:1px;color:#7a9a7a;text-transform:uppercase}.cabecalho h1{margin:0 0 16px;font-size:42px;font-weight:700;color:#1f1f1f}.cabecalho p{max-width:650px;margin:0 auto;color:#4a4a4a;font-size:20px;line-height:1.7}.progresso-container{background:#fff;padding:20px 24px;border-radius:18px;margin-bottom:16px;box-shadow:0 8px 25px rgba(0,0,0,.05)}.progresso-info{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-size:14px;color:#5a7a5a;font-weight:600}.progresso-barra{width:100%;height:8px;background:#edf2ed;border-radius:10px;overflow:hidden}.progresso-preencher{height:100%;background:#7a9a7a;border-radius:10px;transition:width .5s ease;width:0%}.card{background:#fff;padding:24px;border-radius:18px;margin-bottom:16px;box-shadow:0 8px 25px rgba(0,0,0,.05)}.etapa{display:none;max-width:680px;margin:0 auto}.etapa.ativa{display:block!important}.card h2{margin:0 0 18px;font-size:18px;line-height:1.4;color:#2d473d}label.campo-titulo{display:block;margin-bottom:8px;font-weight:700;color:#2d473d}input[type=text],input[type=tel]{width:100%;padding:14px;border:2px solid #d9d9d9;border-radius:10px;font-size:16px;outline:0;transition:border-color .3s ease}input:focus{border-color:#7a9a7a}.opcao{display:flex;align-items:flex-start;gap:10px;padding:10px 0;cursor:pointer;line-height:1.4;color:#2d473d;transition:all .2s ease}.opcao:hover{background:#f6f9f6;padding-left:10px;border-radius:8px}.opcao input{margin-top:3px;transform:scale(1.15);accent-color:#7a9a7a;cursor:pointer}.botoes-container{display:flex;flex-direction:column;gap:10px;margin-top:4px}.botao{width:100%;padding:16px;border:none;border-radius:12px;font-size:17px;font-weight:700;cursor:pointer;transition:all .3s ease;display:flex;align-items:center;justify-content:center;gap:10px}.botao:hover:not(:disabled){opacity:.92;transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.1)}.botao:disabled{opacity:.6;cursor:not-allowed;transform:none!important}.botao-continuar{background:#7a9a7a;color:#fff}.botao-continuar:hover:not(:disabled){background:#6a8a6a;box-shadow:0 6px 20px rgba(122,154,122,.3)}.botao-voltar{background:#edf2ed;color:#5a7a5a}.botao-voltar:hover:not(:disabled){background:#e0e8e0}.botao-enviar{background:#7a9a7a;color:#fff}.botao-enviar:hover:not(:disabled){background:#6a8a6a;box-shadow:0 6px 20px rgba(122,154,122,.3)}.spinner{display:inline-block;width:20px;height:20px;border:3px solid rgba(255,255,255,.3);border-radius:50%;border-top-color:#fff;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}.mensagem-erro{display:none;margin-bottom:16px;padding:14px;border-radius:10px;background:#fdf0f0;color:#a23a3a;line-height:1.4;border-left:4px solid #d45a5a}.mensagem-validacao{display:none;margin-top:12px;padding:12px 16px;border-radius:10px;background:#f6faf6;color:#5a7a5a;font-size:14px;text-align:center;border:1px solid #d0e0d0}.mensagem-validacao.mostrar{display:block;animation:fadeIn .3s ease}@keyframes fadeIn{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}.erro-campo{border-color:#d45a5a!important;background-color:#fdf8f8}#resultado{display:none;margin-top:60px}.resultado-topo{text-align:center;background:#fff;padding:40px 30px;border-radius:24px;margin-bottom:24px;box-shadow:0 14px 40px rgba(0,0,0,.08)}.resultado-topo h1{margin:0 0 8px;font-size:26px;color:#2d473d}.resultado-topo p{margin:0;color:#4a4a4a}.score{margin:20px 0 8px;font-size:64px;font-weight:700;color:#7a9a7a}.classificacao{font-size:18px;font-weight:700;color:#5a7a5a}.resultado-card{background:#fff;padding:22px;border-radius:18px;margin-bottom:16px;box-shadow:0 8px 25px rgba(0,0,0,.05)}.resultado-card h2{margin:0 0 12px;font-size:18px;color:#2d473d}.resultado-conteudo{padding:14px;background:#f6f9f6;border-radius:10px;line-height:1.7;white-space:pre-line;color:#2d473d}.novo-checkin{margin-top:4px;background:#fff;color:#7a9a7a;border:2px solid #7a9a7a}.novo-checkin:hover:not(:disabled){background:#f6f9f6;border-color:#6a8a6a;color:#6a8a6a;box-shadow:0 6px 20px rgba(122,154,122,.15)}.evolucao{margin-top:8px;font-size:16px;color:#5a7a5a}.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#2d473d;color:#fff;padding:16px 32px;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,.2);font-weight:600;opacity:0;transition:opacity .3s ease,transform .3s ease;transform:translateX(-50%) translateY(20px);pointer-events:none;z-index:1000}.toast.mostrar{opacity:1;transform:translateX(-50%) translateY(0)}@media(max-width:520px){body{padding:14px 10px}.cabecalho,.card{padding:20px}.cabecalho h1{font-size:24px}.score{font-size:54px}.toast{width:90%;padding:14px 20px;font-size:14px}}
 </style>
-</head><body>
+</head>
+<body>
 <div class="container">
 <div id="formulario">
 <div class="cabecalho">
@@ -143,7 +144,9 @@
 <button type="button" id="btnNovoCheckin" class="botao novo-checkin">🌿 Fazer novo check-in</button>
 </div>
 </div>
-<div id="toast" class="toast"></div><script>
+<div id="toast" class="toast"></div>
+
+<script>
 (function(){
 'use strict';
 const D={
@@ -204,11 +207,11 @@ document.querySelectorAll('.btn-proximo').forEach(btn=>{btn.addEventListener('cl
 document.querySelectorAll('.btn-voltar').forEach(btn=>{btn.addEventListener('click',function(){const voltar=parseInt(this.dataset.voltar);proximaEtapa(voltar);});});
 D.btnNovoCheckin.addEventListener('click',resetarFormulario);
 
-// ========== SUBMISSÃO VIA FETCH (para o GitHub) ==========
+// ========== SUBMISSÃO VIA FETCH (USA O WORKER) ==========
 D.form.addEventListener('submit',function(e){
 e.preventDefault();
 
-// --- VALIDAÇÃO GLOBAL ---
+// VALIDAÇÃO GLOBAL
 const perguntas = ['plano','proteina','exercicio','sono','perdaControle','consciencia'];
 let todasOk = true;
 for (let i=0; i<perguntas.length; i++) {
@@ -235,8 +238,8 @@ const dados = {
   consciencia: fd.get('consciencia')
 };
 
-// ===== URL DO APPS SCRIPT (SUBSTITUA PELA SUA) =====
-var urlAppsScript = 'https://script.google.com/macros/s/AKfycbzCiyLE_83J_ojwWLGecjbU1NBny34u7wEHEp6fin5x3yQ7SiCUrYLxXQnFSQmLZhefw/exec';
+// ===== AGORA USA O WORKER (NÃO O APPS SCRIPT DIRETO) =====
+var urlAppsScript = 'https://api-checkin.nutricionistadaphyni.workers.dev';
 
 fetch(urlAppsScript, {
   method: 'POST',
@@ -246,7 +249,7 @@ fetch(urlAppsScript, {
 .then(res => res.json())
 .then(ret => {
   setLoading(botao, false);
-  console.log('Resposta do servidor:', ret);
+  console.log('Resposta:', ret);
   if (ret.sucesso) {
     mostrarResultado(ret.resultado);
   } else {
@@ -255,7 +258,7 @@ fetch(urlAppsScript, {
 })
 .catch(err => {
   setLoading(botao, false);
-  console.error('Erro no fetch:', err);
+  console.error('Erro:', err);
   mostrarErro('Não foi possível conectar ao servidor. Verifique sua internet.');
 });
 
