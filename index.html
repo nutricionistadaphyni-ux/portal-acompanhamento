@@ -1,395 +1,1308 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Acompanhamento Semanal</title>
-<style>
-*{box-sizing:border-box}body{margin:0;padding:24px 16px;background:#f5f5f3;color:#222;font-family:Arial,sans-serif}.container{width:100%;max-width:680px;margin:0 auto}.cabecalho{background:#fff;padding:42px 38px;border-radius:24px;margin-bottom:24px;box-shadow:0 14px 40px rgba(0,0,0,.08);text-align:center}.logo{display:block;width:220px;max-width:80%;height:auto;margin:0 auto 20px}.crn{margin:10px 0 18px;font-size:14px;font-weight:600;letter-spacing:1px;color:#7a9a7a;text-transform:uppercase}.cabecalho h1{margin:0 0 16px;font-size:42px;font-weight:700;color:#1f1f1f}.cabecalho p{max-width:650px;margin:0 auto;color:#4a4a4a;font-size:20px;line-height:1.7}.progresso-container{background:#fff;padding:20px 24px;border-radius:18px;margin-bottom:16px;box-shadow:0 8px 25px rgba(0,0,0,.05)}.progresso-info{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-size:14px;color:#5a7a5a;font-weight:600}.progresso-barra{width:100%;height:8px;background:#edf2ed;border-radius:10px;overflow:hidden}.progresso-preencher{height:100%;background:#7a9a7a;border-radius:10px;transition:width .5s ease;width:0%}.card{background:#fff;padding:24px;border-radius:18px;margin-bottom:16px;box-shadow:0 8px 25px rgba(0,0,0,.05)}.etapa{display:none;max-width:680px;margin:0 auto}.etapa.ativa{display:block!important}.card h2{margin:0 0 18px;font-size:18px;line-height:1.4;color:#2d473d}label.campo-titulo{display:block;margin-bottom:8px;font-weight:700;color:#2d473d}input[type=text],input[type=tel]{width:100%;padding:14px;border:2px solid #d9d9d9;border-radius:10px;font-size:16px;outline:0;transition:border-color .3s ease}input:focus{border-color:#7a9a7a}.opcao{display:flex;align-items:flex-start;gap:10px;padding:10px 0;cursor:pointer;line-height:1.4;color:#2d473d;transition:all .2s ease}.opcao:hover{background:#f6f9f6;padding-left:10px;border-radius:8px}.opcao input{margin-top:3px;transform:scale(1.15);accent-color:#7a9a7a;cursor:pointer}.botoes-container{display:flex;flex-direction:column;gap:10px;margin-top:4px}.botao{width:100%;padding:16px;border:none;border-radius:12px;font-size:17px;font-weight:700;cursor:pointer;transition:all .3s ease;display:flex;align-items:center;justify-content:center;gap:10px}.botao:hover:not(:disabled){opacity:.92;transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.1)}.botao:disabled{opacity:.6;cursor:not-allowed;transform:none!important}.botao-continuar{background:#7a9a7a;color:#fff}.botao-continuar:hover:not(:disabled){background:#6a8a6a;box-shadow:0 6px 20px rgba(122,154,122,.3)}.botao-voltar{background:#edf2ed;color:#5a7a5a}.botao-voltar:hover:not(:disabled){background:#e0e8e0}.botao-enviar{background:#7a9a7a;color:#fff}.botao-enviar:hover:not(:disabled){background:#6a8a6a;box-shadow:0 6px 20px rgba(122,154,122,.3)}.spinner{display:inline-block;width:20px;height:20px;border:3px solid rgba(255,255,255,.3);border-radius:50%;border-top-color:#fff;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}.mensagem-erro{display:none;margin-bottom:16px;padding:14px;border-radius:10px;background:#fdf0f0;color:#a23a3a;line-height:1.4;border-left:4px solid #d45a5a}.mensagem-validacao{display:none;margin-top:12px;padding:12px 16px;border-radius:10px;background:#f6faf6;color:#5a7a5a;font-size:14px;text-align:center;border:1px solid #d0e0d0}.mensagem-validacao.mostrar{display:block;animation:fadeIn .3s ease}@keyframes fadeIn{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}.erro-campo{border-color:#d45a5a!important;background-color:#fdf8f8}#resultado{display:none;margin-top:60px}.resultado-topo{text-align:center;background:#fff;padding:40px 30px;border-radius:24px;margin-bottom:24px;box-shadow:0 14px 40px rgba(0,0,0,.08)}.resultado-topo h1{margin:0 0 8px;font-size:26px;color:#2d473d}.resultado-topo p{margin:0;color:#4a4a4a}.score{margin:20px 0 8px;font-size:64px;font-weight:700;color:#7a9a7a}.classificacao{font-size:18px;font-weight:700;color:#5a7a5a}.resultado-card{background:#fff;padding:22px;border-radius:18px;margin-bottom:16px;box-shadow:0 8px 25px rgba(0,0,0,.05)}.resultado-card h2{margin:0 0 12px;font-size:18px;color:#2d473d}.resultado-conteudo{padding:14px;background:#f6f9f6;border-radius:10px;line-height:1.7;white-space:pre-line;color:#2d473d}.novo-checkin{margin-top:4px;background:#fff;color:#7a9a7a;border:2px solid #7a9a7a}.novo-checkin:hover:not(:disabled){background:#f6f9f6;border-color:#6a8a6a;color:#6a8a6a;box-shadow:0 6px 20px rgba(122,154,122,.15)}.evolucao{margin-top:8px;font-size:16px;color:#5a7a5a}.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#2d473d;color:#fff;padding:16px 32px;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,.2);font-weight:600;opacity:0;transition:opacity .3s ease,transform .3s ease;transform:translateX(-50%) translateY(20px);pointer-events:none;z-index:1000}.toast.mostrar{opacity:1;transform:translateX(-50%) translateY(0)}@media(max-width:520px){body{padding:14px 10px}.cabecalho,.card{padding:20px}.cabecalho h1{font-size:24px}.score{font-size:54px}.toast{width:90%;padding:14px 20px;font-size:14px}}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check-in Semanal | Daphyni da Silva Nutricionista</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --verde-principal: #5B7C75;
+            --verde-escuro: #415C56;
+            --verde-claro: #EAF0EE;
+            --bege-claro: #F8F6F0;
+            --branco: #FFFFFF;
+            --texto: #26332F;
+            --texto-secundario: #6F7A76;
+            --borda: #D8E2DF;
+            --erro: #E53E3E;
+            --dourado: #C5A46D;
+            --dourado-claro: #FAF6F0;
+            --sombra: 0 20px 40px rgba(91, 124, 117, 0.08);
+            --sombra-suave: 0 4px 16px rgba(0, 0, 0, 0.04);
+            --sombra-card: 0 8px 24px rgba(65, 92, 86, 0.06);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            background-color: var(--bege-claro);
+            color: var(--texto);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 620px;
+            background: var(--branco);
+            border-radius: 20px;
+            box-shadow: var(--sombra);
+            padding: 44px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(197, 164, 109, 0.15);
+        }
+
+        .capa-content {
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        .logo-img {
+            width: 425px;
+            max-width: 100%;
+            height: auto;
+            margin: 0 auto 16px;
+            display: block;
+            background: transparent !important;
+            border: none !important;
+            padding: 0 !important;
+            box-shadow: none !important;
+            border-radius: 0 !important;
+            filter: drop-shadow(0 8px 20px rgba(65, 92, 86, 0.08));
+        }
+
+        .professional-name {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--texto);
+            margin-top: 6px;
+            letter-spacing: -0.2px;
+        }
+
+        .professional-crn {
+            font-size: 0.78rem;
+            font-weight: 400;
+            color: var(--texto-secundario);
+            margin-top: 2px;
+            margin-bottom: 18px;
+            letter-spacing: 0.4px;
+        }
+
+        .div-dourado {
+            width: 40px;
+            height: 1.5px;
+            background: var(--dourado);
+            margin: 0 auto 22px auto;
+            border-radius: 2px;
+            opacity: 0.7;
+        }
+
+        .capa-tag {
+            font-size: 0.7rem;
+            color: var(--dourado);
+            text-transform: uppercase;
+            letter-spacing: 2.5px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .capa-title {
+            font-size: 1.95rem;
+            color: var(--texto);
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 14px;
+            line-height: 1.2;
+        }
+
+        .capa-desc {
+            font-size: 0.98rem;
+            color: var(--texto-secundario);
+            line-height: 1.6;
+            margin-bottom: 28px;
+            padding: 0 10px;
+            font-weight: 400;
+        }
+
+        .capa-tempo {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--texto-secundario);
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 28px;
+            background: var(--verde-claro);
+            padding: 8px 16px;
+            border-radius: 20px;
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--borda);
+        }
+
+        .step-header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-sm {
+            width: 54px;
+            height: 54px;
+            object-fit: contain;
+            flex-shrink: 0;
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+        }
+
+        .step-brand-text {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .step-brand-name {
+            font-size: 0.95rem;
+            font-weight: 700;
+            line-height: 1.2;
+            color: var(--texto);
+        }
+
+        .step-brand-crn {
+            font-size: 0.72rem;
+            font-weight: 400;
+            line-height: 1.25;
+            color: var(--texto-secundario);
+        }
+
+        .step-counter {
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--dourado);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            background: var(--dourado-claro);
+            border: 1px solid rgba(197, 164, 109, 0.25);
+            padding: 6px 12px;
+            border-radius: 8px;
+            white-space: nowrap;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 5px;
+            background: var(--borda);
+            border-radius: 3px;
+            margin-bottom: 32px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--verde-principal), var(--dourado));
+            width: 0%;
+            transition: width 0.4s ease;
+            border-radius: 3px;
+        }
+
+        .step {
+            display: none;
+        }
+
+        .step.active {
+            display: block;
+            animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            font-size: 1.3rem;
+            color: var(--texto);
+            margin-bottom: 24px;
+            font-weight: 600;
+            line-height: 1.4;
+            letter-spacing: -0.3px;
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        label {
+            display: block;
+            font-size: 0.9rem;
+            color: var(--texto);
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        input[type="text"],
+        input[type="tel"],
+        input[type="number"] {
+            width: 100%;
+            padding: 15px 18px;
+            border: 1px solid var(--borda);
+            border-radius: 12px;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.2s;
+            background: var(--branco);
+            color: var(--texto);
+            box-shadow: var(--sombra-suave);
+        }
+
+        input:focus {
+            border-color: var(--verde-principal);
+            box-shadow: 0 0 0 4px rgba(91, 124, 117, 0.12);
+        }
+
+        .options-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+
+        .option-card {
+            display: flex;
+            align-items: center;
+            padding: 16px 20px;
+            border: 1px solid var(--borda);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background-color: var(--branco);
+            box-shadow: var(--sombra-suave);
+        }
+
+        .option-card:hover {
+            border-color: var(--verde-principal);
+            background-color: var(--verde-claro);
+            transform: translateY(-1px);
+        }
+
+        .option-card:has(input:checked) {
+            border-color: var(--verde-principal);
+            background-color: var(--verde-claro);
+            box-shadow: 0 0 0 1px var(--verde-principal), var(--sombra-suave);
+        }
+
+        .option-card input {
+            margin-right: 16px;
+            accent-color: var(--verde-principal);
+            transform: scale(1.25);
+            cursor: pointer;
+        }
+
+        .option-card span {
+            font-size: 0.95rem;
+            color: var(--texto);
+            line-height: 1.4;
+            font-weight: 400;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 14px;
+            margin-top: 36px;
+        }
+
+        button {
+            padding: 15px 26px;
+            border: none;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        button:disabled {
+            opacity: 0.65;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #6E8E87, #415C56);
+            color: var(--branco);
+            flex: 1;
+            box-shadow: 0 6px 16px rgba(65, 92, 86, 0.2);
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background: var(--verde-escuro);
+            box-shadow: 0 8px 20px rgba(65, 92, 86, 0.3);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background-color: #EDF2F0;
+            color: var(--verde-escuro);
+            border: 1px solid var(--borda);
+        }
+
+        .btn-secondary:hover {
+            background-color: #E2E8E5;
+        }
+
+        .btn-mensal-destaque {
+            background: linear-gradient(135deg, #FAF6F0, #EAF0EE);
+            color: var(--verde-escuro);
+            border: 1px solid var(--dourado);
+            width: 100%;
+            margin-bottom: 12px;
+            font-weight: 600;
+            box-shadow: var(--sombra-suave);
+        }
+
+        .btn-mensal-destaque:hover {
+            background: linear-gradient(135deg, #F4EFE6, #DFE8E5);
+        }
+
+        .btn-novo-checkin {
+            background-color: #EDF2F0;
+            color: var(--texto-secundario);
+            border: 1px solid var(--borda);
+            width: 100%;
+            font-size: 0.88rem;
+            padding: 14px 20px;
+        }
+
+        .btn-novo-checkin:hover {
+            background-color: #E2E8E5;
+            color: var(--texto);
+        }
+
+        .report-header-text {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .report-header-text h2 {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+            justify-content: center;
+        }
+
+        .report-header-text p {
+            font-size: 0.92rem;
+            color: var(--texto-secundario);
+        }
+
+        .report-card {
+            background: var(--branco);
+            border: 1px solid var(--borda);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: var(--sombra-card);
+            position: relative;
+        }
+
+        .report-title {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--texto-secundario);
+            letter-spacing: 1.2px;
+            margin-bottom: 8px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .report-title i {
+            color: var(--dourado);
+            width: 16px;
+            height: 16px;
+        }
+
+        .report-value {
+            font-size: 1.5rem;
+            color: var(--verde-escuro);
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .report-desc {
+            font-size: 0.96rem;
+            color: var(--texto);
+            margin-top: 10px;
+            line-height: 1.55;
+        }
+
+        .medalha-card {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: var(--sombra-suave);
+            border: 1px solid rgba(0,0,0,0.04);
+        }
+        .medalha-ouro { background: linear-gradient(135deg, #FBF8F0, #F5EBDD); border-color: #D4AF37; }
+        .medalha-prata { background: linear-gradient(135deg, #F5F7F8, #E2E8EC); border-color: #A0AAB2; }
+        .medalha-bronze { background: linear-gradient(135deg, #FAF4F0, #EEDCD0); border-color: #CD7F32; }
+        .medalha-verde { background: var(--verde-claro); border-color: var(--verde-principal); }
+
+        .medalha-icone {
+            font-size: 2.2rem;
+            line-height: 1;
+        }
+
+        .medalha-info h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--verde-escuro);
+            margin-bottom: 3px;
+        }
+
+        .medalha-info p {
+            font-size: 0.84rem;
+            color: var(--texto-secundario);
+            line-height: 1.4;
+        }
+
+        .titulo-mensal-principal {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--verde-escuro);
+            letter-spacing: -0.4px;
+        }
+        .subtitulo-mensal-secao {
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--dourado);
+            font-weight: 600;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .pilar-bar-item {
+            margin-bottom: 14px;
+        }
+        .pilar-bar-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.88rem;
+            font-weight: 500;
+            color: var(--texto);
+            margin-bottom: 6px;
+        }
+        .pilar-bar-track {
+            width: 100%;
+            height: 10px;
+            background: #E2EAE7;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.06);
+        }
+        .pilar-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--verde-principal), var(--dourado));
+            border-radius: 6px;
+            transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 2px 5px rgba(91, 124, 117, 0.2);
+        }
+
+        .report-footer-crn {
+            text-align: center;
+            font-size: 0.78rem;
+            color: var(--texto-secundario);
+            margin-top: 28px;
+            border-top: 1px solid var(--borda);
+            padding-top: 18px;
+            letter-spacing: 0.3px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 50px 0;
+        }
+
+        .spinner {
+            width: 46px;
+            height: 46px;
+            border: 4px solid var(--borda);
+            border-top: 4px solid var(--verde-principal);
+            border-right: 4px solid var(--dourado);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error-msg {
+            color: var(--erro);
+            font-size: 0.85rem;
+            margin-top: 6px;
+            display: none;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 0;
+                align-items: flex-start;
+            }
+
+            .container {
+                min-height: 100vh;
+                border-radius: 0;
+                padding: 32px 20px;
+                box-shadow: none;
+                border: none;
+            }
+
+            .logo-img {
+                width: 335px;
+                max-width: 90%;
+            }
+
+            .logo-sm {
+                width: 48px;
+                height: 48px;
+            }
+
+            .step-header-left {
+                gap: 10px;
+            }
+
+            .step-brand-name {
+                font-size: 0.88rem;
+            }
+
+            .step-brand-crn {
+                font-size: 0.66rem;
+            }
+
+            .step-counter {
+                font-size: 0.68rem;
+                padding: 5px 10px;
+            }
+        }
+    </style>
 </head>
 <body>
-<div class="container">
-<div id="formulario">
-<div class="cabecalho">
-<img src="logo.png" alt="Daphyni Silva Nutricionista" class="logo">
-<h1>Check-in Semanal</h1>
-<div class="crn">Nutricionista • CRN-10 14525</div>
-<p>Este check-in leva menos de 2 minutos.<br>Responda considerando como foi a sua última semana.</p>
-</div>
-<div id="mensagemErro" class="mensagem-erro"></div>
-<div class="progresso-container">
-<div class="progresso-info"><span id="progressoTexto">Dados pessoais</span><span id="progressoPorcentagem">0%</span></div>
-<div class="progresso-barra"><div id="progressoPreencher" class="progresso-preencher"></div></div>
-</div>
-<form id="checkinForm" novalidate>
-<div class="etapa ativa" id="etapa1">
-  <div class="card"><label class="campo-titulo" for="nome">Nome completo *</label><input type="text" id="nome" name="nome" placeholder="Digite seu nome completo"></div>
-  <div class="card">
-    <label class="campo-titulo" for="telefone">Telefone (WhatsApp) *</label>
-    <input type="tel" id="telefone" name="telefone" placeholder="(11) 99999-9999">
-    <small style="display: block; margin-top: 6px; color: #666; font-size: 12px;">⚠️ Utilize sempre o mesmo número para que seu acompanhamento mensal funcione corretamente.</small>
-  </div>
-  <button type="button" id="btnComecar" class="botao botao-continuar">Começar</button>
-</div>
 
-<div class="etapa" id="etapa2">
-<div class="card"><h2>1. Em quantos dias desta semana você conseguiu se alimentar conforme o planejado? *</h2>
-<label class="opcao"><input type="radio" name="plano" value="100"><span>Todos os dias</span></label>
-<label class="opcao"><input type="radio" name="plano" value="80"><span>5 ou 6 dias</span></label>
-<label class="opcao"><input type="radio" name="plano" value="60"><span>3 ou 4 dias</span></label>
-<label class="opcao"><input type="radio" name="plano" value="40"><span>1 ou 2 dias</span></label>
-<label class="opcao"><input type="radio" name="plano" value="0"><span>Nenhum dia</span></label>
-</div>
-<div id="validacao2" class="mensagem-validacao">🌿 Selecione uma opção antes de continuar.</div>
-<div class="botoes-container">
-<button type="button" class="botao botao-continuar btn-proximo" data-etapa="2" data-campo="plano" data-proxima="3">Próxima</button>
-<button type="button" class="botao botao-voltar btn-voltar" data-voltar="1">Voltar</button>
-</div>
-</div>
+    <div class="container">
+        <form id="checkinForm">
+            
+            <!-- CAPA -->
+            <div class="step active" id="stepCapa">
+                <div class="capa-content">
+                    <img src="logo.png" alt="Daphyni da Silva Nutricionista" class="logo-img">
+                    <div class="professional-name">Daphyni da Silva</div>
+                    <div class="professional-crn">Nutricionista | CRN-10 14525</div>
+                    <div class="div-dourado"></div>
+                    
+                    <div class="capa-tag">Acompanhamento Nutricional</div>
+                    <h1 class="capa-title">Check-in Semanal</h1>
+                    <p class="capa-desc">Um momento para observar sua rotina, reconhecer seus avanços e identificar o que precisa de atenção nesta semana.</p>
+                    
+                    <div class="capa-tempo">
+                        <i data-lucide="clock" style="width: 16px; height: 16px; color: var(--dourado);"></i>
+                        Leva aproximadamente 2 minutos
+                    </div>
 
-<div class="etapa" id="etapa3">
-<div class="card"><h2>2. Em quantos dias você conseguiu consumir proteína na maioria das refeições? *</h2>
-<label class="opcao"><input type="radio" name="proteina" value="100"><span>Todos os dias</span></label>
-<label class="opcao"><input type="radio" name="proteina" value="80"><span>5 ou 6 dias</span></label>
-<label class="opcao"><input type="radio" name="proteina" value="60"><span>3 ou 4 dias</span></label>
-<label class="opcao"><input type="radio" name="proteina" value="40"><span>1 ou 2 dias</span></label>
-<label class="opcao"><input type="radio" name="proteina" value="0"><span>Nenhum dia</span></label>
-</div>
-<div id="validacao3" class="mensagem-validacao">🌿 Selecione uma opção antes de continuar.</div>
-<div class="botoes-container">
-<button type="button" class="botao botao-continuar btn-proximo" data-etapa="3" data-campo="proteina" data-proxima="4">Próxima</button>
-<button type="button" class="botao botao-voltar btn-voltar" data-voltar="2">Voltar</button>
-</div>
-</div>
+                    <div class="btn-container" style="margin-top: 10px;">
+                        <button type="button" class="btn-primary" onclick="proximaEtapa(0)">
+                            INICIAR MEU CHECK-IN <i data-lucide="arrow-right" style="width: 18px; height: 18px;"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
 
-<div class="etapa" id="etapa4">
-<div class="card"><h2>3. Como foi sua prática de atividade física nesta semana? *</h2>
-<label class="opcao"><input type="radio" name="exercicio" value="100"><span>Cumpri 100% da minha meta</span></label>
-<label class="opcao"><input type="radio" name="exercicio" value="60"><span>Cumpri parte da minha meta</span></label>
-<label class="opcao"><input type="radio" name="exercicio" value="20"><span>Não consegui cumprir minha meta</span></label>
-</div>
-<div id="validacao4" class="mensagem-validacao">🌿 Selecione uma opção antes de continuar.</div>
-<div class="botoes-container">
-<button type="button" class="botao botao-continuar btn-proximo" data-etapa="4" data-campo="exercicio" data-proxima="5">Próxima</button>
-<button type="button" class="botao botao-voltar btn-voltar" data-voltar="3">Voltar</button>
-</div>
-</div>
+            <!-- ETAPA 0: Dados -->
+            <div class="step" id="step0">
+                <div class="step-header">
+                  <div class="step-header-left">
+                    <img src="logo.png" alt="Daphyni da Silva" class="logo-sm">
 
-<div class="etapa" id="etapa5">
-<div class="card"><h2>4. Como foi a qualidade do seu sono nesta semana? *</h2>
-<label class="opcao"><input type="radio" name="sono" value="100"><span>Boa na maior parte dessa semana</span></label>
-<label class="opcao"><input type="radio" name="sono" value="60"><span>Boa em apenas alguns dias</span></label>
-<label class="opcao"><input type="radio" name="sono" value="20"><span>Ruim na maior parte dessa semana</span></label>
-</div>
-<div id="validacao5" class="mensagem-validacao">🌿 Selecione uma opção antes de continuar.</div>
-<div class="botoes-container">
-<button type="button" class="botao botao-continuar btn-proximo" data-etapa="5" data-campo="sono" data-proxima="6">Próxima</button>
-<button type="button" class="botao botao-voltar btn-voltar" data-voltar="4">Voltar</button>
-</div>
-</div>
+                    <div class="step-brand-text">
+                      <span class="step-brand-name">Daphyni da Silva</span>
+                      <span class="step-brand-crn">Nutricionista | CRN-10 14525</span>
+                    </div>
+                  </div>
 
-<div class="etapa" id="etapa6">
-<div class="card"><h2>5. Em quantos dias você sentiu que comeu mais do que gostaria ou teve dificuldade para parar de comer? *</h2>
-<label class="opcao"><input type="radio" name="perdaControle" value="0"><span>Todos os dias</span></label>
-<label class="opcao"><input type="radio" name="perdaControle" value="20"><span>5 ou 6 dias</span></label>
-<label class="opcao"><input type="radio" name="perdaControle" value="40"><span>3 ou 4 dias</span></label>
-<label class="opcao"><input type="radio" name="perdaControle" value="60"><span>1 ou 2 dias</span></label>
-<label class="opcao"><input type="radio" name="perdaControle" value="100"><span>Nenhum dia</span></label>
-</div>
-<div id="validacao6" class="mensagem-validacao">🌿 Selecione uma opção antes de continuar.</div>
-<div class="botoes-container">
-<button type="button" class="botao botao-continuar btn-proximo" data-etapa="6" data-campo="perdaControle" data-proxima="7">Próxima</button>
-<button type="button" class="botao botao-voltar btn-voltar" data-voltar="5">Voltar</button>
-</div>
-</div>
+                  <div class="step-counter">Identificação</div>
+                </div>
+                <div class="progress-bar-container"><div class="progress-bar-fill" style="width: 0%;"></div></div>
+                
+                <h2>Seus Dados</h2>
+                <div class="form-group">
+                    <label for="nome">Nome Completo</label>
+                    <input type="text" id="nome" required placeholder="Digite seu nome">
+                </div>
+                <div class="form-group">
+                    <label for="telefone">Telefone (WhatsApp)</label>
+                    <input type="tel" id="telefone" required placeholder="(00) 00000-0000">
+                </div>
+                <div class="form-group">
+                    <label for="peso">Peso Atual (kg)</label>
+                    <input type="text" id="peso" required placeholder="Ex: 68.5 ou 68,5">
+                    <div class="error-msg" id="errorStep0">Confira o nome, o telefone e o peso informado.</div>
+                </div>
+                <div class="btn-container">
+                    <button type="button" class="btn-secondary" onclick="voltarParaCapa()">Voltar</button>
+                    <button type="button" class="btn-primary" onclick="proximaEtapa(1)">Avançar <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i></button>
+                </div>
+            </div>
 
-<div class="etapa" id="etapa7">
-<div class="card"><h2>6. Com que frequência você conseguiu diferenciar fome física de vontade de comer? *</h2>
-<label class="opcao"><input type="radio" name="consciencia" value="100"><span>Sempre</span></label>
-<label class="opcao"><input type="radio" name="consciencia" value="80"><span>Na maioria das vezes</span></label>
-<label class="opcao"><input type="radio" name="consciencia" value="60"><span>Algumas vezes</span></label>
-<label class="opcao"><input type="radio" name="consciencia" value="40"><span>Raramente</span></label>
-<label class="opcao"><input type="radio" name="consciencia" value="0"><span>Nunca</span></label>
-</div>
-<div id="validacao7" class="mensagem-validacao">🌿 Selecione uma opção antes de finalizar.</div>
-<div class="botoes-container">
-<button type="submit" id="botaoEnviar" class="botao botao-enviar">Finalizar check-in</button>
-<button type="button" class="botao botao-voltar btn-voltar" data-voltar="6">Voltar</button>
-</div>
-</div>
+            <!-- ETAPA 1 -->
+            <div class="step" id="step1">
+                <div class="step-header">
+                  <div class="step-header-left">
+                    <img src="logo.png" alt="Daphyni da Silva" class="logo-sm">
 
-</form>
-</div>
+                    <div class="step-brand-text">
+                      <span class="step-brand-name">Daphyni da Silva</span>
+                      <span class="step-brand-crn">Nutricionista | CRN-10 14525</span>
+                    </div>
+                  </div>
 
-<div id="resultado">
-<div class="resultado-topo">
-<h1 id="resultadoNome"></h1><p>Seu acompanhamento semanal foi concluído.</p>
-<div id="resultadoScore" class="score"></div>
-<div id="resultadoClassificacao" class="classificacao"></div>
-<div id="resultadoEvolucao" class="evolucao"></div>
-<div style="margin-top:18px;padding-top:16px;border-top:1px solid #e5e5e5;">
-<div style="font-size:14px;color:#4a4a4a;margin-bottom:4px;">Média de adesão do mês</div>
-<div id="resultadoScoreMes" style="font-size:24px;font-weight:700;color:#7a9a7a;"></div>
-<div id="resultadoNivelMes" style="margin-top:8px;font-size:16px;font-weight:700;color:#5a7a5a;"></div>
-</div>
-<div style="margin-top:16px;padding-top:14px;border-top:1px solid #e5e5e5;">
-<div style="font-size:14px;color:#4a4a4a;margin-bottom:4px;">📅 Próximo check-in recomendado</div>
-<div id="resultadoProximoCheckin" style="font-size:18px;font-weight:700;color:#2d473d;"></div>
-</div>
-</div>
-<div class="resultado-card"><h2 id="tituloConquistas">Maior conquista da semana</h2><div id="resultadoConquistas" class="resultado-conteudo"></div></div>
-<div class="resultado-card"><h2>Prioridade desta semana</h2><div id="resultadoFoco" class="resultado-conteudo"></div></div>
-<div class="resultado-card"><h2>Plano de ação para esta semana</h2><div id="resultadoRecomendacoes"></div></div>
-<button type="button" id="btnNovoCheckin" class="botao novo-checkin">🌿 Fazer novo check-in</button>
-</div>
-</div>
-<div id="toast" class="toast"></div>
-<script>
-(function(){
-'use strict';
-const D={
-form:document.getElementById('checkinForm'),
-nome:document.getElementById('nome'),
-telefone:document.getElementById('telefone'),
-btnComecar:document.getElementById('btnComecar'),
-btnEnviar:document.getElementById('botaoEnviar'),
-btnNovoCheckin:document.getElementById('btnNovoCheckin'),
-mensagemErro:document.getElementById('mensagemErro'),
-progressoTexto:document.getElementById('progressoTexto'),
-progressoPorcentagem:document.getElementById('progressoPorcentagem'),
-progressoPreencher:document.getElementById('progressoPreencher'),
-toast:document.getElementById('toast'),
-formulario:document.getElementById('formulario'),
-resultado:document.getElementById('resultado')
-};
-const state={etapaAtual:1,totalEtapas:7,isLoading:false,verificado:false};
+                  <div class="step-counter">Identificação</div>
+                </div>
+                <div class="progress-bar-container"><div class="progress-bar-fill" style="width: 16.6%;"></div></div>
 
-function esconderErro(){D.mensagemErro.style.display='none';D.mensagemErro.textContent='';}
-function mostrarErro(m){D.mensagemErro.textContent=m;D.mensagemErro.style.display='block';window.scrollTo({top:0,behavior:'smooth'});}
-function mostrarToast(m,d=3000){D.toast.textContent=m;D.toast.classList.add('mostrar');clearTimeout(D.toast._timeout);D.toast._timeout=setTimeout(()=>D.toast.classList.remove('mostrar'),d);}
-function atualizarProgresso(e){const p=((e-1)/(state.totalEtapas-1))*100;const a=Math.round(p);D.progressoPreencher.style.width=a+'%';D.progressoPorcentagem.textContent=a+'%';D.progressoTexto.textContent=e===1?'Dados pessoais':`Pergunta ${e-1} de ${state.totalEtapas-1}`;;}
-function proximaEtapa(n){
-if (n === 2 && state.etapaAtual === 1 && !state.verificado) {
-  mostrarErro('Por favor, clique em "Começar" para verificar sua elegibilidade.');
-  return;
-}
-document.querySelectorAll('.etapa').forEach(el=>el.classList.remove('ativa'));
-const prox=document.getElementById('etapa'+n);
-if(prox){
-  prox.classList.add('ativa');
-  state.etapaAtual=n;
-  atualizarProgresso(n);
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-}
-function validarCampoRadio(campo, etapaNum){const opts=document.querySelectorAll(`input[name="${campo}"]`);let sel=false;opts.forEach(o=>{if(o.checked)sel=true;});const msg=document.getElementById('validacao'+etapaNum);if(!sel){msg.classList.add('mostrar');msg.scrollIntoView({behavior:'smooth',block:'center'});return false;}msg.classList.remove('mostrar');return true;}
+                <h2>1. Adesão ao Plano Alimentar</h2>
+                <div class="options-grid">
+                    <label class="option-card"><input type="radio" name="plano" value="100" required><span>Segui o plano planejado praticamente a semana toda.</span></label>
+                    <label class="option-card"><input type="radio" name="plano" value="75"><span>Segui a maior parte dos dias, com pequenas exceções.</span></label>
+                    <label class="option-card"><input type="radio" name="plano" value="50"><span>Mantive parcialmente, mas houve oscilações frequentes.</span></label>
+                    <label class="option-card"><input type="radio" name="plano" value="25"><span>Tive bastante dificuldade de seguir o planejado.</span></label>
+                    <label class="option-card"><input type="radio" name="plano" value="0"><span>Completamente fora da rotina planejada.</span></label>
+                </div>
+                <div class="btn-container">
+                    <button type="button" class="btn-secondary" onclick="voltarEtapa(0)">Voltar</button>
+                    <button type="button" class="btn-primary" onclick="proximaEtapa(2)">Avançar <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i></button>
+                </div>
+            </div>
 
-function validarEtapa1(){
-let valido=true;
-D.nome.classList.remove('erro-campo');
-D.telefone.classList.remove('erro-campo');
-esconderErro();
+            <!-- ETAPA 2 -->
+            <div class="step" id="step2">
+                <div class="step-header">
+                  <div class="step-header-left">
+                    <img src="logo.png" alt="Daphyni da Silva" class="logo-sm">
 
-const valorNome = D.nome.value ? D.nome.value.trim() : '';
-const valorTel = D.telefone.value ? D.telefone.value.trim() : '';
+                    <div class="step-brand-text">
+                      <span class="step-brand-name">Daphyni da Silva</span>
+                      <span class="step-brand-crn">Nutricionista | CRN-10 14525</span>
+                    </div>
+                  </div>
 
-if(!valorNome){D.nome.classList.add('erro-campo');valido=false;}
-if(!valorTel){D.telefone.classList.add('erro-campo');valido=false;}
+                  <div class="step-counter">Identificação</div>
+                </div>
+                <div class="progress-bar-container"><div class="progress-bar-fill" style="width: 33.3%;"></div></div>
 
-if(!valido){
-mostrarErro('Preencha nome e telefone corretamente.');
-return false;
-}
-return true;
-}
+                <h2>2. Consumo de Proteína</h2>
+                <div class="options-grid">
+                    <label class="option-card"><input type="radio" name="proteina" value="100" required><span>Consumi a quantidade recomendada em todas as refeições principais.</span></label>
+                    <label class="option-card"><input type="radio" name="proteina" value="75"><span>Na maioria das refeições consegui manter uma boa fonte proteica.</span></label>
+                    <label class="option-card"><input type="radio" name="proteina" value="50"><span>Fiquei abaixo da meta em alguns dias da semana.</span></label>
+                    <label class="option-card"><input type="radio" name="proteina" value="25"><span>A proteína esteve ausente na maior parte das refeições.</span></label>
+                    <label class="option-card"><input type="radio" name="proteina" value="0"><span>Não prestei atenção neste pilar esta semana.</span></label>
+                </div>
+                <div class="btn-container">
+                    <button type="button" class="btn-secondary" onclick="voltarEtapa(1)">Voltar</button>
+                    <button type="button" class="btn-primary" onclick="proximaEtapa(3)">Avançar <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i></button>
+                </div>
+            </div>
 
-function validarEnvio(){const opts=document.querySelectorAll('input[name="consciencia"]');let sel=false;opts.forEach(o=>{if(o.checked)sel=true;});const msg=document.getElementById('validacao7');if(!sel){msg.classList.add('mostrar');msg.scrollIntoView({behavior:'smooth',block:'center'});return false;}msg.classList.remove('mostrar');return true;}
-function resetarFormulario(){D.form.reset();document.querySelectorAll('.mensagem-validacao').forEach(el=>el.classList.remove('mostrar'));document.querySelectorAll('.erro-campo').forEach(el=>el.classList.remove('erro-campo'));esconderErro();state.verificado=false;D.formulario.style.display='block';D.resultado.style.display='none';proximaEtapa(1);mostrarToast('🌿 Formulário resetado!');}
-function setLoading(btn,loading){if(loading){btn.disabled=true;btn.innerHTML='<span class="spinner"></span> Enviando...';state.isLoading=true;}else{btn.disabled=false;btn.innerHTML='Finalizar check-in';state.isLoading=false;}}
+            <!-- ETAPA 3 -->
+            <div class="step" id="step3">
+                <div class="step-header">
+                  <div class="step-header-left">
+                    <img src="logo.png" alt="Daphyni da Silva" class="logo-sm">
 
-function mostrarResultado(r){
-D.resultado.style.display='block';
-D.formulario.style.display='none';
-document.getElementById('resultadoNome').textContent='Olá, '+r.nome+'!';
-document.getElementById('resultadoScore').textContent=r.score+'%';
-document.getElementById('resultadoClassificacao').textContent=r.classificacao;
-document.getElementById('resultadoEvolucao').textContent=r.evolucao;
-document.getElementById('resultadoScoreMes').textContent=r.scoreMes+'%';
-document.getElementById('resultadoNivelMes').textContent=r.nivelMes;
-document.getElementById('resultadoProximoCheckin').textContent=r.proximoCheckin || 'Daqui a 7 dias';
-document.getElementById('resultadoConquistas').textContent=r.conquistas;
-document.getElementById('resultadoFoco').textContent=r.foco;
+                    <div class="step-brand-text">
+                      <span class="step-brand-name">Daphyni da Silva</span>
+                      <span class="step-brand-crn">Nutricionista | CRN-10 14525</span>
+                    </div>
+                  </div>
 
-const cardFoco=document.getElementById('resultadoFoco').closest('.resultado-card');
-const cardPlano=document.getElementById('resultadoRecomendacoes').closest('.resultado-card');
-const containerRecomendacoes = document.getElementById('resultadoRecomendacoes');
+                  <div class="step-counter">Identificação</div>
+                </div>
+                <div class="progress-bar-container"><div class="progress-bar-fill" style="width: 50%;"></div></div>
 
-// CASO 1: Score 100% (Semana Perfeita)
-if(r.score === 100){
-  document.getElementById('tituloConquistas').textContent = 'Sua semana em destaque';
-  cardFoco.style.display='none';
-  cardPlano.style.display='block';
-  containerRecomendacoes.innerHTML = `
-    <div style="line-height:1.7;padding:16px;background:#f6f9f6;border-radius:10px;">
-      <div style="font-size:20px;font-weight:700;margin-bottom:12px;color:#2d473d;">🌿 Manter a consistência</div>
-      <div style="margin-bottom:14px;color:#2d473d;">Nesta semana, você demonstrou que consegue transformar planejamento em ação. Agora o objetivo não é fazer mais, e sim repetir aquilo que já funcionou.</div>
-      <div style="font-weight:700;margin-bottom:6px;color:#2d473d;">Próximo objetivo</div>
-      <div style="color:#2d473d;">Manter uma boa semana pode ser tão importante quanto conquistar uma nova. Valorize o que funcionou e continue fortalecendo esses comportamentos.</div>
-    </div>`;
+                <h2>3. Prática de Exercício</h2>
+                <div class="options-grid">
+                    <label class="option-card"><input type="radio" name="exercicio" value="100" required><span>Realizei todos os treinos ou movimentações planejadas.</span></label>
+                    <label class="option-card"><input type="radio" name="exercicio" value="75"><span>Cumpri boa parte, faltando apenas um ajuste pontual.</span></label>
+                    <label class="option-card"><input type="radio" name="exercicio" value="50"><span>Fiz metade dos treinos propostos na rotina.</span></label>
+                    <label class="option-card"><input type="radio" name="exercicio" value="25"><span>Treinei muito pouco ou apenas uma vez.</span></label>
+                    <label class="option-card"><input type="radio" name="exercicio" value="0"><span>Não pratiquei exercícios nesta semana.</span></label>
+                </div>
+                <div class="btn-container">
+                    <button type="button" class="btn-secondary" onclick="voltarEtapa(2)">Voltar</button>
+                    <button type="button" class="btn-primary" onclick="proximaEtapa(4)">Avançar <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i></button>
+                </div>
+            </div>
 
-// CASO 2: Score 0% (Semana Difícil - Mensagem de Acolhimento e Motivação)
-} else if(r.score === 0){
-  document.getElementById('tituloConquistas').textContent = 'Um passo de cada vez';
-  document.getElementById('resultadoConquistas').textContent = 'O maior passo de hoje foi ter preenchido este check-in. Reconhecer onde estamos é o primeiro passo para recomeçar!';
-  cardFoco.style.display='block';
-  cardPlano.style.display='block';
-  
-  containerRecomendacoes.innerHTML = `
-    <div style="line-height:1.7;padding:16px;background:#fdf6f6;border-radius:10px;border-left:4px solid #7a9a7a;">
-      <div style="font-size:18px;font-weight:700;margin-bottom:8px;color:#2d473d;">🌱 Todo dia é uma nova oportunidade</div>
-      <div style="margin-bottom:12px;color:#2d473d;">Semanas difíceis acontecem e fazem parte da jornada. O processo de mudança não é uma linha reta. Não veja isso como uma falha, mas sim como um ponto de recomeço.</div>
-      <div style="font-weight:700;margin-bottom:6px;color:#2d473d;">🎯 Meta para a próxima semana</div>
-      <div style="color:#2d473d;">Escolha <b>apenas uma pequena ação</b> possível para os próximos dias (como tomar mais água ou acertar uma refeição). Não tente consertar tudo de uma vez. Vamos juntas!</div>
-    </div>`;
+            <!-- ETAPA 4 -->
+            <div class="step" id="step4">
+                <div class="step-header">
+                  <div class="step-header-left">
+                    <img src="logo.png" alt="Daphyni da Silva" class="logo-sm">
 
-// CASO 3: Demais notas (Acompanhamento padrão)
-} else {
-  document.getElementById('tituloConquistas').textContent = 'Maior conquista da semana';
-  cardFoco.style.display='block';
-  cardPlano.style.display='block';
-  containerRecomendacoes.innerHTML = '';
-  
-  if(Array.isArray(r.recomendacoes) && r.recomendacoes.length){
-    r.recomendacoes.forEach(item => {
-      const div = document.createElement('div');
-      div.style.marginBottom = '20px';
-      div.style.padding = '16px';
-      div.style.background = '#f6f9f6';
-      div.style.borderRadius = '10px';
-      div.innerHTML = `
-        <div style="font-size:14px;font-weight:700;margin-bottom:6px;color:#2d473d;">🌿 Minha recomendação</div>
-        <div style="line-height:1.7;margin-bottom:18px;color:#2d473d;">${item.texto}</div>
-        <div style="font-size:14px;font-weight:700;margin-bottom:6px;color:#2d473d;">🎯 Pequena meta</div>
-        <div style="line-height:1.7;color:#2d473d;">${item.meta}</div>`;
-      containerRecomendacoes.appendChild(div);
-    });
-  } else {
-    containerRecomendacoes.textContent = 'Nenhuma recomendação disponível.';
-  }
-}
-}
+                    <div class="step-brand-text">
+                      <span class="step-brand-name">Daphyni da Silva</span>
+                      <span class="step-brand-crn">Nutricionista | CRN-10 14525</span>
+                    </div>
+                  </div>
 
-D.btnComecar.addEventListener('click', async function(e){
-  e.preventDefault();
-  
-  if(!validarEtapa1()){
-    return;
-  }
+                  <div class="step-counter">Identificação</div>
+                </div>
+                <div class="progress-bar-container"><div class="progress-bar-fill" style="width: 66.6%;"></div></div>
 
-  const telefone = D.telefone.value.trim();
-  const textoOriginal = D.btnComecar.textContent;
-  D.btnComecar.disabled = true;
-  D.btnComecar.innerHTML = '<span class="spinner"></span> Verificando elegibilidade...';
+                <h2>4. Qualidade do Sono</h2>
+                <div class="options-grid">
+                    <label class="option-card"><input type="radio" name="sono" value="100" required><span>Dormi bem e acordei descansada(o) na maioria dos dias.</span></label>
+                    <label class="option-card"><input type="radio" name="sono" value="75"><span>O sono foi razoável, com poucas interrupções.</span></label>
+                    <label class="option-card"><input type="radio" name="sono" value="50"><span>Dormi mal ou menos horas do que o necessário em alguns dias.</span></label>
+                    <label class="option-card"><input type="radio" name="sono" value="25"><span>Qualidade de sono ruim na maior parte da semana.</span></label>
+                    <label class="option-card"><input type="radio" name="sono" value="0"><span>Privação severa de sono ou insônia constante.</span></label>
+                </div>
+                <div class="btn-container">
+                    <button type="button" class="btn-secondary" onclick="voltarEtapa(3)">Voltar</button>
+                    <button type="button" class="btn-primary" onclick="proximaEtapa(5)">Avançar <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i></button>
+                </div>
+            </div>
 
-  try {
-    var resposta = await fetch('https://api-checkin.nutricionistadaphyni.workers.dev', {
-      method: 'POST',
-      headers: { 
-        'Content-Type': 'text/plain;charset=UTF-8' 
-      },
-      body: JSON.stringify({
-        tipo: 'verificar',
-        telefone: telefone
-      })
-    });
-    
-    var resultado = await resposta.json();
+            <!-- ETAPA 5 -->
+            <div class="step" id="step5">
+                <div class="step-header">
+                  <div class="step-header-left">
+                    <img src="logo.png" alt="Daphyni da Silva" class="logo-sm">
 
-    D.btnComecar.disabled = false;
-    D.btnComecar.textContent = textoOriginal;
+                    <div class="step-brand-text">
+                      <span class="step-brand-name">Daphyni da Silva</span>
+                      <span class="step-brand-crn">Nutricionista | CRN-10 14525</span>
+                    </div>
+                  </div>
 
-    if (resultado.permitido === false || resultado.erro === true) {
-      state.verificado = false;
-      var mensagemAviso = resultado.mensagem || '⚠️ Você já realizou um check-in nos últimos 7 dias.';
-      mostrarErro(mensagemAviso);
-      return;
-    }
+                  <div class="step-counter">Identificação</div>
+                </div>
+                <div class="progress-bar-container"><div class="progress-bar-fill" style="width: 83.3%;"></div></div>
 
-    state.verificado = true;
-    esconderErro();
-    proximaEtapa(2);
+                <h2>5. Organização no Fim de Semana</h2>
+                <div class="options-grid">
+                    <label class="option-card"><input type="radio" name="fds" value="100" required><span>Consegui manter o equilíbrio sem exageros nos dias livres.</span></label>
+                    <label class="option-card"><input type="radio" name="fds" value="75"><span>Houve flexibilidade controlada, mantendo o eixo.</span></label>
+                    <label class="option-card"><input type="radio" name="fds" value="50"><span>Deslizes moderados que pesaram um pouco na rotina.</span></label>
+                    <label class="option-card"><input type="radio" name="fds" value="25"><span>Fim de semana totalmente livre de regras ou estrutura.</span></label>
+                    <label class="option-card"><input type="radio" name="fds" value="0"><span>Exageros importantes que comprometeram o balanço semanal.</span></label>
+                </div>
+                <div class="btn-container">
+                    <button type="button" class="btn-secondary" onclick="voltarEtapa(4)">Voltar</button>
+                    <button type="button" class="btn-primary" onclick="proximaEtapa(6)">Avançar <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i></button>
+                </div>
+            </div>
 
-  } catch (erro) {
-    D.btnComecar.disabled = false;
-    D.btnComecar.textContent = textoOriginal;
-    console.error('Erro ao verificar:', erro);
-    mostrarErro('Erro ao conectar com o servidor para verificar o prazo.');
-  }
-});
+            <!-- ETAPA 6 -->
+            <div class="step" id="step6">
+                <div class="step-header">
+                  <div class="step-header-left">
+                    <img src="logo.png" alt="Daphyni da Silva" class="logo-sm">
 
-document.querySelectorAll('.btn-proximo').forEach(btn=>{btn.addEventListener('click',function(){const etapa=parseInt(this.dataset.etapa);const campo=this.dataset.campo;const prox=parseInt(this.dataset.proxima);if(validarCampoRadio(campo,etapa))proximaEtapa(prox);});});
-document.querySelectorAll('.btn-voltar').forEach(btn=>{btn.addEventListener('click',function(){const voltar=parseInt(this.dataset.voltar);proximaEtapa(voltar);});});
-D.btnNovoCheckin.addEventListener('click',resetarFormulario);
+                    <div class="step-brand-text">
+                      <span class="step-brand-name">Daphyni da Silva</span>
+                      <span class="step-brand-crn">Nutricionista | CRN-10 14525</span>
+                    </div>
+                  </div>
 
-D.form.addEventListener('submit',function(e){
-e.preventDefault();
+                  <div class="step-counter">Identificação</div>
+                </div>
+                <div class="progress-bar-container"><div class="progress-bar-fill" style="width: 100%;"></div></div>
 
-const perguntas = ['plano','proteina','exercicio','sono','perdaControle','consciencia'];
-let todasOk = true;
-for (let i=0; i<perguntas.length; i++) {
-  const sel = document.querySelector('input[name="'+perguntas[i]+'"]:checked');
-  if (!sel) { todasOk = false; break; }
-}
-if (!todasOk) {
-  mostrarErro('Por favor, responda todas as perguntas antes de finalizar.');
-  return;
-}
-if (!validarEnvio()) return;
+                <h2>6. Consciência Alimentar</h2>
+                <div class="options-grid">
+                    <label class="option-card"><input type="radio" name="consciencia" value="100" required><span>Comi com atenção plena, respeitando sinais de fome e saciedade.</span></label>
+                    <label class="option-card"><input type="radio" name="consciencia" value="75"><span>Boa percepção dos sinais na maior parte das refeições.</span></label>
+                    <label class="option-card"><input type="radio" name="consciencia" value="50"><span>Comi por impulso ou ansiedade em alguns momentos.</span></label>
+                    <label class="option-card"><input type="radio" name="consciencia" value="25"><span>Comi frequentemente no piloto automático ou por compensação.</span></label>
+                    <label class="option-card"><input type="radio" name="consciencia" value="0"><span>Completamente desconectada(o) dos sinais de fome e saciedade.</span></label>
+                </div>
+                <div class="btn-container">
+                    <button type="button" class="btn-secondary" onclick="voltarEtapa(5)">Voltar</button>
+                    <button type="button" class="btn-primary" id="btnFinalizar" onclick="enviarCheckin()">Finalizar e Ver Relatório <i data-lucide="check-circle-2" style="width: 18px; height: 18px;"></i></button>
+                </div>
+            </div>
 
-const botao = D.btnEnviar;
-setLoading(botao, true);
-const fd = new FormData(D.form);
-const dados = {
-  nome: fd.get('nome'),
-  telefone: fd.get('telefone'),
-  plano: fd.get('plano'),
-  proteina: fd.get('proteina'),
-  exercicio: fd.get('exercicio'),
-  sono: fd.get('sono'),
-  perdaControle: fd.get('perdaControle'),
-  consciencia: fd.get('consciencia')
-};
+            <!-- ETAPA 7: Loading e Relatório Semanal -->
+            <div class="step" id="step7">
+                <div id="loadingDiv" class="loading">
+                    <div class="spinner"></div>
+                    <p style="color: var(--texto-secundario); font-weight: 500;">Preparando seu relatório personalizado...</p>
+                    <p style="color: var(--texto-secundario); font-size: 0.82rem; margin-top: 6px;">Estamos organizando as informações da sua semana.</p>
+                </div>
 
-var urlWorker = 'https://api-checkin.nutricionistadaphyni.workers.dev';
+                <div id="resultadoDiv" style="display: none;">
+                    <div class="report-header-text">
+                        <h2>Seu check-in foi concluído</h2>
+                        <p>Veja como foi sua semana e qual será o seu próximo foco.</p>
+                    </div>
+                    
+                    <!-- Índice de Consistência (Semanal) -->
+                    <div class="report-card" style="border-top: 4px solid var(--verde-principal);">
+                        <div class="report-title"><i data-lucide="gauge"></i> Índice de Consistência</div>
+                        <div class="report-value" id="resMedia">-</div>
+                    </div>
 
-fetch(urlWorker, {
-  method: 'POST',
-  headers: { 
-    'Content-Type': 'text/plain;charset=UTF-8'
-  },
-  body: JSON.stringify({ 
-    tipo: 'checkin', 
-    dados: dados 
-  })
-})
-.then(res => res.json())
-.then(ret => {
-  setLoading(botao, false);
-  if (ret.sucesso) {
-    mostrarResultado(ret.resultado);
-  } else {
-    mostrarErro('Erro: ' + (ret.mensagem || 'Falha ao salvar.'));
-  }
-})
-.catch(err => {
-  setLoading(botao, false);
-  mostrarErro('Erro de conexão: ' + (err.message || 'resposta inválida do servidor'));
-});
-});
+                    <!-- Como foi sua semana -->
+                    <div class="report-card">
+                        <div class="report-title"><i data-lucide="trending-up"></i> Como foi sua semana</div>
+                        <div style="font-weight: 600; font-size: 1.05rem; color: var(--verde-escuro); margin-top: 4px;" id="resAnaliseTitulo">-</div>
+                        <div class="report-desc" id="resAnaliseDesc">-</div>
+                        <div class="report-desc" style="margin-top: 10px; font-weight: 600; color: var(--verde-principal);" id="resAnaliseMeta">-</div>
+                    </div>
 
-atualizarProgresso(1);
-})();
-</script>
+                    <!-- Evolução do Peso -->
+                    <div class="report-card">
+                        <div class="report-title"><i data-lucide="scale"></i> Evolução do Peso</div>
+                        <div class="report-value" id="resDelta">-</div>
+                        <div class="report-desc" id="resFeedbackPeso">-</div>
+                    </div>
+
+                    <!-- Estratégia Personalizada -->
+                    <div class="report-card" id="cardDica" style="border-left: 4px solid var(--dourado);">
+                        <div class="report-title"><i data-lucide="lightbulb"></i> <span id="resDicaCat">-</span></div>
+                        <div class="report-desc" id="resDicaTexto">-</div>
+                    </div>
+
+                    <!-- BOTÕES DE NAVEGAÇÃO FINAL -->
+                    <div style="margin-top: 28px; display: flex; flex-direction: column; gap: 12px;">
+                        <button type="button" class="btn-mensal-destaque" onclick="abrirResultadoMensal()">
+                            <i data-lucide="chart-no-axes-combined" style="width: 18px; height: 18px; color: var(--dourado);"></i> VER MEU RESULTADO MENSAL
+                        </button>
+                        <button type="button" class="btn-novo-checkin" onclick="window.location.reload()">
+                            <i data-lucide="rotate-ccw" style="width: 16px; height: 16px;"></i> Novo Check-in
+                        </button>
+                    </div>
+
+                    <div class="report-footer-crn">
+                        Daphyni da Silva — Nutricionista | CRN-10 14525
+                    </div>
+                </div>
+            </div>
+
+            <!-- ETAPA 8: NOVA PÁGINA PARA O RESULTADO MENSAL -->
+            <div class="step" id="stepMensal">
+                <div class="report-header-text">
+                    <h2 class="titulo-mensal-principal">Resultado parcial do mês</h2>
+                    <p>Veja como sua rotina vem se construindo ao longo dos check-ins deste mês.</p>
+                </div>
+
+                <!-- CARD MENSAL COMPLETO -->
+                <div class="report-card" id="cardMensalCompleto" style="background: var(--branco);">
+                    
+                    <!-- Sistema de Medalhas Dinâmicas -->
+                    <div id="containerMedalha"></div>
+
+                    <!-- Resumo do Mês -->
+                    <div style="margin-bottom: 20px;">
+                        <div class="subtitulo-mensal-secao"><i data-lucide="award"></i> Resumo do Mês</div>
+                        <strong id="mensalClassificacao" style="font-size: 1.15rem; color: var(--verde-escuro); display: block; margin-bottom: 4px;">-</strong>
+                        <p id="mensalMensagem" style="font-size: 0.92rem; color: var(--texto); line-height: 1.5;"></p>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px; border-top: 1px solid var(--borda); padding-top: 14px;">
+                        <div>
+                            <span style="font-size: 0.78rem; color: var(--texto-secundario); display: block;">Média Mensal</span>
+                            <strong id="mensalScore" style="font-size: 1.2rem; color: var(--verde-escuro);">-</strong>
+                        </div>
+                        <div>
+                            <span style="font-size: 0.78rem; color: var(--texto-secundario); display: block;">Check-ins</span>
+                            <strong id="mensalQtd" style="font-size: 1.2rem; color: var(--verde-escuro);">-</strong>
+                        </div>
+                        <div>
+                            <span style="font-size: 0.78rem; color: var(--texto-secundario); display: block;">Melhor Semana</span>
+                            <strong id="mensalMelhor" style="font-size: 1.05rem; color: var(--texto);">-</strong>
+                        </div>
+                        <div>
+                            <span style="font-size: 0.78rem; color: var(--texto-secundario); display: block;">Variação no Mês</span>
+                            <strong id="mensalDelta" style="font-size: 1.05rem; color: var(--texto);">-</strong>
+                        </div>
+                    </div>
+
+                    <!-- Ponto forte e Atenção -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 16px; border-top: 1px solid var(--borda); padding-top: 14px;">
+                        <div>
+                            <span style="font-size: 0.75rem; color: var(--texto-secundario); display: flex; align-items: center; gap: 4px;"><i data-lucide="circle-check-big" style="width: 14px; height: 14px; color: var(--verde-principal);"></i> Ponto Forte</span>
+                            <strong id="mensalPontoForte" style="font-size: 0.92rem; color: var(--verde-escuro);">-</strong>
+                        </div>
+                        <div>
+                            <span style="font-size: 0.75rem; color: var(--texto-secundario); display: flex; align-items: center; gap: 4px;"><i data-lucide="triangle-alert" style="width: 14px; height: 14px; color: #D69E2E;"></i> Ponto de Atenção</span>
+                            <strong id="mensalPontoAtencao" style="font-size: 0.92rem; color: var(--texto);">-</strong>
+                        </div>
+                    </div>
+
+                    <!-- Comparação com mês anterior -->
+                    <div style="font-size: 0.84rem; color: var(--texto-secundario); margin-top: 14px; border-top: 1px solid var(--borda); padding-top: 10px; display: flex; align-items: center; gap: 6px;">
+                        <i data-lucide="arrow-up-down" style="width: 14px; height: 14px; color: var(--dourado);"></i>
+                        <span id="mensalComparacao">-</span>
+                    </div>
+
+                    <!-- Média dos Pilares -->
+                    <div style="margin-top: 22px; border-top: 1px solid var(--borda); padding-top: 16px;">
+                        <div class="subtitulo-mensal-secao"><i data-lucide="bar-chart-3"></i> Média dos Pilares</div>
+                        <div id="mensalPilaresContainer"></div>
+                    </div>
+
+                    <!-- Histórico -->
+                    <div style="margin-top: 22px; border-top: 1px solid var(--borda); padding-top: 16px;">
+                        <div class="subtitulo-mensal-secao"><i data-lucide="history"></i> Histórico de Check-ins</div>
+                        <div id="mensalHistoricoLista" style="font-size: 0.88rem; color: var(--texto); display: flex; flex-direction: column; gap: 6px;"></div>
+                    </div>
+
+                    <div style="font-size: 0.8rem; color: var(--texto-secundario); margin-top: 14px; border-top: 1px solid var(--borda); padding-top: 10px;" id="mensalMsg">-</div>
+                </div>
+
+                <!-- CARD MENSAL INCOMPLETO -->
+                <div class="report-card" id="cardMensalIncompleto" style="display: none; background: var(--branco);">
+                    <div class="medalha-card medalha-verde" style="margin-bottom: 16px;">
+                        <div class="medalha-icone">🌱</div>
+                        <div class="medalha-info">
+                            <h4>Processo em Construção</h4>
+                            <p>Seu processo está em construção. Cada novo check-in é uma oportunidade de evolução.</p>
+                        </div>
+                    </div>
+                    <div class="subtitulo-mensal-secao">Resultado Parcial do Mês</div>
+                    <div style="font-weight: 600; font-size: 1.05rem; color: var(--verde-escuro); margin-top: 6px;">Resultado mensal em construção</div>
+                    <div class="report-desc" id="mensalIncompletoTexto">-</div>
+                    <div style="font-size: 0.82rem; color: var(--texto-secundario); margin-top: 10px;">Check-ins realizados neste mês: <strong id="mensalIncompletoQtd">1</strong></div>
+                </div>
+
+                <div class="btn-container" style="margin-top: 24px;">
+                    <button type="button" class="btn-secondary" onclick="voltarResultadoSemanal()" style="flex: 1;">
+                        <i data-lucide="arrow-left" style="width: 16px; height: 16px;"></i> Voltar ao Resultado Semanal
+                    </button>
+                </div>
+
+                <div class="report-footer-crn">
+                    Daphyni da Silva — Nutricionista | CRN-10 14525
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+    <script>
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzCiyLE_83J_ojvWLGejcbJulNBny34u7wEHEp6fin5xJyQ7SiCUrYLxXQnFSQmLZhefw/exec";
+
+        document.addEventListener("DOMContentLoaded", () => {
+            lucide.createIcons();
+        });
+
+        function validarEtapa0() {
+            const nome = document.getElementById("nome").value.trim();
+            const telefone = document.getElementById("telefone").value.trim();
+            const pesoStr = document.getElementById("peso").value.trim().replace(",", ".");
+            const peso = parseFloat(pesoStr);
+            const errorMsg = document.getElementById("errorStep0");
+
+            if (nome.length < 2 || telefone.replace(/\D/g, "").length < 10 || isNaN(peso) || peso <= 0) {
+                errorMsg.style.display = "block";
+                return false;
+            }
+            errorMsg.style.display = "none";
+            return true;
+        }
+
+        function voltarParaCapa() {
+            document.querySelectorAll(".step").forEach(el => el.classList.remove("active"));
+            document.getElementById("stepCapa").classList.add("active");
+            window.scrollTo(0, 0);
+            lucide.createIcons();
+        }
+
+        function proximaEtapa(etapaDestino) {
+            if (etapaDestino === 1 && !validarEtapa0()) {
+                return;
+            }
+            
+            if (etapaDestino > 1 && etapaDestino <= 6) {
+                const etapaAtualNum = etapaDestino - 1;
+                const nomesPilares = ["", "plano", "proteina", "exercicio", "sono", "fds", "consciencia"];
+                const pilarAtual = nomesPilares[etapaAtualNum];
+                const selecionado = document.querySelector(`input[name="${pilarAtual}"]:checked`);
+                
+                if (!selecionado) {
+                    alert("Por favor, selecione uma opção para continuar.");
+                    return;
+                }
+            }
+
+            document.querySelectorAll(".step").forEach(el => el.classList.remove("active"));
+            document.getElementById("step" + etapaDestino).classList.add("active");
+            window.scrollTo(0, 0);
+            lucide.createIcons();
+        }
+
+        function voltarEtapa(etapaDestino) {
+            document.querySelectorAll(".step").forEach(el => el.classList.remove("active"));
+            document.getElementById("step" + etapaDestino).classList.add("active");
+            window.scrollTo(0, 0);
+            lucide.createIcons();
+        }
+
+        function abrirResultadoMensal() {
+            document.querySelectorAll(".step").forEach(el => el.classList.remove("active"));
+            document.getElementById("stepMensal").classList.add("active");
+            window.scrollTo(0, 0);
+            lucide.createIcons();
+        }
+
+        function voltarResultadoSemanal() {
+            document.querySelectorAll(".step").forEach(el => el.classList.remove("active"));
+            document.getElementById("step7").classList.add("active");
+            document.getElementById("loadingDiv").style.display = "none";
+            document.getElementById("resultadoDiv").style.display = "block";
+            window.scrollTo(0, 0);
+            lucide.createIcons();
+        }
+
+        function renderizarMedalhaMensal(scoreTexto) {
+            const containerMedalha = document.getElementById("containerMedalha");
+            const valorNum = parseInt(String(scoreTexto).replace("%", "").trim(), 10);
+            
+            if (isNaN(valorNum)) {
+                containerMedalha.innerHTML = "";
+                return;
+            }
+
+            let classe = "medalha-verde";
+            let icone = "🌱";
+            let titulo = "Processo em Construção";
+            let descricao = "Seu processo está em construção. Cada novo check-in é uma oportunidade de evolução.";
+
+            if (valorNum >= 90) {
+                classe = "medalha-ouro";
+                icone = "🥇";
+                titulo = "Medalha Ouro";
+                descricao = "Excelente consistência durante todo o mês.";
+            } else if (valorNum >= 70) {
+                classe = "medalha-prata";
+                icone = "🥈";
+                titulo = "Medalha Prata";
+                descricao = "Boa consistência. Continue fortalecendo sua rotina.";
+            } else if (valorNum >= 50) {
+                classe = "medalha-bronze";
+                icone = "🥉";
+                titulo = "Medalha Bronze";
+                descricao = "Você manteve parte importante da rotina. Pequenos ajustes podem gerar grandes resultados.";
+            } else {
+                classe = "medalha-verde";
+                icone = "🌱";
+                titulo = "Em construção";
+                descricao = "Seu processo está em construção. Cada novo check-in é uma oportunidade de evolução.";
+            }
+
+            containerMedalha.innerHTML = `
+                <div class="medalha-card ${classe}">
+                    <div class="medalha-icone">${icone}</div>
+                    <div class="medalha-info">
+                        <h4>${titulo}</h4>
+                        <p>${descricao}</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        function enviarCheckin() {
+            const selecionado = document.querySelector(`input[name="consciencia"]:checked`);
+            if (!selecionado) {
+                alert("Por favor, selecione uma opção para finalizar.");
+                return;
+            }
+
+            const btnFinalizar = document.getElementById("btnFinalizar");
+            btnFinalizar.disabled = true;
+            btnFinalizar.innerHTML = "Enviando... <div class='spinner' style='width:16px;height:16px;border-width:2px;margin:0;'></div>";
+
+            const payload = {
+                nome: document.getElementById("nome").value.trim(),
+                telefone: document.getElementById("telefone").value.trim(),
+                peso: document.getElementById("peso").value.trim(),
+                plano: document.querySelector('input[name="plano"]:checked').value,
+                proteina: document.querySelector('input[name="proteina"]:checked').value,
+                exercicio: document.querySelector('input[name="exercicio"]:checked').value,
+                sono: document.querySelector('input[name="sono"]:checked').value,
+                fds: document.querySelector('input[name="fds"]:checked').value,
+                consciencia: selecionado.value
+            };
+
+            document.querySelectorAll(".step").forEach(el => el.classList.remove("active"));
+            document.getElementById("step7").classList.add("active");
+            window.scrollTo(0, 0);
+
+            fetch(WEB_APP_URL, {
+                method: "POST",
+                body: JSON.stringify(payload)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Erro HTTP " + response.status);
+                }
+                return response.json();
+            })
+            .then(data => {
+                document.getElementById("loadingDiv").style.display = "none";
+                document.getElementById("resultadoDiv").style.display = "block";
+
+                if (data.status === "sucesso") {
+                    document.getElementById("resMedia").innerText = data.media;
+                    document.getElementById("resDelta").innerText = data.deltaPeso;
+                    document.getElementById("resFeedbackPeso").innerText = data.feedbackPeso;
+                    
+                    document.getElementById("resAnaliseTitulo").innerText = data.analise.titulo;
+                    document.getElementById("resAnaliseDesc").innerText = data.analise.desc;
+                    document.getElementById("resAnaliseMeta").innerText = data.analise.meta;
+
+                    document.getElementById("resDicaCat").innerText = data.dica.categoria;
+                    document.getElementById("resDicaTexto").innerText = data.dica.texto;
+                    document.getElementById("cardDica").style.display = "block";
+
+                    if (data.mensal) {
+                        if (data.mensal.disponivel === true) {
+                            document.getElementById("mensalScore").innerText = data.mensal.score;
+                            document.getElementById("mensalClassificacao").innerText = data.mensal.classificacaoMensal;
+                            document.getElementById("mensalMensagem").innerText = data.mensal.mensagemMensal;
+                            document.getElementById("mensalQtd").innerText = data.mensal.quantidadeCheckins;
+                            document.getElementById("mensalMelhor").innerText = data.mensal.melhorSemana;
+                            document.getElementById("mensalDelta").innerText = data.mensal.variacaoPesoMes;
+                            document.getElementById("mensalMsg").innerText = data.mensal.resumoCheckins;
+
+                            renderizarMedalhaMensal(data.mensal.score);
+
+                            document.getElementById("mensalPontoForte").innerText = data.mensal.pontoForte;
+                            document.getElementById("mensalPontoAtencao").innerText = data.mensal.pontoAtencao;
+
+                            if (data.mensal.comparacaoMesAnterior) {
+                                document.getElementById("mensalComparacao").innerText = data.mensal.comparacaoMesAnterior;
+                            } else {
+                                document.getElementById("mensalComparacao").innerText = "Ainda não há dados suficientes para comparar com o mês anterior.";
+                            }
+
+                            const containerPilares = document.getElementById("mensalPilaresContainer");
+                            containerPilares.innerHTML = "";
+                            const nomesPilaresMap = {
+                                plano: "Plano alimentar",
+                                proteina: "Proteína",
+                                exercicio: "Exercício",
+                                sono: "Sono",
+                                fds: "Fim de semana",
+                                consciencia: "Consciência alimentar"
+                            };
+
+                            if (data.mensal.pilares) {
+                                for (const [key, val] of Object.entries(data.mensal.pilares)) {
+                                    const nomeExibicao = nomesPilaresMap[key] || key;
+                                    const itemDiv = document.createElement("div");
+                                    itemDiv.className = "pilar-bar-item";
+                                    
+                                    if (val === null || isNaN(val)) {
+                                        itemDiv.innerHTML = `
+                                            <div class="pilar-bar-header"><span>${nomeExibicao}</span><span>Dados insuficientes</span></div>
+                                        `;
+                                    } else {
+                                        const valorSeguro = Math.max(0, Math.min(100, Number(val)));
+                                        itemDiv.innerHTML = `
+                                            <div class="pilar-bar-header">
+                                                <span>${nomeExibicao}</span>
+                                                <span>${valorSeguro}%</span>
+                                            </div>
+                                            <div class="pilar-bar-track">
+                                                <div class="pilar-bar-fill" style="width: ${valorSeguro}%;"></div>
+                                            </div>
+                                        `;
+                                    }
+                                    containerPilares.appendChild(itemDiv);
+                                }
+                            }
+
+                            const historicoLista = document.getElementById("mensalHistoricoLista");
+                            historicoLista.innerHTML = "";
+                            if (data.mensal.historicoMensal && data.mensal.historicoMensal.length >= 2) {
+                                data.mensal.historicoMensal.forEach(hist => {
+                                    const hDiv = document.createElement("div");
+                                    hDiv.style.display = "flex";
+                                    hDiv.style.justifyContent = "space-between";
+                                    hDiv.style.padding = "6px 0";
+                                    hDiv.style.borderBottom = "1px dashed rgba(91, 124, 117, 0.15)";
+                                    hDiv.innerHTML = `<span>${hist.data}</span><strong>${hist.score}%</strong>`;
+                                    historicoLista.appendChild(hDiv);
+                                });
+                            } else {
+                                historicoLista.innerHTML = `<span style="font-size: 0.82rem; color: var(--texto-secundario);">Histórico em construção.</span>`;
+                            }
+
+                            document.getElementById("cardMensalCompleto").style.display = "block";
+                            document.getElementById("cardMensalIncompleto").style.display = "none";
+                        } else {
+                            document.getElementById("mensalIncompletoTexto").innerText = data.mensal.mensagem;
+                            document.getElementById("mensalIncompletoQtd").innerText = data.mensal.quantidadeCheckins || 1;
+                            document.getElementById("cardMensalCompleto").style.display = "none";
+                            document.getElementById("cardMensalIncompleto").style.display = "block";
+                        }
+                    } else {
+                        document.getElementById("mensalIncompletoTexto").innerText = "Ainda não foi possível gerar o resultado mensal.";
+                        document.getElementById("mensalIncompletoQtd").innerText = "0";
+                        document.getElementById("cardMensalCompleto").style.display = "none";
+                        document.getElementById("cardMensalIncompleto").style.display = "block";
+                    }
+
+                    lucide.createIcons();
+                } else {
+                    btnFinalizar.disabled = false;
+                    btnFinalizar.innerHTML = `Finalizar e Ver Relatório <i data-lucide="check-circle-2" style="width: 18px; height: 18px;"></i>`;
+                    
+                    const resultadoDiv = document.getElementById("resultadoDiv");
+                    resultadoDiv.innerHTML = `
+                        <h2>Aviso</h2>
+                        <p id="mensagemErroServidor" style="color: var(--erro); margin-top: 10px;"></p>
+                        <button type="button" class="btn-primary" style="margin-top: 20px;" onclick="window.location.reload()">Tentar Novamente</button>
+                    `;
+                    document.getElementById("mensagemErroServidor").textContent = data.mensagem || "Não foi possível processar o check-in.";
+                    
+                    lucide.createIcons();
+                }
+            })
+            .catch(error => {
+                btnFinalizar.disabled = false;
+                btnFinalizar.innerHTML = `Finalizar e Ver Relatório <i data-lucide="check-circle-2" style="width: 18px; height: 18px;"></i>`;
+                document.getElementById("loadingDiv").innerHTML = "<p style='color: var(--erro);'>Ocorreu um erro de comunicação com o servidor. Verifique sua conexão e tente novamente.</p>";
+            });
+        }
+    </script>
 </body>
 </html>
