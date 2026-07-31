@@ -50,54 +50,48 @@
             background: var(--branco);
             border-radius: 20px;
             box-shadow: var(--sombra);
-            padding: 44px;
+            padding: 36px 44px;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
             border: 1px solid rgba(197, 164, 109, 0.15);
         }
 
+        /* Ajustes pontuais solicitados para a capa e margens da logo */
         .capa-content {
             text-align: center;
-            padding: 10px 0;
+            padding: 0;
         }
 
         .logo-img {
             width: 425px;
             max-width: 100%;
             height: auto;
-            margin: 0 auto 16px;
             display: block;
+            margin: -18px auto -58px;
+            transform: none;
             background: transparent !important;
             border: none !important;
             padding: 0 !important;
             box-shadow: none !important;
             border-radius: 0 !important;
-            filter: drop-shadow(0 8px 20px rgba(65, 92, 86, 0.08));
-        }
-
-        .professional-name {
-            font-size: 1.05rem;
-            font-weight: 600;
-            color: var(--texto);
-            margin-top: 6px;
-            letter-spacing: -0.2px;
+            filter: none;
         }
 
         .professional-crn {
-            font-size: 0.78rem;
-            font-weight: 400;
+            font-size: 0.76rem;
+            font-weight: 500;
             color: var(--texto-secundario);
-            margin-top: 2px;
-            margin-bottom: 18px;
-            letter-spacing: 0.4px;
+            letter-spacing: 0.5px;
+            margin-top: 0;
+            margin-bottom: 8px;
         }
 
         .div-dourado {
             width: 40px;
             height: 1.5px;
             background: var(--dourado);
-            margin: 0 auto 22px auto;
+            margin: 0 auto 9px;
             border-radius: 2px;
             opacity: 0.7;
         }
@@ -108,7 +102,7 @@
             text-transform: uppercase;
             letter-spacing: 2.5px;
             font-weight: 600;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .capa-title {
@@ -116,7 +110,7 @@
             color: var(--texto);
             font-weight: 700;
             letter-spacing: -0.5px;
-            margin-bottom: 14px;
+            margin-bottom: 12px;
             line-height: 1.2;
         }
 
@@ -124,7 +118,7 @@
             font-size: 0.98rem;
             color: var(--texto-secundario);
             line-height: 1.6;
-            margin-bottom: 28px;
+            margin-bottom: 22px;
             padding: 0 10px;
             font-weight: 400;
         }
@@ -136,7 +130,7 @@
             color: var(--texto-secundario);
             font-size: 0.85rem;
             font-weight: 500;
-            margin-bottom: 28px;
+            margin-bottom: 22px;
             background: var(--verde-claro);
             padding: 8px 16px;
             border-radius: 20px;
@@ -149,42 +143,28 @@
             margin-bottom: 24px;
             padding-bottom: 16px;
             border-bottom: 1px solid var(--borda);
-        }
-
-        .step-header-left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .logo-sm {
-            width: 54px;
-            height: 54px;
-            object-fit: contain;
-            flex-shrink: 0;
-            background: transparent !important;
-            border: none !important;
-            box-shadow: none !important;
+            gap: 18px;
         }
 
         .step-brand-text {
             display: flex;
             flex-direction: column;
-            gap: 2px;
+            gap: 3px;
+            min-width: 0;
         }
 
         .step-brand-name {
-            font-size: 0.95rem;
+            font-size: 0.96rem;
             font-weight: 700;
-            line-height: 1.2;
             color: var(--texto);
+            line-height: 1.2;
         }
 
         .step-brand-crn {
             font-size: 0.72rem;
             font-weight: 400;
-            line-height: 1.25;
             color: var(--texto-secundario);
+            line-height: 1.3;
         }
 
         .step-counter {
@@ -198,6 +178,7 @@
             padding: 6px 12px;
             border-radius: 8px;
             white-space: nowrap;
+            flex-shrink: 0;
         }
 
         .progress-bar-container {
@@ -270,6 +251,24 @@
         input:focus {
             border-color: var(--verde-principal);
             box-shadow: 0 0 0 4px rgba(91, 124, 117, 0.12);
+        }
+
+        .field-helper {
+            display: flex;
+            align-items: flex-start;
+            gap: 7px;
+            margin-top: 8px;
+            font-size: 0.75rem;
+            line-height: 1.45;
+            color: var(--texto-secundario);
+        }
+
+        .field-helper svg {
+            width: 14px;
+            height: 14px;
+            flex-shrink: 0;
+            margin-top: 2px;
+            color: var(--dourado);
         }
 
         .options-grid {
@@ -578,23 +577,19 @@
             .container {
                 min-height: 100vh;
                 border-radius: 0;
-                padding: 32px 20px;
+                padding: 28px 20px;
                 box-shadow: none;
                 border: none;
             }
 
             .logo-img {
-                width: 335px;
+                width: 320px;
                 max-width: 90%;
+                margin: -12px auto -44px;
             }
 
-            .logo-sm {
-                width: 48px;
-                height: 48px;
-            }
-
-            .step-header-left {
-                gap: 10px;
+            .step-header {
+                gap: 12px;
             }
 
             .step-brand-name {
@@ -602,12 +597,12 @@
             }
 
             .step-brand-crn {
-                font-size: 0.66rem;
+                font-size: 0.65rem;
             }
 
             .step-counter {
-                font-size: 0.68rem;
-                padding: 5px 10px;
+                font-size: 0.66rem;
+                padding: 5px 9px;
             }
         }
     </style>
@@ -621,8 +616,7 @@
             <div class="step active" id="stepCapa">
                 <div class="capa-content">
                     <img src="logo.png" alt="Daphyni da Silva Nutricionista" class="logo-img">
-                    <div class="professional-name">Daphyni da Silva</div>
-                    <div class="professional-crn">Nutricionista | CRN-10 14525</div>
+                    <div class="professional-crn">CRN-10 14525</div>
                     <div class="div-dourado"></div>
                     
                     <div class="capa-tag">Acompanhamento Nutricional</div>
@@ -634,7 +628,7 @@
                         Leva aproximadamente 2 minutos
                     </div>
 
-                    <div class="btn-container" style="margin-top: 10px;">
+                    <div class="btn-container" style="margin-top: 6px;">
                         <button type="button" class="btn-primary" onclick="proximaEtapa(0)">
                             INICIAR MEU CHECK-IN <i data-lucide="arrow-right" style="width: 18px; height: 18px;"></i>
                         </button>
@@ -645,13 +639,9 @@
             <!-- ETAPA 0: Dados -->
             <div class="step" id="step0">
                 <div class="step-header">
-                  <div class="step-header-left">
-                    <img src="logo.png" alt="Daphyni da Silva" class="logo-sm">
-
-                    <div class="step-brand-text">
-                      <span class="step-brand-name">Daphyni da Silva</span>
-                      <span class="step-brand-crn">Nutricionista | CRN-10 14525</span>
-                    </div>
+                  <div class="step-brand-text">
+                    <span class="step-brand-name">Daphyni da Silva</span>
+                    <span class="step-brand-crn">Nutricionista | CRN-10 14525</span>
                   </div>
 
                   <div class="step-counter">Identificação</div>
@@ -666,11 +656,15 @@
                 <div class="form-group">
                     <label for="telefone">Telefone (WhatsApp)</label>
                     <input type="tel" id="telefone" required placeholder="(00) 00000-0000">
+                    <div class="field-helper">
+                      <i data-lucide="info"></i>
+                      <span>Seu WhatsApp será utilizado como sua identificação no sistema. Informe sempre o mesmo número, com DDD e número completo, para que seu histórico semanal e sua evolução mensal sejam registrados corretamente.</span>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="peso">Peso Atual (kg)</label>
                     <input type="text" id="peso" required placeholder="Ex: 68.5 ou 68,5">
-                    <div class="error-msg" id="errorStep0">Confira o nome, o telefone e o peso informado.</div>
+                    <div class="error-msg" id="errorStep0"></div>
                 </div>
                 <div class="btn-container">
                     <button type="button" class="btn-secondary" onclick="voltarParaCapa()">Voltar</button>
@@ -681,16 +675,12 @@
             <!-- ETAPA 1 -->
             <div class="step" id="step1">
                 <div class="step-header">
-                  <div class="step-header-left">
-                    <img src="logo.png" alt="Daphyni da Silva" class="logo-sm">
-
-                    <div class="step-brand-text">
-                      <span class="step-brand-name">Daphyni da Silva</span>
-                      <span class="step-brand-crn">Nutricionista | CRN-10 14525</span>
-                    </div>
+                  <div class="step-brand-text">
+                    <span class="step-brand-name">Daphyni da Silva</span>
+                    <span class="step-brand-crn">Nutricionista | CRN-10 14525</span>
                   </div>
 
-                  <div class="step-counter">Identificação</div>
+                  <div class="step-counter">Pergunta 1 de 6</div>
                 </div>
                 <div class="progress-bar-container"><div class="progress-bar-fill" style="width: 16.6%;"></div></div>
 
@@ -711,16 +701,12 @@
             <!-- ETAPA 2 -->
             <div class="step" id="step2">
                 <div class="step-header">
-                  <div class="step-header-left">
-                    <img src="logo.png" alt="Daphyni da Silva" class="logo-sm">
-
-                    <div class="step-brand-text">
-                      <span class="step-brand-name">Daphyni da Silva</span>
-                      <span class="step-brand-crn">Nutricionista | CRN-10 14525</span>
-                    </div>
+                  <div class="step-brand-text">
+                    <span class="step-brand-name">Daphyni da Silva</span>
+                    <span class="step-brand-crn">Nutricionista | CRN-10 14525</span>
                   </div>
 
-                  <div class="step-counter">Identificação</div>
+                  <div class="step-counter">Pergunta 2 de 6</div>
                 </div>
                 <div class="progress-bar-container"><div class="progress-bar-fill" style="width: 33.3%;"></div></div>
 
@@ -741,16 +727,12 @@
             <!-- ETAPA 3 -->
             <div class="step" id="step3">
                 <div class="step-header">
-                  <div class="step-header-left">
-                    <img src="logo.png" alt="Daphyni da Silva" class="logo-sm">
-
-                    <div class="step-brand-text">
-                      <span class="step-brand-name">Daphyni da Silva</span>
-                      <span class="step-brand-crn">Nutricionista | CRN-10 14525</span>
-                    </div>
+                  <div class="step-brand-text">
+                    <span class="step-brand-name">Daphyni da Silva</span>
+                    <span class="step-brand-crn">Nutricionista | CRN-10 14525</span>
                   </div>
 
-                  <div class="step-counter">Identificação</div>
+                  <div class="step-counter">Pergunta 3 de 6</div>
                 </div>
                 <div class="progress-bar-container"><div class="progress-bar-fill" style="width: 50%;"></div></div>
 
@@ -771,16 +753,12 @@
             <!-- ETAPA 4 -->
             <div class="step" id="step4">
                 <div class="step-header">
-                  <div class="step-header-left">
-                    <img src="logo.png" alt="Daphyni da Silva" class="logo-sm">
-
-                    <div class="step-brand-text">
-                      <span class="step-brand-name">Daphyni da Silva</span>
-                      <span class="step-brand-crn">Nutricionista | CRN-10 14525</span>
-                    </div>
+                  <div class="step-brand-text">
+                    <span class="step-brand-name">Daphyni da Silva</span>
+                    <span class="step-brand-crn">Nutricionista | CRN-10 14525</span>
                   </div>
 
-                  <div class="step-counter">Identificação</div>
+                  <div class="step-counter">Pergunta 4 de 6</div>
                 </div>
                 <div class="progress-bar-container"><div class="progress-bar-fill" style="width: 66.6%;"></div></div>
 
@@ -801,16 +779,12 @@
             <!-- ETAPA 5 -->
             <div class="step" id="step5">
                 <div class="step-header">
-                  <div class="step-header-left">
-                    <img src="logo.png" alt="Daphyni da Silva" class="logo-sm">
-
-                    <div class="step-brand-text">
-                      <span class="step-brand-name">Daphyni da Silva</span>
-                      <span class="step-brand-crn">Nutricionista | CRN-10 14525</span>
-                    </div>
+                  <div class="step-brand-text">
+                    <span class="step-brand-name">Daphyni da Silva</span>
+                    <span class="step-brand-crn">Nutricionista | CRN-10 14525</span>
                   </div>
 
-                  <div class="step-counter">Identificação</div>
+                  <div class="step-counter">Pergunta 5 de 6</div>
                 </div>
                 <div class="progress-bar-container"><div class="progress-bar-fill" style="width: 83.3%;"></div></div>
 
@@ -831,16 +805,12 @@
             <!-- ETAPA 6 -->
             <div class="step" id="step6">
                 <div class="step-header">
-                  <div class="step-header-left">
-                    <img src="logo.png" alt="Daphyni da Silva" class="logo-sm">
-
-                    <div class="step-brand-text">
-                      <span class="step-brand-name">Daphyni da Silva</span>
-                      <span class="step-brand-crn">Nutricionista | CRN-10 14525</span>
-                    </div>
+                  <div class="step-brand-text">
+                    <span class="step-brand-name">Daphyni da Silva</span>
+                    <span class="step-brand-crn">Nutricionista | CRN-10 14525</span>
                   </div>
 
-                  <div class="step-counter">Identificação</div>
+                  <div class="step-counter">Pergunta 6 de 6</div>
                 </div>
                 <div class="progress-bar-container"><div class="progress-bar-fill" style="width: 100%;"></div></div>
 
@@ -856,9 +826,7 @@
                     <button type="button" class="btn-secondary" onclick="voltarEtapa(5)">Voltar</button>
                     <button type="button" class="btn-primary" id="btnFinalizar" onclick="enviarCheckin()">Finalizar e Ver Relatório <i data-lucide="check-circle-2" style="width: 18px; height: 18px;"></i></button>
                 </div>
-            </div>
-
-            <!-- ETAPA 7: Loading e Relatório Semanal -->
+            </div><!-- ETAPA 7: Loading e Relatório Semanal -->
             <div class="step" id="step7">
                 <div id="loadingDiv" class="loading">
                     <div class="spinner"></div>
@@ -880,22 +848,22 @@
 
                     <!-- Como foi sua semana -->
                     <div class="report-card">
-                        <div class="report-title"><i data-lucide="trending-up"></i> Como foi sua semana</div>
+                        <div class="report-title"><i data-lucide="trending-up"></i> Análise da sua semana</div>
                         <div style="font-weight: 600; font-size: 1.05rem; color: var(--verde-escuro); margin-top: 4px;" id="resAnaliseTitulo">-</div>
                         <div class="report-desc" id="resAnaliseDesc">-</div>
                         <div class="report-desc" style="margin-top: 10px; font-weight: 600; color: var(--verde-principal);" id="resAnaliseMeta">-</div>
                     </div>
 
-                    <!-- Evolução do Peso -->
+                    <!-- Evolução do Peso (Consumindo dinamicamente o tituloPeso do Código.gs) -->
                     <div class="report-card">
-                        <div class="report-title"><i data-lucide="scale"></i> Evolução do Peso</div>
+                        <div class="report-title"><i data-lucide="scale"></i> <span id="resTituloPeso">Evolução do Peso</span></div>
                         <div class="report-value" id="resDelta">-</div>
                         <div class="report-desc" id="resFeedbackPeso">-</div>
                     </div>
 
                     <!-- Estratégia Personalizada -->
                     <div class="report-card" id="cardDica" style="border-left: 4px solid var(--dourado);">
-                        <div class="report-title"><i data-lucide="lightbulb"></i> <span id="resDicaCat">-</span></div>
+                        <div class="report-title"><i data-lucide="lightbulb"></i> <span id="resDicaCat">Prioridade da Semana</span></div>
                         <div class="report-desc" id="resDicaTexto">-</div>
                     </div>
 
@@ -1026,14 +994,29 @@
         function validarEtapa0() {
             const nome = document.getElementById("nome").value.trim();
             const telefone = document.getElementById("telefone").value.trim();
+            const numerosTelefone = telefone.replace(/\D/g, "");
             const pesoStr = document.getElementById("peso").value.trim().replace(",", ".");
             const peso = parseFloat(pesoStr);
             const errorMsg = document.getElementById("errorStep0");
 
-            if (nome.length < 2 || telefone.replace(/\D/g, "").length < 10 || isNaN(peso) || peso <= 0) {
+            if (nome.length < 2) {
+                errorMsg.textContent = "Informe seu nome completo.";
                 errorMsg.style.display = "block";
                 return false;
             }
+
+            if (numerosTelefone.length !== 11) {
+                errorMsg.textContent = "Informe seu WhatsApp com DDD e número completo. Ex.: (48) 99999-9999.";
+                errorMsg.style.display = "block";
+                return false;
+            }
+
+            if (isNaN(peso) || peso <= 0) {
+                errorMsg.textContent = "Informe um peso válido. Ex.: 68,5.";
+                errorMsg.style.display = "block";
+                return false;
+            }
+
             errorMsg.style.display = "none";
             return true;
         }
@@ -1184,6 +1167,10 @@
                     document.getElementById("resDelta").innerText = data.deltaPeso;
                     document.getElementById("resFeedbackPeso").innerText = data.feedbackPeso;
                     
+                    if (data.tituloPeso) {
+                        document.getElementById("resTituloPeso").innerText = data.tituloPeso;
+                    }
+                    
                     document.getElementById("resAnaliseTitulo").innerText = data.analise.titulo;
                     document.getElementById("resAnaliseDesc").innerText = data.analise.desc;
                     document.getElementById("resAnaliseMeta").innerText = data.analise.meta;
@@ -1253,14 +1240,17 @@
                             const historicoLista = document.getElementById("mensalHistoricoLista");
                             historicoLista.innerHTML = "";
                             if (data.mensal.historicoMensal && data.mensal.historicoMensal.length >= 2) {
-                                data.mensal.historicoMensal.forEach(hist => {
-                                    const hDiv = document.createElement("div");
-                                    hDiv.style.display = "flex";
-                                    hDiv.style.justifyContent = "space-between";
-                                    hDiv.style.padding = "6px 0";
-                                    hDiv.style.borderBottom = "1px dashed rgba(91, 124, 117, 0.15)";
-                                    hDiv.innerHTML = `<span>${hist.data}</span><strong>${hist.score}%</strong>`;
-                                    historicoLista.appendChild(hDiv);
+                                data.mensal.historicoMensal.forEach((hist, index) => {
+                                  const hDiv = document.createElement("div");
+
+                                  hDiv.style.display = "flex";
+                                  hDiv.style.justifyContent = "space-between";
+                                  hDiv.style.padding = "6px 0";
+                                  hDiv.style.borderBottom = "1px dashed rgba(91, 124, 117, 0.15)";
+
+                                  hDiv.innerHTML = `<span>Semana ${index + 1}</span><strong>${hist.score}%</strong>`;
+
+                                  historicoLista.appendChild(hDiv);
                                 });
                             } else {
                                 historicoLista.innerHTML = `<span style="font-size: 0.82rem; color: var(--texto-secundario);">Histórico em construção.</span>`;
