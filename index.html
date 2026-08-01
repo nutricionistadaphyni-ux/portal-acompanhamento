@@ -1233,16 +1233,16 @@
                         avisoProximo.style.display = "none";
                     }
 
-                    const ultimoCheckinDoMes =
+                    const resultadoMensalCompleto =
                         data.mensal &&
-                        data.mensal.ultimoCheckinDoMes === true;
+                        data.mensal.resultadoMensalCompleto === true;
 
                     const mensalDisponivel =
                         data.mensal &&
                         data.mensal.disponivel === true;
 
                     encerramentoMensalAtual =
-                        mensalDisponivel && ultimoCheckinDoMes;
+                        resultadoMensalCompleto;
 
                     scoreMensalAtual =
                         parseFloat(
@@ -1258,7 +1258,7 @@
                     const textoBtnResultadoMensal =
                         document.getElementById("textoBtnResultadoMensal");
 
-                    if (mensalDisponivel && ultimoCheckinDoMes) {
+                    if (resultadoMensalCompleto) {
                         textoBtnResultadoMensal.innerText =
                             "VER RESULTADO COMPLETO DO MÊS";
 
