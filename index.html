@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
     <style>
         :root {
             --verde-principal: #5B7C75;
@@ -567,6 +568,40 @@
             display: none;
         }
 
+        @keyframes entradaFechamentoMes {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        #bannerFechamentoMes {
+            display: none;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #FAF6F0, #EAF0EE);
+            border: 1px solid var(--dourado);
+            padding: 14px 18px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+            color: var(--verde-escuro);
+            font-weight: 600;
+            box-shadow: var(--sombra-suave);
+            animation: entradaFechamentoMes 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        #bannerFechamentoMes i {
+            color: var(--dourado);
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+
         @media (max-width: 600px) {
             body {
                 padding: 0;
@@ -872,6 +907,12 @@
                         <span id="proximoCheckinTexto"></span>
                     </div>
 
+                    <!-- BANNER DE ENCERRAMENTO DO MÊS -->
+                    <div id="bannerFechamentoMes">
+                        <i data-lucide="calendar-check"></i>
+                        <span>Veja como foi o seu mês</span>
+                    </div>
+
                     <!-- BOTÕES DE NAVEGAÇÃO FINAL -->
                     <div style="margin-top: 28px; display: flex; flex-direction: column; gap: 12px;">
                         <button type="button" class="btn-mensal-destaque" onclick="abrirResultadoMensal()">
@@ -891,7 +932,7 @@
             <!-- ETAPA 8: NOVA PÁGINA PARA O RESULTADO MENSAL -->
             <div class="step" id="stepMensal">
                 <div class="report-header-text">
-                    <h2 class="titulo-mensal-principal">Resultado parcial do mês</h2>
+                    <h2 class="titulo-mensal-principal" id="tituloMensalPrincipal">Resultado parcial do mês</h2>
                     <p>Veja como sua rotina vem se construindo ao longo dos check-ins deste mês.</p>
                 </div>
 
@@ -991,6 +1032,8 @@
 
     <script>
         const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzCiyLE_83J_ojvWLGejcbJulNBny34u7wEHEp6fin5xJyQ7SiCUrYLxXQnFSQmLZhefw/exec";
+
+        let confetesExecutados = false;
 
         document.addEventListener("DOMContentLoaded", () => {
             lucide.createIcons();
@@ -1188,8 +1231,74 @@
                         avisoProximo.style.display = "none";
                     }
 
+                    const bannerFechamento = document.getElementById("bannerFechamentoMes");
+                    const ultimoCheckinDoMes = data.mensal && data.mensal.ultimoCheckinDoMes === true;
+                    const mensalDisponivel = data.mensal && data.mensal.disponivel === true;
+
+                    if (mensalDisponivel && ultimoCheckinDoMes) {
+
+                        bannerFechamento.style.display = "none";
+                        document.getElementById("tituloMensalPrincipal").innerText =
+                          "Veja como foi o seu mês";
+
+                        setTimeout(() => {
+
+                          bannerFechamento.style.display = "flex";
+                          lucide.createIcons();
+
+                          setTimeout(() => {
+
+                            abrirResultadoMensal();
+
+                            const scoreMensal =
+                              parseFloat(
+                                String(data.mensal.score || "0")
+                                  .replace("%", "")
+                                  .replace(",", ".")
+                              ) || 0;
+
+                            if (
+                              scoreMensal >= 90 &&
+                              !confetesExecutados &&
+                              typeof confetti === "function"
+                            ) {
+                              confetesExecutados = true;
+
+                              const duration = 2 * 1000;
+                              const end = Date.now() + duration;
+                              (function frame() {
+                                  confetti({
+                                      particleCount: 2,
+                                      angle: 60,
+                                      spread: 55,
+                                      origin: { x: 0 }
+                                  });
+                                  confetti({
+                                      particleCount: 2,
+                                      angle: 120,
+                                      spread: 55,
+                                      origin: { x: 1 }
+                                  });
+                                  if (Date.now() < end) {
+                                      requestAnimationFrame(frame);
+                                  }
+                              })();
+                            }
+
+                          }, 900);
+
+                        }, 1000);
+
+                    } else {
+
+                        bannerFechamento.style.display = "none";
+
+                        document.getElementById("tituloMensalPrincipal").innerText =
+                          "Resultado parcial do mês";
+                    }
+
                     if (data.mensal) {
-                        if (data.mensal.disponivel === true) {
+                        if (mensalDisponivel) {
                             document.getElementById("mensalScore").innerText = data.mensal.score;
                             document.getElementById("mensalClassificacao").innerText = data.mensal.classificacaoMensal;
                             document.getElementById("mensalMensagem").innerText = data.mensal.mensagemMensal;
