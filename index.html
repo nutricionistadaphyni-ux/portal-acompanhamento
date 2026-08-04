@@ -1115,16 +1115,14 @@
             }
         }
 
-        function voltarResultadoSemanal() {
-            document.querySelectorAll(".step").forEach(el => el.classList.remove("active"));
-            document.getElementById("step7").classList.add("active");
-            document.getElementById("loadingDiv").style.display = "none";
-            document.getElementById("resultadoDiv").style.display = "block";
-setTimeout(() => {
-    
-            window.scrollTo(0, 0);
-            lucide.createIcons();
-        }
+       function voltarResultadoSemanal() {
+    document.querySelectorAll(".step").forEach(el => el.classList.remove("active"));
+    document.getElementById("step7").classList.add("active");
+    document.getElementById("loadingDiv").style.display = "none";
+    document.getElementById("resultadoDiv").style.display = "block";
+    window.scrollTo(0, 0);
+    lucide.createIcons();
+}
 
         function renderizarMedalhaMensal(nomePacienteParam, medalhaParam) {
             const containerMedalha = document.getElementById("containerMedalha");
