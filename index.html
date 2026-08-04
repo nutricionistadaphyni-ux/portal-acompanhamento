@@ -1204,9 +1204,7 @@
                 return response.json();
             })
             .then(data => {
-		alert(JSON.stringify(data, null, 2));
-
-                document.getElementById("loadingDiv").style.display = "none";
+	        document.getElementById("loadingDiv").style.display = "none";
                 document.getElementById("resultadoDiv").style.display = "block";
 
                 if (data.status === "sucesso") {
