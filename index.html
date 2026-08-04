@@ -1120,6 +1120,8 @@
             document.getElementById("step7").classList.add("active");
             document.getElementById("loadingDiv").style.display = "none";
             document.getElementById("resultadoDiv").style.display = "block";
+setTimeout(() => {
+    
             window.scrollTo(0, 0);
             lucide.createIcons();
         }
@@ -1256,25 +1258,26 @@
                         ) || 0;
 
                     const textoBtnResultadoMensal =
-                        document.getElementById("textoBtnResultadoMensal");
+    document.getElementById("textoBtnResultadoMensal");
 
-                    if (resultadoMensalCompleto) {
-                        textoBtnResultadoMensal.innerText =
-                            "VER RESULTADO COMPLETO DO MÊS";
+const tituloMensalPrincipal =
+    document.getElementById("tituloMensalPrincipal");
 
-                        document.getElementById(
-                            "tituloMensalPrincipal"
-                        ).innerText =
-                            "Resultado completo do mês";
-                    } else {
-                        textoBtnResultadoMensal.innerText =
-                            "VER RESULTADO PARCIAL DO MÊS";
+if (textoBtnResultadoMensal && tituloMensalPrincipal) {
+    if (resultadoMensalCompleto) {
+        textoBtnResultadoMensal.innerText =
+            "VER RESULTADO COMPLETO DO MÊS";
 
-                        document.getElementById(
-                            "tituloMensalPrincipal"
-                        ).innerText =
-                            "Resultado parcial do mês";
-                    }
+        tituloMensalPrincipal.innerText =
+            "Resultado completo do mês";
+    } else {
+        textoBtnResultadoMensal.innerText =
+            "VER RESULTADO PARCIAL DO MÊS";
+
+        tituloMensalPrincipal.innerText =
+            "Resultado parcial do mês";
+    }
+}
 
                     if (data.mensal) {
                         if (mensalDisponivel) {
